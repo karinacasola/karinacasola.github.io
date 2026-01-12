@@ -1,0 +1,240 @@
+/* Container Principal */
+.portfolio-details-container {
+    padding: 140px 5% 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-size: 42px;
+    margin-top: 10px;
+}
+
+/* Grid Layout */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Slider de Imagem */
+.project-image-slider {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--card-bg);
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+}
+
+.main-project-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    transform: translateY(-50%);
+}
+
+.slider-btn {
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+}
+
+/* O slider esconde o que está fora da área visível */
+.project-image-slider {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden; /* Importante para o efeito de slide */
+    background-color: var(--card-bg);
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+}
+
+/* O wrapper coloca as imagens em linha e permite a transição suave */
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+/* Garante que cada imagem ocupe exatamente 100% da largura do pai */
+.main-project-img {
+    min-width: 100%;
+    height: 500px; /* Ajuste a altura conforme necessário */
+    object-fit: cover;
+    display: block;
+}
+
+/* Estilização dos pontinhos indicadores */
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dot.active {
+    background: var(--accent-blue);
+    width: 25px;
+    border-radius: 10px;
+}
+
+.slider-btn:hover {
+    background: var(--accent-blue);
+}
+
+/* Conteúdo de Texto */
+.project-description h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.project-description p {
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* Blockquote Identidade Visual */
+.project-testimonial {
+    background-color: var(--card-bg);
+    border-left: 4px solid var(--accent-blue);
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 0 15px 15px 0;
+    position: relative;
+}
+
+.project-testimonial p {
+    font-style: italic;
+    color: var(--text-primary);
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.project-testimonial cite {
+    display: block;
+    margin-top: 15px;
+    font-style: normal;
+}
+
+.project-testimonial cite strong {
+    display: block;
+    color: var(--text-primary);
+}
+
+.project-testimonial cite span {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Sidebar */
+.sidebar-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 20px;
+    position: sticky;
+    top: 120px;
+}
+
+.sidebar-card h3 {
+    font-size: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-info-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.project-info-list li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.project-info-list li strong {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+.project-info-list li span, 
+.project-info-list li a {
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+.project-info-list li a {
+    color: var(--accent-blue);
+    transition: 0.3s;
+}
+
+.visit-btn {
+    display: block;
+    background-color: var(--accent-blue);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.visit-btn:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .portfolio-sidebar {
+        order: -1; /* Sidebar sobe no mobile se preferir, ou deixe abaixo */
+    }
+
+    .sidebar-card {
+        position: static;
+    }
+}

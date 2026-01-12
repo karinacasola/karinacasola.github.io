@@ -1,0 +1,363 @@
+/* ==========================================================================
+   1. VARIÁVEIS E GLOBAIS
+   ========================================================================== */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap');
+
+:root {
+    --bg-dark: #0A0A0A;
+    --bg-light: #F5F5F5;
+    --text-primary: #E0E0E0;
+    --text-secondary: #A0A0A0;
+    --text-dark: #111111;
+    --accent-blue: #3E8EFF;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-bg: #1A1A1A;
+    --section-padding: 100px 5%;
+    
+    /* Variáveis para o Modal */
+    --modal-overlay: rgba(0, 0, 0, 0.95);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Satoshi', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+h1, h2, h3 { font-weight: 700; }
+p { font-weight: 400; color: var(--text-secondary); }
+a { text-decoration: none; color: inherit; }
+
+/* ==========================================================================
+   2. COMPONENTES REUTILIZÁVEIS E ALINHAMENTO
+   ========================================================================== */
+section {
+    padding: var(--section-padding);
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-header-pill {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.section-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ==========================================================================
+   3. NAVEGAÇÃO
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    z-index: 1000;
+    background: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 24px;
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-menu { display: flex; gap: 24px; align-items: center; }
+
+.navbar-button {
+    background-color: white;
+    color: black;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+/* ==========================================================================
+   4. HERO E EFEITO TYPED (CORRIGIDO)
+   ========================================================================== */
+.hero {
+    padding: 180px 5% 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+    background-image: radial-gradient(circle at 50% 0%, rgba(62, 142, 255, 0.2), transparent 50%);
+}
+
+.hero-title {
+    font-size: 64px;
+    letter-spacing: -2px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.typed {
+    color: var(--accent-blue);
+    font-weight: 700;
+     letter-spacing: normal; /* Garantir espaçamento de letras normal */
+}
+
+/* Estilização da barra piscando do Typed.js */
+/*.typed-cursor {
+    color: var(--accent-blue);
+    opacity: 1;
+    margin-left: 2px;
+}  */
+
+.hero-ai-interface-wrapper {
+    max-width: 600px;
+    width: 100%;
+    margin: 40px auto 0;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: left;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* ==========================================================================
+   5. MODAL (LÓGICA DE EXIBIÇÃO)
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--modal-overlay);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+}
+
+/* Quando o link #modal-programacao for clicado */
+.modal-overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-inner {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    display: flex;
+    max-width: 1200px;
+    width: 90%;
+    height: 80vh;
+    overflow: hidden;
+    transform: translateY(20px);
+    transition: 0.5s ease;
+}
+
+.modal-overlay:target .modal-inner {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   6. FOOTER (CENTRALIZADO E VISÍVEL)
+   ========================================================================== */
+.site-footer {
+    width: 100%;
+    padding: 60px 0;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-dark);
+    display: block;
+    clear: both; /* Impede que elementos flutuantes escondam o footer */
+    position: relative;
+    z-index: 10;
+}
+
+.footer-bottom {
+    width: 100%;
+    text-align: center; /* Centralização garantida */
+}
+
+.footer-bottom p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 0;
+}
+
+.img-crop {
+  /* Esta é a propriedade mágica que equivale ao 'fit=crop' */
+  object-fit: cover;
+  
+  /* Para que o 'cover' funcione bem, você PRECISA definir um tamanho */
+  /* para a imagem ou para o container dela. Exemplo: */
+  width: 100%;   /* Ocupa toda a largura disponível */
+  height: 300px; /* Define uma altura fixa (a imagem será cortada para caber aqui) */
+  
+  /* Opcional: centraliza a imagem antes de cortar */
+  object-position: center; 
+}
+
+
+/* ==========================================================================
+   7. RESPONSIVIDADE AJUSTADA (CORRIGIDA)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* Reset da centralização da Navbar para ocupar a tela toda */
+    .navbar {
+        width: 100%; 
+        left: 0;
+        transform: none;
+        top: 0;
+        border-radius: 0 0 12px 12px; /* Arredonda apenas o fundo */
+        padding: 15px 20px;
+    }
+
+    /* Mostra o botão hambúrguer */
+    .mobile-menu-btn { 
+        display: block; 
+        z-index: 1001;
+    }
+
+    /* Ajuste do menu suspenso */
+    .navbar-menu {
+        display: none; /* Escondido por padrão */
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Gruda exatamente abaixo da navbar */
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        border-top: none;
+        border-radius: 0 0 20px 20px;
+        padding: 30px;
+        gap: 25px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    /* Quando ativo, usa flex */
+    .navbar-menu.active {
+        display: flex;
+        animation: fadeInDown 0.3s ease forwards;
+    }
+
+    /* Ajustes de tipografia mobile */
+    .hero-title { font-size: 42px; }
+    .section-title { font-size: 28px; }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   7. RESPONSIVIDADE
+   ========================================================================== */
+/*@media (max-width: 992px) {
+    .how-it-works-items { grid-template-columns: 1fr; }
+    .modal-inner { flex-direction: column; height: auto; overflow-y: auto; }
+}
+
+@media (max-width: 768px) {
+    .navbar { display: none; }
+    .hero-title { font-size: 36px; }
+    .section-title { font-size: 28px; }
+    .site-footer { padding: 40px 5%; }
+} */
+
+/* ==========================================================================
+   7. RESPONSIVIDADE AJUSTADA
+   ========================================================================== */
+
+/* Botão Mobile - Escondido por padrão */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 24px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+@media (max-width: 992px) {
+    .how-it-works-items { grid-template-columns: 1fr; }
+    .modal-inner { flex-direction: column; height: auto; overflow-y: auto; }
+}
+
+@media (max-width: 768px) {
+    /* Mostra o botão hambúrguer */
+    .mobile-menu-btn { display: block; }
+
+    /* Ajuste da Navbar no Mobile */
+    .navbar {
+        width: 95%; /* Um pouco mais larga no mobile */
+        padding: 10px 16px;
+    }
+
+    /* Transforma o menu em uma lista vertical escondida */
+    .navbar-menu {
+        display: none; /* Esconde por padrão */
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(20, 20, 20, 0.98);
+        backdrop-filter: blur(15px);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 24px;
+        gap: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Classe que o JavaScript vai ativar */
+    .navbar-menu.active {
+        display: flex;
+        animation: fadeInDown 0.3s ease forwards;
+    }
+
+    .hero-title { font-size: 42px; } /* Ajuste de título para telas pequenas */
+    .section-title { font-size: 28px; }
+    .site-footer { padding: 40px 5%; }
+}
+
+/* Animação suave de entrada */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+    

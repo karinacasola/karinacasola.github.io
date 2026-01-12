@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desvendando as Carteiras de Bitcoin</title>
+    
+    <link rel="icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/post.css">
+    
+</head>
+<body>
+
+    <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+            </div>
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="link.html" class="navbar-link">Links</a>
+                <a href="index.html#contato" class="navbar-button">Contato</a>
+        </div>
+    </div>
+    </nav> 
+
+    <main class="portfolio-details-container">
+        
+        <header class="page-header">
+            <div class="section-header-pill">ARTIGO</div>
+            <h1>Desvendando as Carteiras de Bitcoin: </h1>
+            <h2>Um Guia para Iniciantes</h2>
+        </header>
+
+<div class="project-image-slider">
+    <div class="slider-wrapper" id="slider-wrapper">
+        <img src="img/carteira.jpg" alt="Carteira de Bitcoin" class="main-project-img">
+    </div>
+
+    <div class="slider-controls">
+        <button class="slider-btn" id="prevBtn"><i class="bi bi-chevron-left"></i></button>
+        <button class="slider-btn" id="nextBtn"><i class="bi bi-chevron-right"></i></button>
+    </div>
+    
+    <div class="slider-dots" id="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+</div>
+
+
+                <div class="project-description">
+                    <h2>O coração da sua carteira: chaves e sementes</h2>
+
+                    <p style="text-align: justify;">
+                    Toda a segurança e funcionalidade de uma carteira de Bitcoin giram em torno de dois conceitos fundamentais: <strong>as chaves</strong> e <strong>a semente de recuperação</strong>. Entender bem esses elementos é essencial para qualquer pessoa que deseja armazenar bitcoins de forma segura.
+                    </p>
+
+                    <h3>Chave pública e chave privada: entendendo a diferença</h3>
+
+                    <p style="text-align: justify;">
+                    A forma mais simples de compreender essa diferença é por meio de uma analogia. A <strong>chave pública</strong> funciona como o número da sua conta bancária ou o seu endereço de e-mail. A partir dela, são gerados os endereços de Bitcoin que você pode compartilhar livremente com outras pessoas para receber fundos, sem qualquer risco.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Já a <strong>chave privada</strong> é o equivalente à sua senha secreta. Ela é a prova matemática de que você é o verdadeiro dono dos bitcoins associados àquela chave pública. É por meio da chave privada que as transações são assinadas e autorizadas. <strong>Quem tem acesso a essa chave tem controle total sobre os seus bitcoins</strong> — por isso, ela nunca deve ser compartilhada.
+                    </p>
+
+                    <h3>A semente (seed): a chave mestra da sua carteira</h3>
+
+                    <p style="text-align: justify;">
+                    A <strong>semente</strong>, também conhecida como <em>seed</em>, é a base de toda a sua carteira. Trata-se de uma sequência de <strong>12 ou 24 palavras em inglês</strong> que gera todas as chaves públicas e privadas que você utilizará. Em termos práticos, ela é o <strong>backup definitivo</strong> dos seus fundos.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Com a semente, é possível restaurar completamente sua carteira em caso de perda, dano ou troca de dispositivo. No entanto, isso também significa que <strong>qualquer pessoa que tenha acesso a essa sequência de palavras poderá acessar todos os seus bitcoins</strong>. Por isso, a seed deve ser mantida em segredo absoluto, com o mesmo cuidado — ou até mais — que as próprias chaves privadas.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Compreender a importância dessas informações é o primeiro passo para decidir onde e como armazená-las, o que nos leva aos diferentes tipos de carteiras de Bitcoin.
+                    </p>
+
+                    <h2>Tipos de carteira: onde suas chaves realmente moram</h2>
+
+                    <p style="text-align: justify;">
+                    As carteiras de Bitcoin podem ser classificadas principalmente por dois critérios: <strong>quem controla as chaves privadas</strong> e <strong>se a carteira está ou não conectada à internet</strong>.
+                    </p>
+
+                    <h3>Custodial vs. não custodial: o dilema do controle</h3>
+
+                    <p style="text-align: justify;">
+                    Essa é a distinção mais importante. Em uma <strong>carteira custodial</strong>, você não possui as chaves privadas. Elas ficam sob o controle de terceiros, como corretoras (<em>exchanges</em>). A principal vantagem desse modelo é a facilidade de uso, incluindo recuperação de acesso em caso de perda de senha. Em contrapartida, você precisa confiar totalmente na empresa, ficando exposto a riscos como ataques, falências ou congelamento de contas.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Já em uma <strong>carteira não custodial</strong>, você é o único responsável pelas suas chaves. Isso significa <strong>soberania total</strong> sobre seus fundos, mas também responsabilidade completa pela segurança. Se você perder suas chaves ou sua semente, <strong>não há a quem recorrer</strong>.
+                    </p>
+
+                    <h3>Hot wallets e cold wallets: a conexão com a internet</h3>
+
+                    <p style="text-align: justify;">
+                    Dentro do universo das carteiras não custodiais, existe outra divisão importante: <strong>hot wallets</strong> e <strong>cold wallets</strong>.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    As <strong>hot wallets</strong> são carteiras conectadas à internet, como aplicativos de celular ou programas de desktop. Elas são práticas e ideais para pequenas quantias usadas no dia a dia, mas estão mais expostas a ataques, malwares e invasões.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    As <strong>cold wallets</strong>, por outro lado, nunca se conectam à internet. Elas oferecem um nível de segurança muito superior e são indicadas para o armazenamento de grandes quantidades de bitcoin a longo prazo. O nível máximo de segurança é alcançado ao criar uma carteira fria em um computador dedicado, preferencialmente antigo, com um sistema operacional seguro como o <strong>Linux Mint</strong>, que permanece permanentemente offline (<em>air-gapped</em>).
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Nesse modelo, a transação é criada em um computador conectado à internet, transferida via USB para o computador offline, onde é assinada com a chave privada, e depois levada de volta ao computador online para ser transmitida à rede. Assim, <strong>a chave privada nunca entra em contato com a internet</strong>.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    A escolha do tipo de carteira define quais ameaças você precisará mitigar para proteger seus fundos.
+                    </p>
+
+                    <h2>Principais ameaças e vetores de ataque</h2>
+
+                    <p style="text-align: justify;">
+                    Independentemente da carteira escolhida, é fundamental conhecer os métodos mais comuns usados para roubar criptomoedas.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    O <strong>phishing</strong> é um dos golpes mais populares. Ele geralmente promete retornos milagrosos ou a duplicação do seu investimento. O atacante pede que você envie seus bitcoins para um endereço específico, prometendo devolver uma quantia maior — o que nunca acontece.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Outra ameaça grave são os <strong>keyloggers</strong>, programas maliciosos que registram tudo o que é digitado no teclado. Em computadores conectados à internet, eles podem capturar senhas e até mesmo as palavras da sua semente de recuperação, enviando essas informações diretamente para o atacante.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    A <strong>semente mal protegida</strong> também representa um risco significativo. Anotar as palavras em um pedaço de papel é comum, mas isso expõe seus fundos a roubos ou perdas físicas. Para uma segurança mais robusta, muitos especialistas armazenam a semente em um <strong>contêiner digital criptografado</strong>, utilizando ferramentas como o <em>VeraCrypt</em>, protegido por uma senha extremamente forte.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Por fim, existe o <strong>ataque físico</strong>, quando alguém é coagido sob ameaça a entregar seus bitcoins. Para mitigar esse risco, alguns usuários avançados criam uma <strong>carteira isca</strong>. Ela utiliza a mesma semente de 12 ou 24 palavras, mas sem a senha ou extensão adicional, contendo apenas uma pequena quantia de bitcoin. Em uma situação de coação, a semente revelada dá acesso apenas a essa carteira secundária, enquanto os fundos principais permanecem protegidos.
+                    </p>
+
+                    <h2>Conclusão: a regra de ouro da segurança em Bitcoin</h2>
+
+                    <p style="text-align: justify;">
+                    A verdadeira segurança, soberania e propriedade no mundo do Bitcoin se baseiam em um único princípio: <strong>o controle total das suas próprias chaves privadas</strong>. Utilizar uma carteira não custodial — especialmente uma carteira fria criada em um ambiente offline — vai muito além da segurança técnica. Trata-se de alcançar <strong>soberania financeira</strong> e eliminar a dependência de terceiros.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Ao assumir o controle das suas chaves, você se torna o único e verdadeiro dono da sua riqueza digital. Como diz o ditado mais importante da comunidade Bitcoin:
+                    </p>
+
+
+                    <blockquote class="project-testimonial">
+                        <p style="text-align: justify;">
+                <strong>“Se não são suas chaves, não são suas moedas.”</strong>
+                        </p>
+                        <cite>
+                            <strong>Ditado</strong>
+                            <span>Comunidade Bitcoin</span>
+                        </cite>
+                    </blockquote>
+
+
+                </div>
+            </div>
+
+
+    </main>
+
+<footer class="site-footer" id="rodape">
+
+                <div class="footer-bottom">
+                    <p>&copy; 2026 Karina Casola. Todos os direitos reservados.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/karinacasola/"><i class="bi bi-instagram"></i></a>
+                    <a href="https://www.threads.net/@karinacasola"><i class="bi bi-threads"></i></a>
+                    <a href="https://medium.com/@karinacasola"><i class="bi bi-medium"></i></a>
+                    <a href="https://twitter.com/karinacasola"><i class="bi bi-twitter-x"></i></a>
+                    <a href="https://www.linkedin.com/in/karinacasola/"><i class="bi bi-linkedin"></i></a>
+            </div>
+                </div>
+</footer>
+
+    <script src="js/post.js"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+</body>
+</html>

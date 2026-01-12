@@ -1,0 +1,131 @@
+/* Newsletter Section Styles */
+.newsletter-section {
+    padding: var(--section-padding);
+    background-color: var(--bg-dark);
+    border-top: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background decorativo sutil */
+.newsletter-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(62, 142, 255, 0.05) 0%, transparent 70%);
+    z-index: 0;
+}
+
+.newsletter-container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.newsletter-description {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+.newsletter-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    background: var(--card-bg);
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: border-color 0.3s ease;
+}
+
+.input-group:focus-within {
+    border-color: var(--accent-blue);
+}
+
+.input-group input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-family: 'Satoshi', sans-serif;
+    outline: none;
+}
+
+.input-group button {
+    background-color: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.input-group button:hover {
+    background-color: #2e7be6;
+    transform: scale(1.02);
+}
+
+.form-status {
+    margin-top: 15px;
+    font-size: 14px;
+    min-height: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+    .input-group {
+        flex-direction: column;
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+    
+    .input-group input {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+}
+
+#input-group-newsletter {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.form-status i {
+    font-size: 1.2rem;
+    vertical-align: middle;
+}
+
+/* Garante que a transição de opacidade seja suave */
+#input-group-newsletter {
+    transition: opacity 0.5s ease, transform 0.5s ease, display 0.5s allow-discrete;
+}
+
+.form-status {
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Estilo para ícones do Bootstrap no status */
+.form-status i {
+    font-size: 1.2rem;
+}

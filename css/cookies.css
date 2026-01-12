@@ -1,0 +1,109 @@
+/* --- ESTILO DOS COOKIES (ESTILO NAVBAR + LAYOUT VERTICAL CENTRALIZADO) --- */
+
+.cookies-container {
+  position: fixed !important;
+  width: 90% !important; 
+  max-width: 450px !important; /* Largura ideal para leitura centralizada */
+  bottom: 30px !important; 
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999999 !important;
+  font-family: 'Satoshi', sans-serif;
+  pointer-events: none;
+}
+
+.cookies-content {
+  pointer-events: auto;
+  margin: 0 auto;
+  padding: 24px;
+  
+  /* --- ESTILO DARK GLASS (IGUAL À NAVBAR) --- */
+  background: rgba(20, 20, 20, 0.85) !important; 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* --- BORDAS E ARREDONDAMENTO --- */
+  border-radius: 20px !important; 
+  border: 1px solid rgba(255, 255, 255, 0.1) !important; 
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7) !important;
+  
+  /* --- LAYOUT VERTICAL CENTRALIZADO --- */
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important; /* Centraliza todos os blocos */
+  gap: 16px;
+}
+
+/* Texto de introdução */
+.cookies-content p {
+  color: #E0E0E0 !important;
+  font-size: 14px !important;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* --- BLOCO DAS OPÇÕES (CENTRALIZADO ABAIXO DO TEXTO) --- */
+.cookies-pref {
+  display: flex !important;
+  justify-content: center !important;
+  flex-wrap: wrap; /* Garante que não quebre em celulares pequenos */
+  gap: 20px;
+  width: 100%;
+}
+
+.cookies-pref label {
+  color: #A0A0A0 !important;
+  font-size: 13px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.cookies-pref label:hover {
+  color: #FFFFFF !important;
+}
+
+/* Checkboxes seguindo o Azul do site */
+.cookies-pref input[type="checkbox"] {
+  accent-color: #3E8EFF !important;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* --- BOTÃO SALVAR (ESTILO NAVBAR-BUTTON) --- */
+.cookies-save {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 10px 30px !important;
+  width: 100%; /* Botão largo para facilitar o clique */
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 4px;
+}
+
+.cookies-save:hover {
+  background-color: #f0f0f0 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Responsividade Mobile */
+@media (max-width: 480px) {
+  .cookies-container {
+    width: 95% !important;
+    bottom: 15px !important;
+  }
+  .cookies-pref {
+    gap: 12px;
+  }
+}

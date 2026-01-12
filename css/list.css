@@ -1,0 +1,200 @@
+/* ==========================================================================
+   
+   ========================================================================== */
+
+.professions-section {
+    display: flex;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    padding: 100px 5%; /* Padding fixo para consistência */
+    gap: 5vw;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Coluna da Esquerda (Título e Imagem) */
+.professions-left-col {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinhado à esquerda para leitura padrão */
+}
+
+.professions-image-wrapper {
+    width: 100%;
+    max-width: 450px;
+    margin-bottom: 2rem;
+}
+
+.professions-image-wrapper img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    filter: grayscale(30%) contrast(110%);
+    border: 1px solid var(--border-color);
+}
+
+.professions-left-col h2 {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.professions-left-col p {
+    font-family: 'Satoshi', sans-serif;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 450px;
+    font-size: 1.1rem;
+}
+
+/* Coluna da Direita (Lista de Cards) */
+.professions-right-col {
+    flex: 1;
+    width: 100%;
+}
+
+.profession-card {
+    border-bottom: 1px solid var(--border-color);
+    padding: 2rem 0;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.profession-card:hover:not(.expand) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.card-closed-view {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.card-number {
+    font-size: 0.9rem;
+    color: var(--accent-blue);
+    font-weight: 700;
+    margin-right: 2rem;
+}
+
+.card-title-text h3 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.card-arrow {
+    margin-left: auto;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    transition: transform 0.5s ease;
+}
+
+/* Expansão do Card */
+.card-expanded-view {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding-left: 3.5rem; /* Alinha com o início do título */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profession-card.expand .card-expanded-view {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.profession-card.expand .card-title-text h3 {
+    color: var(--accent-blue);
+}
+
+.profession-card.expand .card-arrow {
+    transform: rotate(180deg);
+    color: var(--accent-blue);
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (MEDIA QUERIES)
+   ========================================================================== */
+
+/* Tablets (Telas médias) */
+@media (max-width: 992px) {
+    .professions-section {
+        flex-direction: column; /* Colunas viram linhas */
+        text-align: center;
+        padding-top: 120px;
+    }
+
+    .professions-left-col {
+        flex: 0 0 100%;
+        align-items: center;
+        margin-bottom: 50px;
+    }
+
+    .professions-left-col p {
+        max-width: 600px;
+    }
+}
+
+/* Mobile (Telas pequenas) */
+@media (max-width: 768px) {
+    .professions-section {
+        padding: 80px 20px;
+    }
+
+    .professions-left-col h2 {
+        font-size: 2.2rem;
+    }
+
+    .card-number {
+        margin-right: 1rem;
+    }
+
+    .card-title-text h3 {
+        font-size: 1.4rem;
+    }
+
+    .card-expanded-view {
+        padding-left: 0; /* Remove recuo no mobile para ganhar espaço */
+        text-align: left;
+    }
+    
+    .card-icon {
+        display: none; /* Opcional: esconde ícone no mobile para limpar o visual */
+    }
+}
+@media (max-width: 768px) {
+    /* Garante que a navbar tenha contexto de empilhamento */
+    .navbar { 
+        display: block !important; 
+        width: 100%; /* Ajustado de 95% para evitar desalinhamento */
+        position: fixed; /* Ou relative, dependendo do seu layout */
+        top: 0;
+        left: 0;
+        z-index: 1000; /* Garante que a barra fique no topo */
+    }
+
+    .navbar-menu {
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Faz o menu começar logo abaixo da navbar */
+        left: 0;
+        width: 100%;
+        background: rgba(20, 20, 20, 0.98);
+        backdrop-filter: blur(15px);
+        border: 1px solid var(--border-color);
+        padding: 24px;
+        gap: 20px;
+        z-index: 999; /* Garante que o menu suspenso fique acima de tudo */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+}

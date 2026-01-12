@@ -1,0 +1,117 @@
+/* --- ESTILO DO FORMULÁRIO (PADRÃO DO SITE) --- */
+
+.php-email-form {
+  font-family: 'Satoshi', sans-serif;
+  background: rgba(255, 255, 255, 0.03); /* Efeito de vidro escuro sutil */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Estilização dos Campos (Inputs e Textarea) */
+.php-email-form input[type="text"],
+.php-email-form input[type="email"],
+.php-email-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05); /* Fundo dos campos */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #E0E0E0; /* --text-primary */
+  font-family: 'Satoshi', sans-serif;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+/* Efeito de Foco (quando clica no campo) */
+.php-email-form input:focus,
+.php-email-form textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #3E8EFF; /* --accent-blue */
+  box-shadow: 0 0 0 3px rgba(62, 142, 255, 0.1);
+}
+
+/* Placeholder (texto de exemplo dentro do campo) */
+.php-email-form ::placeholder {
+  color: #A0A0A0; /* --text-secondary */
+  opacity: 0.8;
+}
+
+/* Botão de Envio (Estilo Hero Button do Site) */
+.php-email-form button[type="submit"] {
+  background: #f0f1f2; /* --accent-blue */
+  color: #0f0e0e;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.php-email-form button[type="submit"]:hover {
+  background: #dee1e5;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(62, 142, 255, 0.3);
+}
+
+/* --- Mensagens de Status (PHP Email Form) --- */
+
+.php-email-form .error-message {
+  display: none;
+  background: rgba(223, 21, 41, 0.1);
+  color: #ff4d5d;
+  border: 1px solid rgba(223, 21, 41, 0.2);
+  text-align: left;
+  padding: 15px;
+  margin-bottom: 24px;
+  font-weight: 500;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.php-email-form .sent-message {
+  display: none;
+  color: #28a745;
+  background: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167,  green, 0.2);
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.php-email-form .loading {
+  display: none;
+  background: rgba(255, 255, 255, 0.05);
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  color: #E0E0E0;
+}
+
+.php-email-form .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid #3E8EFF; /* --accent-blue */
+  border-top-color: transparent;
+  animation: php-email-form-loading 1s linear infinite;
+}
+
+@keyframes php-email-form-loading {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
