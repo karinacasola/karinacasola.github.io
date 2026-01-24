@@ -231,10 +231,40 @@
     }
     
     .portfolio-sidebar {
-        order: -1; /* Sidebar sobe no mobile se preferir, ou deixe abaixo */
+        order: -1; /* Sidebar sobe no mobile */
     }
 
     .sidebar-card {
         position: static;
     }
+}
+
+/* Assinatura Post */
+
+.post-author-signature {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    text-align: right; /* Alinhado à direita para um ar mais moderno */
+}
+
+.post-author-signature p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.post-author-signature a {
+    color: var(--accent-blue);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 5px;
+    transition: 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.post-author-signature a:hover {
+    border-bottom: 1px solid var(--accent-blue);
+    filter: brightness(1.2);
 }
