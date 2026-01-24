@@ -360,4 +360,28 @@ section {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-    
+
+/* Assinatura Modal */
+
+.modal-author-top {
+    margin-top: -10px;      /* Traz para mais perto do título */
+    margin-bottom: 25px;    /* Afasta do texto abaixo */
+    font-size: 14px;
+    color: var(--text-primary); /* Letra clara */
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.modal-author-top a {
+    color: var(--accent-blue);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: 4px;
+    transition: 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.modal-author-top a:hover {
+    border-bottom: 1px solid var(--accent-blue);
+    filter: brightness(1.2);
+}
