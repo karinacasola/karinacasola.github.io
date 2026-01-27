@@ -1,0 +1,89 @@
+/* Utiliza a estrutura base definida anteriormente */
+.legal-page {
+    padding-top: 160px;
+    background-image: radial-gradient(circle at 50% 0%, rgba(62, 142, 255, 0.12), transparent 50%);
+    min-height: 100vh;
+}
+
+.legal-header {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.legal-header h1 .accent {
+    color: var(--accent-blue);
+}
+
+.legal-content {
+    max-width: 900px;
+    margin: 0 auto 100px;
+    padding: 0 5%;
+}
+
+.legal-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 50px;
+    text-align: left;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+.legal-card h2 {
+    color: var(--text-primary);
+    font-size: 22px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    border-left: 3px solid var(--accent-blue);
+    padding-left: 15px;
+}
+
+.legal-card p, .legal-card li {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.legal-card ul {
+    margin-left: 20px;
+    margin-bottom: 25px;
+}
+
+.accent-link {
+    color: var(--accent-blue);
+    text-decoration: underline;
+}
+
+/* Caixa de ação para gerir cookies */
+.cookie-action-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed var(--border-color);
+    padding: 25px;
+    border-radius: 16px;
+    margin: 30px 0;
+    text-align: center;
+}
+
+.accent-btn-small {
+    background-color: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-top: 10px;
+}
+
+.accent-btn-small:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .legal-page { padding-top: 120px; }
+    .legal-card { padding: 30px 20px; }
+    .hero-title { font-size: 44px; }
+}

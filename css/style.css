@@ -385,3 +385,52 @@ section {
     border-bottom: 1px solid var(--accent-blue);
     filter: brightness(1.2);
 }
+
+/* ==========================================================================
+   AJUSTES DO FOOTER LEGAL
+   ========================================================================== */
+.footer-legal {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap; /* Garante que quebre linha em celulares pequenos */
+}
+
+.footer-legal a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-legal a:hover {
+    color: var(--accent-blue);
+}
+
+.footer-divider {
+    color: var(--border-color);
+    font-size: 12px;
+}
+
+/* Ajuste de margem para o parágrafo de copyright */
+.footer-bottom p {
+    margin-bottom: 25px;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+    .footer-legal {
+        gap: 10px;
+    }
+    .footer-divider {
+        display: none; /* Esconde o ponto no mobile para um visual mais limpo */
+    }
+    .footer-legal a {
+        flex: 0 0 100%; /* Cada link ocupa uma linha se o espaço for muito curto */
+        margin-bottom: 5px;
+    }
+}

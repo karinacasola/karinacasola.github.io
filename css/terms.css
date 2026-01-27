@@ -1,0 +1,82 @@
+/* Herdando variáveis do site principal */
+.legal-page {
+    padding-top: 160px;
+    background-image: radial-gradient(circle at 50% 0%, rgba(62, 142, 255, 0.15), transparent 50%);
+    min-height: 100vh;
+}
+
+.legal-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.legal-header h1 .accent {
+    color: var(--accent-blue);
+    text-shadow: 0 0 20px rgba(62, 142, 255, 0.3);
+}
+
+.legal-header p {
+    max-width: 500px;
+    margin: 20px auto 0;
+}
+
+.legal-content {
+    max-width: 900px;
+    margin: 0 auto 100px;
+    padding: 0 5%;
+}
+
+.legal-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 28px;
+    padding: 60px;
+    text-align: left;
+}
+
+.legal-card h2 {
+    color: var(--text-primary);
+    font-size: 24px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Detalhe estético antes do H2 */
+.legal-card h2::before {
+    content: "";
+    width: 4px;
+    height: 24px;
+    background-color: var(--accent-blue);
+    border-radius: 10px;
+}
+
+.legal-card p, .legal-card li {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+.legal-card blockquote {
+    background: rgba(62, 142, 255, 0.05);
+    border-left: 4px solid var(--accent-blue);
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 0 12px 12px 0;
+}
+
+.legal-card blockquote strong {
+    color: var(--accent-blue);
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .legal-page { padding-top: 120px; }
+    .legal-card { padding: 30px 20px; }
+    .hero-title { font-size: 48px; }
+}
