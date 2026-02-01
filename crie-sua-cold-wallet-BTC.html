@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desvendando as Carteiras de Bitcoin</title>
+    
+    <link rel="icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/post.css">
+    
+</head>
+<body>
+
+    <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+            </div>
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="link.html" class="navbar-link">Sobre</a>
+                <a href="index.html#contato" class="navbar-button">Contato</a>
+        </div>
+    </div>
+    </nav> 
+
+ <main class="portfolio-details-container">
+
+    <header class="page-header">
+        <div class="section-header-pill">ARTIGO</div>
+        <h1>Construindo sua Própria Cold Wallet de Bitcoin</h1>
+        <h2></h2>
+    </header>
+
+    <div class="project-image-slider">
+        <div class="slider-wrapper" id="slider-wrapper">
+            <img src="img/carteira.jpg" alt="Carteira de Bitcoin" class="main-project-img">
+        </div>
+
+        <div class="slider-controls">
+            <button class="slider-btn" id="prevBtn"><i class="bi bi-chevron-left"></i></button>
+            <button class="slider-btn" id="nextBtn"><i class="bi bi-chevron-right"></i></button>
+        </div>
+
+        <div class="slider-dots" id="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <div class="project-description" style="text-align: justify;">
+        
+        <section>
+            <h2>1. Conceitos Essenciais: Os Pilares da Custódia</h2>
+            <p>
+                Para dominar a segurança de seus ativos, é fundamental compreender a tríade que compõe uma carteira Bitcoin, pois o entendimento correto destes conceitos evita erros irreversíveis. A <strong>Semente (Seed)</strong> é a sua senha mestra, composta por 12 ou 24 palavras que representam mnemonicamente todo o seu patrimônio; quem possuir estas palavras tem controle total sobre os fundos, independentemente do dispositivo utilizado.
+            </p>
+            <p>
+                Derivadas da semente, as <strong>Chaves Privadas (Private Keys)</strong> funcionam como assinaturas digitais que provam a propriedade dos bitcoins e são estritamente necessárias para autorizar qualquer transação de saída. Por fim, a <strong>Chave Pública (Public Key)</strong> atua de forma análoga ao número de uma conta bancária, sendo utilizada para gerar seus endereços de recebimento e podendo ser compartilhada para receber fundos sem comprometer a segurança da sua reserva principal.
+            </p>
+        </section>
+
+        <section>
+            <h2>2. Preparando a Fortaleza: O Ambiente Air-Gapped</h2>
+            <p>
+                O conceito de Cold Wallet baseia-se no isolamento físico através de um ambiente Air-Gapped. Isso significa utilizar um sistema operacional que jamais terá contato com a internet, impedindo ataques remotos e malwares de extração de dados. Para este procedimento, você precisará de um hardware dedicado, como um computador antigo sem placas Wi-Fi ou um pendrive de alta performance com pelo menos 16GB, além de um segundo pendrive de 4GB para servir como mídia de instalação. No campo do software, utilizaremos o Linux Mint Cinnamon pela sua estabilidade e o BalenaEtcher para a gravação segura da imagem.
+            </p>
+            <p>
+                A preparação começa no computador online, onde você deve gravar a ISO do Linux Mint no pendrive secundário. Em seguida, conecte este pendrive no computador que permanecerá offline e acesse o menu de boot. Durante a instalação, é crucial garantir que qualquer conexão de rede esteja desativada fisicamente ou via BIOS. No processo de configuração do sistema, opte pelo particionamento manual e ative obrigatoriamente a criptografia do disco rígido, definindo uma senha de usuário robusta com no mínimo 16 caracteres misturando símbolos, números e letras.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Gerenciamento de Ativos e Segurança Avançada</h2>
+            <p>
+                Com o sistema operacional blindado, a gestão dos ativos será feita por softwares de código aberto. A Electrum Wallet é o padrão recomendado para carteiras desktop por permitir assinaturas offline, enquanto o VeraCrypt pode ser usado para criar volumes criptografados adicionais para backups digitais. Ao criar sua carteira na Electrum, selecione a opção de carteira padrão e anote a semente de 12 palavras exclusivamente em papel, evitando qualquer registro digital ou fotografias.
+            </p>
+            <p>
+                Para uma camada extra de proteção, é altamente recomendável ativar o recurso de <strong>Passphrase</strong>, também conhecida como a 25ª palavra. Esta técnica garante que, mesmo que alguém descubra sua semente de 12 palavras, não conseguirá acessar seus fundos sem essa palavra adicional secreta. Após configurar sua carteira, exporte a Master Public Key (zpub) para o seu computador online, permitindo que você acompanhe o saldo sem nunca expor suas chaves privadas à rede.
+            </p>
+        </section>
+
+        <section>
+            <h2>4. Operação de Envio com Assinatura Offline</h2>
+            <p>
+                O uso rotineiro da sua Cold Wallet ocorre através de uma Watch-Only Wallet no computador conectado à internet. Quando desejar enviar fundos, você deve primeiro montar a transação no computador online e salvar o arquivo resultante em um pendrive. Em seguida, leve esse arquivo até o computador offline, abra-o na Electrum instalada lá, confira os endereços de destino e assine a transação com sua chave privada protegida.
+            </p>
+            <p>
+                O passo final consiste em retornar o arquivo assinado para o computador online e realizar o "Broadcast" para a rede Bitcoin. Este fluxo garante que suas chaves privadas nunca toquem um dispositivo conectado à rede mundial de computadores, mantendo seus bitcoins protegidos contra praticamente qualquer tipo de ataque cibernético. A segurança é uma responsabilidade individual; teste seus backups periodicamente e mantenha sua soberania financeira com cautela.
+            </p>
+        </section>
+                    <footer class="post-author-signature">
+                        <p>Escrito por <a href="link.html">Karina Casola</a></p>
+                    </footer>
+    </div>
+</main>
+</main>
+
+<footer class="site-footer" id="rodape">
+
+    <div class="footer-bottom">
+        <div class="footer-legal">
+            <a href="politica-privacidade.html">Privacidade</a>
+            <span class="footer-divider">•</span>
+            <a href="termos-uso.html">Termos de Uso</a>
+            <span class="footer-divider">•</span>
+            <a href="politica-cookies.html">Cookies</a>
+        </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2026 Karina Casola. Todos os direitos reservados.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/karinacasola/"><i class="bi bi-instagram"></i></a>
+                    <a href="https://www.threads.net/@karinacasola"><i class="bi bi-threads"></i></a>
+                    <a href="https://medium.com/@karinacasola"><i class="bi bi-medium"></i></a>
+                    <a href="https://twitter.com/karinacasola"><i class="bi bi-twitter-x"></i></a>
+                    <a href="https://www.linkedin.com/in/karinacasola/"><i class="bi bi-linkedin"></i></a>
+            </div>
+                </div>
+</footer>
+
+    <script src="js/post.js"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+</body>
+</html>

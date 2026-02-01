@@ -198,3 +198,34 @@
         box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 }
+
+/* Garante que a lista sempre empilhe os itens verticalmente */
+.professions-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profession-card {
+    width: 100%; /* Garante que ocupe a largura toda e empurre o próximo para baixo */
+    display: block; 
+}
+
+
+
+/* Garante que a coluna da direita empilhe os itens */
+.professions-right-col {
+    display: flex;
+    flex-direction: column; /* Isso força um embaixo do outro */
+    width: 100%;
+}
+
+.professions-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profession-card {
+    width: 100%; /* Ocupa toda a largura da coluna */
+}
