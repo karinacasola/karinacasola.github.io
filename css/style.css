@@ -280,20 +280,6 @@ section {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ==========================================================================
-   7. RESPONSIVIDADE
-   ========================================================================== */
-/*@media (max-width: 992px) {
-    .how-it-works-items { grid-template-columns: 1fr; }
-    .modal-inner { flex-direction: column; height: auto; overflow-y: auto; }
-}
-
-@media (max-width: 768px) {
-    .navbar { display: none; }
-    .hero-title { font-size: 36px; }
-    .section-title { font-size: 28px; }
-    .site-footer { padding: 40px 5%; }
-} */
 
 /* ==========================================================================
    7. RESPONSIVIDADE AJUSTADA
@@ -433,4 +419,78 @@ section {
         flex: 0 0 100%; /* Cada link ocupa uma linha se o espaço for muito curto */
         margin-bottom: 5px;
     }
+}
+
+/* ==========================================================================
+   BARRA DE LEITURA DO MODAL (ESTILO DISCRETO)
+   ========================================================================== */
+
+.modal-reading-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px; /* Espaço antes do texto começar */
+    align-items: center;
+}
+
+/* Botão Discreto (Minimalist Reading Button) */
+.mr-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px; /* Quadrado arredondado */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.mr-btn:hover {
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+}
+
+/* Estado Ativo (Botão Selecionado) */
+.mr-btn.active {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: white;
+    box-shadow: 0 2px 10px rgba(62, 142, 255, 0.2);
+}
+
+/* --- TEMA CLARO (ICE THEME) --- */
+
+/* Aplica ao container de texto quando o modo claro está ativo */
+.modal-col-text.ice-theme {
+    background-color: #F8F9FA; /* Fundo quase branco */
+    color: #333; /* Texto escuro */
+}
+
+/* Força cores escuras nos títulos e parágrafos dentro do tema claro */
+.modal-col-text.ice-theme h1,
+.modal-col-text.ice-theme .modal-author-top {
+    color: #111; 
+}
+
+.modal-col-text.ice-theme p {
+    color: #444;
+}
+
+/* Ajusta a cor dos botões quando o fundo está claro */
+.modal-col-text.ice-theme .mr-btn {
+    border-color: #335de7;
+    color: #2962dd;
+}
+
+.modal-col-text.ice-theme .mr-btn:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.modal-col-text.ice-theme .mr-btn.active {
+    color: white; /* Mantém texto branco no ativo */
+    border-color: var(--accent-blue);
 }

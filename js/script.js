@@ -282,3 +282,29 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('scroll', navmenuScrollspy);
 
 })();
+
+function setModalTheme(theme) {
+    // Procura o container de texto do modal (pai dos botões)
+    const textContainer = document.querySelector('.modal-col-text');
+    const btnDark = document.getElementById('modal-btn-dark');
+    const btnLight = document.getElementById('modal-btn-light');
+
+    if (!textContainer) return;
+
+    if (theme === 'light') {
+        // Ativa o tema claro
+        textContainer.classList.add('ice-theme');
+        
+        // Troca o estado dos botões
+        if(btnDark) btnDark.classList.remove('active');
+        if(btnLight) btnLight.classList.add('active');
+        
+    } else {
+        // Volta para o tema escuro (padrão)
+        textContainer.classList.remove('ice-theme');
+        
+        // Troca o estado dos botões
+        if(btnLight) btnLight.classList.remove('active');
+        if(btnDark) btnDark.classList.add('active');
+    }
+}

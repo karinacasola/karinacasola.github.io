@@ -282,3 +282,29 @@
         right: 1rem;
     }
 }
+
+/* ==========================================================================
+   FIX: BOTÃO FECHAR NO MODO CLARO (ICE THEME)
+   ========================================================================== */
+
+/* Se a estrutura HTML for: Text Col + Button (Irmãos) */
+.modal-col-text.ice-theme ~ .modal-close {
+    color: #111 !important;                 /* Torna o X preto */
+    background-color: rgba(0, 0, 0, 0.1);   /* Fundo cinza suave para contraste */
+    border-color: rgba(0, 0, 0, 0.1);       /* Borda sutil */
+}
+
+/* Hover no modo claro */
+.modal-col-text.ice-theme ~ .modal-close:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #000;
+}
+
+/* CASO ALTERNATIVO: 
+   Se o JavaScript estiver adicionando a classe .ice-theme 
+   no container pai (.modal-inner) ao invés de apenas no texto:
+*/
+.modal-inner.ice-theme .modal-close {
+    color: #111 !important;
+    background-color: rgba(0, 0, 0, 0.1);
+}
