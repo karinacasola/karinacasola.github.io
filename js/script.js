@@ -308,3 +308,125 @@ function setModalTheme(theme) {
         if(btnDark) btnDark.classList.add('active');
     }
 }
+
+
+function changeReflection(index, imagePath) {
+    // 1. Troca a imagem da esquerda com efeito fade
+    const imgElement = document.getElementById('main-modal-img');
+    imgElement.style.opacity = '0';
+    
+    setTimeout(() => {
+        imgElement.src = imagePath;
+        imgElement.style.opacity = '1';
+    }, 300);
+
+    // 2. Atualiza o número do cabeçalho (ex: 01, 02)
+    const headerNum = document.getElementById('current-reflection-num');
+    if(headerNum) headerNum.innerText = index.toString().padStart(2, '0');
+
+    // 3. Alterna a visibilidade dos blocos de texto
+    document.querySelectorAll('.reflection-block').forEach(block => {
+        block.classList.remove('active');
+    });
+    const targetBlock = document.getElementById('ref-' + index);
+    if(targetBlock) targetBlock.classList.add('active');
+
+    // 4. Atualiza visualmente o botão do seletor
+    document.querySelectorAll('.nav-dot').forEach((dot, idx) => {
+        if (idx + 1 === index) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+
+    // 5. Reseta o scroll lateral para o topo para nova leitura
+    const textCol = document.querySelector('.modal-col-text');
+    if(textCol) textCol.scrollTop = 0;
+}
+
+/* ==========================================================================
+   LÓGICA DE REFLEXÕES (CONTADOR E NAVEGAÇÃO)
+   ========================================================================== */
+
+document.addEventListener('DOMContentLoaded', function() {
+    // --- 1. CONTADOR AUTOMÁTICO NO CARD ---
+    // Busca todos os blocos de reflexão que existem no modal
+    const reflexoes = document.querySelectorAll('.reflection-block');
+    const contadorElemento = document.getElementById('total-reflections-count');
+    
+    if (contadorElemento && reflexoes.length > 0) {
+        // Atualiza o texto do card com o total encontrado (ex: 02, 05)
+        contadorElemento.innerText = reflexoes.length.toString().padStart(2, '0');
+    }
+
+    // --- 2. RESET DE SCROLL AO FECHAR ---
+    // Garante que se o usuário fechar o modal, ao abrir de novo ele comece do topo
+    const modalLinks = document.querySelectorAll('a[href="#modal-programacao"]');
+    modalLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const textCol = document.querySelector('.modal-col-text');
+            if (textCol) textCol.scrollTop = 0;
+        });
+    });
+});
+
+/**
+ * Função Global para trocar a reflexão dentro do modal
+ * Precisa estar fora do DOMContentLoaded para ser acessível pelo 'onclick' do HTML
+ */
+
+function atualizarContadorReflexoes() {
+    // 1. Busca todos os blocos que existem no modal
+    const blocos = document.querySelectorAll('.reflection-block');
+    const displayContador = document.getElementById('total-reflections-count');
+    
+    // Log para te ajudar a depurar (aparece no F12 do navegador)
+    console.log("Total de blocos encontrados:", blocos.length);
+
+    if (displayContador) {
+        if (blocos.length > 0) {
+            displayContador.innerText = blocos.length.toString().padStart(2, '0');
+        } else {
+            console.warn("Nenhum bloco com a classe .reflection-block foi encontrado.");
+        }
+    } else {
+        console.error("Não foi encontrado nenhum elemento com o ID 'total-reflections-count'.");
+    }
+}
+
+// Inicializa quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', function() {
+    atualizarContadorReflexoes();
+    
+    // Aproveite para garantir que os links do menu mobile funcionem aqui também
+    // se houver necessidade de reinicializar outras funções.
+});
+
+/* A função de troca deve ficar fora para ser global */
+function changeReflection(index, imagePath) {
+    const imgElement = document.getElementById('main-modal-img');
+    if (imgElement) {
+        imgElement.style.opacity = '0';
+        setTimeout(() => {
+            imgElement.src = imagePath;
+            imgElement.style.opacity = '1';
+        }, 200);
+    }
+
+    document.getElementById('current-reflection-num').innerText = index.toString().padStart(2, '0');
+
+    document.querySelectorAll('.reflection-block').forEach(block => {
+        block.classList.remove('active');
+    });
+    
+    const target = document.getElementById('ref-' + index);
+    if (target) target.classList.add('active');
+
+    document.querySelectorAll('.nav-dot').forEach((dot, idx) => {
+        dot.classList.toggle('active', (idx + 1) === index);
+    });
+
+    const textCol = document.querySelector('.modal-col-text');
+    if (textCol) textCol.scrollTop = 0;
+}

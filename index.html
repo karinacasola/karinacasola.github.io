@@ -82,54 +82,70 @@
 
 
 <section id="ia-programacao" class="interactive-section">
+    
     <a class="card-link-wrapper" href="#modal-programacao">
-        <div class="article-card">
+        <div class="article-card stack-effect">
             <div class="card-image-col">
                 <img src="img/O_Homem_Vitruviano.png" alt="O Homem Vitruviano" class="img-crop">
+                <div class="card-multi-indicator">
+                    <i class="bi bi-layers-half"></i> 
+                    <span id="total-reflections-count">02</span> Reflexões
+                </div>
             </div>
             <div class="card-text-col">
                 <div class="card-header">
+                    <span class="collection-badge">Série de Reflexões</span>
                     <span>01</span>
                 </div>
                 <div class="card-content">
-                    <h2 class="card-title">Capital Simbólico Digital:</h2>
+                    <h2 class="card-title">Capital Simbólico Digital</h2>
                     <p class="card-description">
-                        O Like como Passaporte para Pertencer.
+                        O Like como Passaporte para Pertencer. Explore esta e outras reflexões sobre o mundo digital.
                     </p>
-                    
+                    <div class="card-footer-hint">
+                        Abrir Série de Reflexões <i class="bi bi-arrow-right-short"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </a>
 
-<!-- Modal -->
-<div class="modal-overlay" id="modal-programacao">
-    <div class="modal-inner">
-        <div class="modal-col-image">
-            <img src="img/O_Homem_Vitruviano.png" alt="O Homem Vitruviano" class="img-crop">
+    <div class="modal-overlay" id="modal-programacao">
+        <div class="modal-inner">
             
-        </div>
-        <div class="modal-col-text">
-            <div class="modal-header">
-                <span>01</span>
+            <div class="modal-col-image">
+                <img src="img/O_Homem_Vitruviano.png" alt="Imagem da Reflexão" id="main-modal-img" class="img-crop">
             </div>
-            <div class="modal-content">
-                <h1>O Like como Passaporte para Pertencer.</h1>
-                <div class="modal-author-top">
-    Escrito por <a href="sobre.html">Karina Casola</a>
-</div>
 
-    <div class="modal-reading-bar">
-        <button class="mr-btn active" id="modal-btn-dark" onclick="setModalTheme('dark')" aria-label="Modo Escuro">
-            <i class="bi bi-moon-stars-fill"></i>
-        </button>
-        <button class="mr-btn" id="modal-btn-light" onclick="setModalTheme('light')" aria-label="Modo Claro">
-            <i class="bi bi-brightness-high-fill"></i>
-        </button>
-    </div>
-                <p style="text-align: justify;">
+            <div class="modal-col-text">
+                
+                <div class="reflection-nav">
+                    <button class="nav-dot active" onclick="changeReflection(1, 'img/O_Homem_Vitruviano.png')">01</button>
+                    <button class="nav-dot" onclick="changeReflection(2, 'img/obsolescência.png')">02</button>
+                </div>
+
+                <div class="modal-header">
+                    <span id="current-reflection-num">01</span>
+                </div>
+
+                <div class="modal-reading-bar">
+                    <button class="mr-btn active" id="modal-btn-dark" onclick="setModalTheme('dark')" aria-label="Modo Escuro">
+                        <i class="bi bi-moon-stars-fill"></i>
+                    </button>
+                    <button class="mr-btn" id="modal-btn-light" onclick="setModalTheme('light')" aria-label="Modo Claro">
+                        <i class="bi bi-brightness-high-fill"></i>
+                    </button>
+                </div>
+
+                <div id="reflection-container">
+                    
+                    <div class="reflection-block active" id="ref-1">
+                        <h1>O Like como Passaporte para Pertencer.</h1>
+                        <div class="modal-author-top">Escrito por <a href="sobre.html">Karina Casola</a></div>
+                        
+                        <p style="text-align: justify;">
                     Ao refletir sobre os sistemas de recomendação das redes sociais e os dados que os alimentam, torna-se evidente que eles revelam muito mais sobre os traços humanos do que sobre a tecnologia em si. Afinal, são nossas escolhas, desejos e padrões de comportamento que moldam esses sistemas. O algoritmo não cria o gosto: ele o amplifica.
-                </p>
+                        </p>
 
                 <p style="text-align: justify;">
                     Escrevo sob a influência da releitura de <em>A Metamorfose</em>, de Franz Kafka — uma obra que permanece atual como crítica social. Entre suas múltiplas camadas de interpretação, detenho-me na forma como Gregor Samsa, ao perder sua aparência humana, deixa de cumprir a função simbólica que exercia dentro da família. Sob uma lógica utilitarista, ele deixa de representar valor e passa a ser percebido como um fardo, um corpo estranho que causa desconforto psicológico.
@@ -204,11 +220,109 @@
                 <p style="text-align: justify;">
                     No capitalismo simbólico digital, não basta existir — é preciso ser visto, reconhecido e validado. O “like” torna-se, assim, a medida contemporânea de valor social. Um capital volátil, instável e profundamente humano, que promete pertencimento, mas cobra, como preço, a constante adequação da forma.
                 </p>
-            </div>
-        </div>
-        <a class="modal-close" href="#close">&times;</a>
-    </div>
-</div>
+                        </div>
+
+                    <div class="reflection-block" id="ref-2">
+                        <h1>Obsolescência humana? </h1>
+                        <h3>Por que programar?</h3>
+                        <h4> </h4>
+
+                        <div class="modal-author-top">Escrito por <a href="sobre.html">Karina Casola</a></div>
+                        
+                        <p style="text-align: justify;">
+                        Não me recordo do ano. Já faz algum tempo. Eu era uma leitora inveterada. Não que eu não leia hoje em dia, mas, naquela época, ler parecia ser o significado e a tradução de quem eu era. Com o tempo, porém, isso foi ficando complicado: a rotina apressada do trabalho, a vida nas ruas, trens e ônibus… e os livros, bom, eles pesavam.
+                        </p>
+
+                    <p style="text-align: justify;">
+                    Foi então que olhei para aquele pequeno intruso na minha mão: o celular, que começava a se tornar onipresente na rotina. Ele tinha um sistema, programas… Na época, eu não entendia profundamente o que aquilo significava — apenas no nível mais operacional, algo que minha experiência com manutenção e diagnóstico de computadores me permitia compreender.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    E, como uma viciada que percebe o poder de barganha ao olhar para os móveis da casa e imaginar quanto dinheiro eles renderiam para jogar no “tigrinho”, pensei: e se os livros pudessem ser os programas do celular?
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Foi assim que fiz um script — sem sequer saber exatamente o que “script” significava. Ele convertia arquivos DOC ou PDF em uma extensão JAR executável/instalável no celular. Depois descobri que pessoas muito mais técnicas do que eu haviam criado soluções melhores, com menos problemas do que os que meu script apresentava, tornando o processo de conversão mais simples e eficiente.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Conto essa história para dizer que, no fim das contas, programação é exatamente isso: resolver um problema. Mesmo sem total consciência ou domínio do que eu estava fazendo, fiz — movida pela necessidade e pela vontade.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    O pensamento criativo, totalmente não linear, me levou a experimentar uma possibilidade de solução que não estava em um tutorial passo a passo no YouTube, nem em uma ferramenta de busca com algoritmos extremamente inteligentes prontos para me oferecer atalhos ou respostas completas.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Não havia ChatGPT, muito menos outras IAs programando por mim.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    É isso que me preocupa quando dou aula. Não sei se quem começa a programar hoje terá a mesma sensação que tive quando, na graduação, o professor disse que faríamos um jogo. Como uma detetive, eu começava a pensar em como mapear a interação do teclado, como expressar aquilo na linguagem de programação… Não havia respostas prontas. Havia o momento de olhar para a parede e imaginar.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Ou ainda a missão de implementar um algoritmo de cálculo numérico sem entender completamente, a princípio, do que se tratava. Depois de algum tempo folheando livros, conversando com colegas, pesquisando em fóruns da internet… tudo de uma forma muito mais lenta e contemplativa do que hoje.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    E a pergunta que provoquei no subtítulo — por que programar? — poderia facilmente ser substituída por por que jogar xadrez? ou até por que escrever? Qualquer atividade intelectual humana caberia nessa discussão.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Seria, então, a obsolescência humana anunciada?
+                    </p>
+
+                    <p style="text-align: justify;">
+                    O boom mais recente da IA, quando empresas acreditaram que conseguiriam substituir times inteiros de design, desenvolvimento, redação etc., apenas evidenciou que ainda não é possível substituir o pensamento humano não linear. Existem, inclusive, limitações estruturais comprovadas matematicamente pela teoria da computação, que fundamenta os computadores modernos. Recomendo a leitura do livro <em>Cérebro Relativístico</em>.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Outro livro interessante — <em>Range (Por que generalistas vencem especialistas)</em> — relata casos em que equipes híbridas, formadas por humanos e máquinas, performaram muito melhor no xadrez do que equipes compostas apenas por “máquinas”.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    O modo de programar está mudando, especialmente no contexto corporativo. Mas isso não deveria mudar a forma como se aprende — ao menos não nos fundamentos.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Tive um professor que dizia que programação é como um grande jogo de Lego: é preciso encaixar as peças certas nos lugares corretos. As IAs, até certo ponto, fazem isso muito bem. Mas em projetos de maior complexidade — seja por questões de segurança, seja pela necessidade de experiências de usuário mais ricas e dinâmicas — a intuição grita.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    É o mesmo instinto que um médico precisa ter para reverter um quadro crítico em segundos; o que um atleta aciona diante de um obstáculo inesperado; ou a decisão rápida no trânsito para evitar um acidente. Nesses momentos, não há tempo para consultar uma IA. Nenhuma te salvará.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Ainda não respondi completamente o “porquê”, mas já demonstrei, na prática, os ganhos envolvidos. Um profissional que sabe programar — ou ao menos pensar como um programador — faz prompts muito mais eficazes, pois consegue transmitir um olhar multifatorial de forma profunda. É a união da expertise com a prática deliberada.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Os ganhos cognitivos da programação vão muito além da própria programação. Esse, para mim, é um fator central — até mais importante do que se tornar “insubstituível” na carreira. E isso vale para todas as profissões. Essas tecnologias estão mudando a forma como trabalhamos, e eu recomendaria aprender a programar até mesmo para um psicólogo.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Ao mesmo tempo em que temos essa capacidade de pensamento não linear, temos também a capacidade de adaptação — a chamada plasticidade cerebral. Isso pode ser tanto uma vantagem quanto um risco. Fiquei particularmente alarmada ao ouvir o relato de um estudante que não queria fazer uma avaliação porque não poderia consultar o ChatGPT.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Quando conto, nos cursos técnicos em que dei aula, que precisei implementar, em prova e sem consultar nada, uma lista encadeada em C escrita à mão, os alunos ficam abismados — e pedem para que eu nunca aplique uma atividade assim.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    Talvez valha um próximo texto para falar mais sobre os elementos fundamentais da programação, esclarecer quem não é da área e refletir sobre como era programar, como estamos programando e como talvez programaremos no futuro — ainda que qualquer prognóstico tenha prazo de validade curto.
+                    </p>
+
+                    <p style="text-align: justify;">
+                    E a obsolescência? Imagino que ela só ocorrerá se deixarmos de ser humanos. Há muitos outros aspectos intrínsecos a isso — como o fato de estarmos vivendo na era da dopamina, na qual somos cada vez mais estimulados e cada vez menos presentes.
+                    </p>
+                    </div>
+
+                </div>
+            </div> 
+                <a class="modal-close" href="#close">&times;</a>
+        </div> 
+    </div> 
 </section>
 
 <section class="professions-section" id="articles">

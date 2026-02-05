@@ -494,3 +494,152 @@ section {
     color: white; /* Mantém texto branco no ativo */
     border-color: var(--accent-blue);
 }
+
+
+/* --- Lógica de Exibição das Reflexões --- */
+.reflection-block {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+.reflection-block.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Seletor de Números --- */
+.reflection-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.nav-dot {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav-dot.active {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: white;
+}
+
+/* --- Ajustes para o Modo Claro (Ice Theme) --- */
+.modal-col-text.ice-theme .nav-dot {
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #666;
+}
+
+.modal-col-text.ice-theme .nav-dot.active {
+    background-color: var(--accent-blue);
+    color: white;
+}
+
+/* Transição para a imagem da esquerda */
+#main-modal-img {
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Efeito de pilha no Card (opcional, dá profundidade) */
+.stack-effect {
+    position: relative;
+}
+
+.stack-effect::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 100%;
+    height: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    z-index: -1;
+    transform: rotate(1deg);
+}
+
+/* Fundo do contador igual ao fundo do modal */
+.card-multi-indicator {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background-color: var(--card-bg); /* Mesmo tom do modal */
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Novo estilo para o rodapé centralizado */
+.card-footer-centralized {
+    margin-top: auto; /* Empurra para o final do card */
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-blue);
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    gap: 5px;
+}
+
+.card-footer-centralized i {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+}
+
+.card-link-wrapper:hover .card-footer-centralized i {
+    transform: translateY(5px); /* Seta mexe para baixo no hover */
+}
+
+/* Badge de série no cabeçalho */
+.collection-badge {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+    font-weight: 700;
+}
+
+/* Dica no rodapé do card */
+.card-footer-hint {
+    margin-top: 15px;
+    font-size: 13px;
+    color: var(--accent-blue);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.card-footer-hint i {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.card-link-wrapper:hover .card-footer-hint i {
+    transform: translateX(5px);
+}
