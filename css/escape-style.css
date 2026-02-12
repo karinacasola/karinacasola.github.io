@@ -174,57 +174,79 @@
   
    ========================================================================== */
 
+/* ==========================================================================
+   CORREÇÃO CRÍTICA MOBILE - TERMINAL E NAVBAR
+   
+   ========================================================================== */
+
 @media (max-width: 768px) {
-    /* 1. Remove o comportamento padrão do tema (menu hambúrguer) */
+    /* --- 1. AJUSTES GERAIS DE LAYOUT --- */
+    .game-container {
+        flex-direction: column; /* Um bloco em cima do outro */
+        height: auto !important; /* Permite que a página cresça */
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    /* --- 2. CORREÇÃO DO TERMINAL (Onde o texto sumia) --- */
+    .terminal-window {
+        width: 100%;
+        height: 260px !important; /* Altura fixa obrigatória */
+        min-height: 260px;        /* Garante que não diminua */
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .terminal-body {
+        flex: 1;              /* Ocupa todo espaço disponível */
+        height: 100%;         /* Força altura */
+        max-height: 220px;    /* Limite para forçar o scroll */
+        overflow-y: auto;     /* Habilita rolagem */
+        font-size: 13px;      /* Fonte ajustada para mobile */
+        padding: 15px;        /* Menos espaço nas bordas */
+    }
+
+    /* --- 3. NAVBAR (Correção anterior mantida) --- */
     .navbar-menu {
         display: flex !important;
         position: static !important;
-        flex-direction: row !important;
-        align-items: center;
-        gap: 8px;
         background: transparent !important;
         box-shadow: none !important;
         width: auto !important;
         padding: 0 !important;
+        flex-direction: row !important;
+        gap: 10px;
         transform: none !important;
-        border: none !important;
     }
 
-    /* 2. Ajustes de Tamanho */
     .navbar-content {
-        padding: 0 5px; /* Reduz padding lateral */
+        padding: 0 10px;
     }
 
     .navbar-content > div:first-child {
-        font-size: 16px !important; /* Diminui o logo PY.ESCAPE */
+        font-size: 16px !important;
     }
 
-    /* 3. Link do Blog compacto */
+    /* Link do Blog visível */
     .navbar-link {
+        display: flex !important;
         font-size: 12px;
         margin-right: 5px;
-        white-space: nowrap; /* Não quebra linha */
+        color: var(--text-primary);
     }
+    
+    .navbar-link i { display: none; } /* Esconde ícone para economizar espaço */
 
-    .navbar-link i {
-        display: none; /* Esconde a setinha para economizar espaço */
-    }
-
-    /* 4. Badge de Nível */
+    /* Badge de Nível */
     .level-badge {
         font-size: 11px;
-        padding: 3px 6px;
+        padding: 4px 8px;
         white-space: nowrap;
     }
 
-    /* 5. Inventário no Mobile */
-    /* Opção A: Esconder o inventário no mobile para não quebrar o layout */
-    .inventory-display {
-        display: none !important; 
-    }
-
-    /* Esconde botão do menu original */
-    .mobile-menu-btn {
+    /* Esconde inventário e botão hambúrguer */
+    .inventory-display, .mobile-menu-btn {
         display: none !important;
     }
 }

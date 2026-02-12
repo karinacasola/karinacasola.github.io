@@ -193,10 +193,18 @@ createApp({
             });
         },
 
-        scrollToBottom() {
+       scrollToBottom() {
             this.$nextTick(() => {
                 const terminal = this.$refs.terminalBody;
-                if (terminal) terminal.scrollTop = terminal.scrollHeight;
+                if (terminal) {
+                    // Força o scroll para o final
+                    terminal.scrollTop = terminal.scrollHeight;
+                    
+                    // Hack extra para navegadores mobile que às vezes ignoram o primeiro comando
+                    setTimeout(() => {
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }, 50);
+                }
             });
         },
 
