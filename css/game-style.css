@@ -281,3 +281,52 @@
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .modal-actions { flex-direction: column; }
 }
+/* ==========================================================================
+   CORREÇÃO MOBILE - NAVBAR
+
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* 1. Força o menu a aparecer sem precisar clicar em botão */
+    .navbar-menu {
+        display: flex !important;
+        position: static !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        width: auto !important;
+        padding: 0 !important;
+        flex-direction: row !important; /* Mantém na horizontal */
+        gap: 10px;
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    }
+
+    /* 2. Ajusta o tamanho da fonte para caber na tela */
+    .navbar-content {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    /* Diminui o logo "PROJECT.SIM" no mobile */
+    .navbar-content > div:first-child {
+        font-size: 16px !important;
+    }
+
+    /* Ajusta o badge da Sprint */
+    .version-badge {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+
+    /* Se você adicionou o link do blog aqui também */
+    .navbar-link {
+        font-size: 12px;
+        margin-right: 5px;
+    }
+    
+    /* Esconde o botão hambúrguer original se ele estiver aparecendo */
+    .mobile-menu-btn {
+        display: none !important;
+    }
+}

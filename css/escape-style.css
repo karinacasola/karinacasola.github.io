@@ -168,3 +168,63 @@
     .game-container { height: auto; flex-direction: column; }
     .terminal-window { height: 200px; }
 }
+
+/* ==========================================================================
+   CORREÇÃO MOBILE - NAVBAR ESCAPE ROOM
+  
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* 1. Remove o comportamento padrão do tema (menu hambúrguer) */
+    .navbar-menu {
+        display: flex !important;
+        position: static !important;
+        flex-direction: row !important;
+        align-items: center;
+        gap: 8px;
+        background: transparent !important;
+        box-shadow: none !important;
+        width: auto !important;
+        padding: 0 !important;
+        transform: none !important;
+        border: none !important;
+    }
+
+    /* 2. Ajustes de Tamanho */
+    .navbar-content {
+        padding: 0 5px; /* Reduz padding lateral */
+    }
+
+    .navbar-content > div:first-child {
+        font-size: 16px !important; /* Diminui o logo PY.ESCAPE */
+    }
+
+    /* 3. Link do Blog compacto */
+    .navbar-link {
+        font-size: 12px;
+        margin-right: 5px;
+        white-space: nowrap; /* Não quebra linha */
+    }
+
+    .navbar-link i {
+        display: none; /* Esconde a setinha para economizar espaço */
+    }
+
+    /* 4. Badge de Nível */
+    .level-badge {
+        font-size: 11px;
+        padding: 3px 6px;
+        white-space: nowrap;
+    }
+
+    /* 5. Inventário no Mobile */
+    /* Opção A: Esconder o inventário no mobile para não quebrar o layout */
+    .inventory-display {
+        display: none !important; 
+    }
+
+    /* Esconde botão do menu original */
+    .mobile-menu-btn {
+        display: none !important;
+    }
+}
