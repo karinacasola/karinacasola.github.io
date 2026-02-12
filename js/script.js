@@ -430,3 +430,6 @@ function changeReflection(index, imagePath) {
     const textCol = document.querySelector('.modal-col-text');
     if (textCol) textCol.scrollTop = 0;
 }
+
+
+

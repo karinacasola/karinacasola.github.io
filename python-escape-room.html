@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Escape Room</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/escape-style.css">
+    <link rel="icon" href="img/favicon.svg">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <div id="app" class="hero">
+        
+        <nav class="navbar" style="position: absolute; top: 20px;">
+            <div class="navbar-content">
+                <div style="font-weight: 700; font-size: 20px;">
+                    PY<span style="color: var(--accent-blue);">.ESCAPE</span>
+                </div>
+                <div class="navbar-menu">
+                    <div class="navbar-menu">
+                    <a href="index.html" class="navbar-link">
+                        <i class="bi bi-arrow-left"></i> Blog
+                    </a>
+                    <div class="inventory-display" v-if="inventory.length > 0">
+                        <span v-for="item in inventory" :key="item" class="inv-item">
+                            <i class="bi bi-backpack"></i> {{ item }}
+                        </span>
+                    </div>
+                    
+                    <div class="level-badge">Nível {{ currentLevelIndex + 1 }}/5</div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="section-header-pill" style="margin-top: 80px;">TREINAMENTO DE LÓGICA</div>
+        <h1 class="hero-title">Escape the <span class="glitch-text">Server Room</span></h1>
+
+        <div class="game-container">
+            
+            <div class="terminal-window">
+                <div class="window-header">
+                    <div class="dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span class="title">terminal_output.log</span>
+                </div>
+                <div class="terminal-body" ref="terminalBody">
+                    <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                        <span class="prompt">></span> <span v-html="line.text"></span>
+                    </p>
+                    <div class="typing-cursor" v-if="isTyping">█</div>
+                </div>
+            </div>
+
+            <div class="code-editor-window" :class="{ 'locked': isTyping }">
+                <div class="window-header">
+                    <span class="title">script_solver.py</span>
+                    <i class="bi bi-file-earmark-code"></i>
+                </div>
+                
+                <div class="editor-body" v-if="currentLevel">
+                    <p class="comment"># {{ currentLevel.instruction }}</p>
+                    
+                    <div class="code-block">
+                        <div v-for="(line, idx) in currentLevel.codeTemplate" :key="idx" class="code-line">
+                            <span class="line-num">{{ idx + 1 }}</span>
+                            <span v-html="formatCodeLine(line)"></span>
+                        </div>
+                    </div>
+
+                    <div class="options-grid" v-if="!levelComplete">
+                        <button v-for="option in currentLevel.options" 
+                                :key="option" 
+                                @click="selectOption(option)"
+                                class="code-option-btn">
+                            {{ option }}
+                        </button>
+                    </div>
+
+                    <button class="run-btn" @click="runCode" :disabled="!userSelection || levelComplete">
+                        <i class="bi bi-play-fill"></i> EXECUTAR CÓDIGO
+                    </button>
+
+                    <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                        {{ feedbackMsg }}
+                    </div>
+                </div>
+
+                <div v-else class="victory-screen">
+                    <i class="bi bi-unlock-fill" style="font-size: 50px; color: #4CAF50;"></i>
+                    <h2>Acesso Concedido</h2>
+                    <p>Você escapou da sala do servidor usando Python!</p>
+                    <button class="run-btn" @click="resetGame">Reiniciar Sistema</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/escape-game.js"></script>
+</body>
+</html>

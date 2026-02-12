@@ -1,0 +1,170 @@
+/* ==========================================================================
+   ESCAPE ROOM STYLES
+   ========================================================================== */
+
+/* Container Flexível */
+.game-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1000px;
+    width: 95%;
+    margin: 40px auto;
+    height: 500px;
+}
+
+/* Janelas (Terminal e Editor) */
+.terminal-window, .code-editor-window {
+    flex: 1;
+    min-width: 300px;
+    background: #1e1e1e; /* Cor fundo VS Code */
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+/* Cabeçalho das Janelas */
+.window-header {
+    background: #252526;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.dots { display: flex; gap: 6px; margin-right: 15px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+
+.title {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #999;
+    flex-grow: 1;
+    text-align: center;
+}
+
+/* --- TERMINAL (Esquerda) --- */
+.terminal-body {
+    flex: 1;
+    padding: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #4CAF50; /* Verde Hacker */
+    overflow-y: auto;
+    text-align: left;
+    background-color: #0d0d0d;
+}
+
+.terminal-body p { margin-bottom: 10px; line-height: 1.4; opacity: 0; animation: fadeIn 0.3s forwards; }
+.prompt { color: var(--accent-blue); margin-right: 8px; }
+.log-info { color: #cccccc; }
+.log-error { color: #ff5f56; }
+.log-success { color: #4CAF50; font-weight: bold; }
+
+.typing-cursor {
+    display: inline-block;
+    animation: blink 1s infinite;
+    color: var(--accent-blue);
+}
+
+/* --- EDITOR DE CÓDIGO (Direita) --- */
+.code-editor-window { border-left: 4px solid var(--accent-blue); position: relative; }
+.code-editor-window.locked { filter: grayscale(1); pointer-events: none; opacity: 0.7; }
+
+.editor-body { padding: 20px; display: flex; flex-direction: column; height: 100%; text-align: left;}
+
+.comment { color: #6a9955; font-family: monospace; margin-bottom: 15px; font-size: 14px; }
+
+.code-block {
+    background: #1e1e1e;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 16px;
+    color: #d4d4d4;
+    margin-bottom: 20px;
+}
+
+.code-line { margin-bottom: 5px; display: flex; align-items: center; }
+.line-num { color: #858585; margin-right: 15px; font-size: 12px; user-select: none; }
+
+/* Destaques de Sintaxe Python */
+.keyword { color: #569cd6; } /* def, if, else, for */
+.string { color: #ce9178; }  /* "text" */
+.func { color: #dcdcaa; }    /* print, input */
+
+/* O buraco onde o usuário coloca o código */
+.code-slot {
+    display: inline-block;
+    min-width: 60px;
+    border-bottom: 2px solid var(--accent-blue);
+    color: var(--accent-blue);
+    text-align: center;
+    padding: 0 5px;
+    font-weight: bold;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: auto;
+    margin-bottom: 15px;
+}
+
+.code-option-btn {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    color: #d4d4d4;
+    padding: 10px;
+    font-family: monospace;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.code-option-btn:hover { background: #3d3d3d; border-color: var(--accent-blue); }
+
+.run-btn {
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.run-btn:disabled { background: #444; cursor: not-allowed; }
+.run-btn:hover:not(:disabled) { filter: brightness(1.2); }
+
+/* Feedback */
+.feedback-msg { margin-top: 10px; font-size: 13px; text-align: center; padding: 8px; border-radius: 4px; }
+.feedback-msg.error { background: rgba(255, 95, 86, 0.2); color: #ff5f56; border: 1px solid #ff5f56; }
+.feedback-msg.success { background: rgba(76, 175, 80, 0.2); color: #4CAF50; border: 1px solid #4CAF50; }
+
+/* Inventory e Badge */
+.inventory-display { display: flex; gap: 10px; margin-right: 20px; }
+.inv-item { background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 15px; font-size: 12px; border: 1px solid var(--accent-blue); color: var(--accent-blue);}
+.level-badge { background: var(--accent-blue); color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; }
+
+/* Utility */
+.glitch-text { color: var(--accent-blue); text-shadow: 2px 0 rgba(255,0,0,0.5), -2px 0 rgba(0,0,255,0.5); }
+.victory-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; gap: 20px; }
+.victory-screen h2 { color: white; }
+
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .game-container { height: auto; flex-direction: column; }
+    .terminal-window { height: 200px; }
+}

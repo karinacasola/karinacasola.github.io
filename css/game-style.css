@@ -1,0 +1,283 @@
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS DO JOGO
+   ========================================================================== */
+
+/* Container Principal */
+.game-interface {
+    max-width: 800px;
+    width: 95%;
+    margin: 40px auto;
+    position: relative;
+    /* Adiciona um efeito de vidro sutil */
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+/* Badge de Versão (Header) */
+.version-badge {
+    background: rgba(62, 142, 255, 0.1);
+    color: var(--accent-blue);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    border: 1px solid var(--accent-blue);
+}
+
+/* --- ADVISOR BOX (Dica do Mentor) --- */
+.advisor-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    /* Gradiente sutil para destacar */
+    background: linear-gradient(90deg, rgba(62, 142, 255, 0.15) 0%, rgba(62, 142, 255, 0.02) 100%);
+    border-left: 4px solid var(--accent-blue);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.advisor-icon {
+    font-size: 24px;
+    color: var(--accent-blue);
+    margin-top: -2px;
+}
+
+.advisor-content strong {
+    display: block;
+    color: var(--accent-blue);
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.advisor-content p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+/* --- STATS GRID --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    padding: 15px;
+    background-color: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.stat-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.progress-container {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.6s ease;
+}
+
+.stat-value {
+    display: block;
+    text-align: right;
+    font-size: 14px;
+    margin-top: 6px;
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+/* --- FEEDBACK DIDÁTICO --- */
+.didactic-feedback {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+    animation: fadeIn 0.5s ease;
+    line-height: 1.4;
+}
+
+.didactic-feedback i {
+    color: var(--accent-blue);
+    font-size: 18px;
+}
+
+/* --- BOTÕES DE AÇÃO --- */
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.action-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+}
+
+.action-btn:hover:not(:disabled) {
+    background-color: rgba(62, 142, 255, 0.1);
+    border-color: var(--accent-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(62, 142, 255, 0.1);
+}
+
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.btn-icon {
+    font-size: 24px;
+    color: var(--accent-blue);
+    margin-bottom: 8px;
+}
+
+.btn-text strong {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.btn-text small {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 25px 0;
+    width: 100%;
+    opacity: 0.5;
+}
+
+/* --- MODAL DE FIM DE JOGO --- */
+.game-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* Fundo escuro */
+    backdrop-filter: blur(8px);       /* Desfoque do fundo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.game-modal {
+    background: #151515; /* Cor sólida para leitura */
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-icon { font-size: 50px; margin-bottom: 15px; }
+.modal-icon.won { color: #4CAF50; text-shadow: 0 0 20px rgba(76,175,80,0.4); }
+.modal-icon.lost { color: #F44336; text-shadow: 0 0 20px rgba(244,67,54,0.4); }
+
+.game-modal h2 { color: white; margin-bottom: 10px; font-size: 24px; }
+.game-modal p { color: var(--text-secondary); margin-bottom: 25px; line-height: 1.5; }
+
+.score-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border-color);
+}
+
+.score-box strong { color: var(--accent-blue); font-size: 20px; }
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Botões do Modal */
+.primary-btn {
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.primary-btn:hover { filter: brightness(1.1); }
+
+.secondary-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.secondary-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+
+/* Animações */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .navbar { position: relative !important; top: 0 !important; width: 100% !important; margin-bottom: 20px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .modal-actions { flex-direction: column; }
+}

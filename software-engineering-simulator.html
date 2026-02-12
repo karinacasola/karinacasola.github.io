@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineering Simulator</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/game-style.css">
+    <link rel="icon" href="img/favicon.svg">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <div id="app" class="hero">
+        
+        <nav class="navbar" style="position: absolute; top: 20px;">
+            <div class="navbar-content">
+                <div style="font-weight: 700; font-size: 20px;">
+                    PROJECT<span style="color: var(--accent-blue);">.SIM</span>
+                </div>
+                <div class="navbar-menu">
+                    <div class="navbar-menu">
+                    <a href="index.html" class="navbar-link">
+                        <i class="bi bi-arrow-left"></i> Blog
+                    </a>
+                <div class="navbar-menu">
+                    <div class="version-badge">Sprint {{ day }} / {{ maxDays }}</div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="section-header-pill" style="margin-top: 80px;">SIMULADOR DIDÁTICO</div>
+        <h1 class="hero-title">Gerencie o <span style="color: var(--accent-blue);">Projeto</span></h1>
+
+        <div class="hero-ai-interface-wrapper game-interface">
+            
+            <div class="advisor-box">
+                <div class="advisor-icon">
+                    <i class="bi bi-lightbulb-fill"></i>
+                </div>
+                <div class="advisor-content">
+                    <strong>Dica do Tech Lead:</strong>
+                    <p>{{ advisorTip }}</p>
+                </div>
+            </div>
+
+            <div class="grid-container stats-grid">
+                <div class="grid-card stat-card">
+                    <div class="stat-header">
+                        <i class="bi bi-gem"></i> <span>Qualidade</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-fill" :style="{ width: stats.quality + '%', backgroundColor: getBarColor(stats.quality) }"></div>
+                    </div>
+                    <span class="stat-value">{{ stats.quality }}%</span>
+                </div>
+
+                <div class="grid-card stat-card">
+                    <div class="stat-header">
+                        <i class="bi bi-journal-text"></i> <span>Docs</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-fill" :style="{ width: stats.docs + '%', backgroundColor: getBarColor(stats.docs) }"></div>
+                    </div>
+                    <span class="stat-value">{{ stats.docs }}%</span>
+                </div>
+
+                <div class="grid-card stat-card">
+                    <div class="stat-header">
+                        <i class="bi bi-shield-check"></i> <span>Testes</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-fill" :style="{ width: stats.tests + '%', backgroundColor: getBarColor(stats.tests) }"></div>
+                    </div>
+                    <span class="stat-value">{{ stats.tests }}%</span>
+                </div>
+
+                <div class="grid-card stat-card">
+                    <div class="stat-header">
+                        <i class="bi bi-tools"></i> <span>Manutenção</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-fill" :style="{ width: stats.maintenance + '%', backgroundColor: getBarColor(stats.maintenance) }"></div>
+                    </div>
+                    <span class="stat-value">{{ stats.maintenance }}%</span>
+                </div>
+            </div>
+
+            <div class="didactic-feedback" v-if="lastActionExplanation">
+                <i class="bi bi-info-circle-fill"></i>
+                <span>{{ lastActionExplanation }}</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3 style="margin-bottom: 20px; color: var(--text-primary); font-size: 18px;">Escolha a Estratégia da Sprint</h3>
+            <div class="grid-container actions-grid">
+                
+                <button class="action-btn" @click="performAction('refactor')" :disabled="!gameActive">
+                    <div class="btn-icon"><i class="bi bi-code-slash"></i></div>
+                    <div class="btn-text">
+                        <strong>Refatorar</strong>
+                        <small>Paga Dívida Técnica</small>
+                    </div>
+                </button>
+
+                <button class="action-btn" @click="performAction('docs')" :disabled="!gameActive">
+                    <div class="btn-icon"><i class="bi bi-file-earmark-text"></i></div>
+                    <div class="btn-text">
+                        <strong>Documentar</strong>
+                        <small>Reduz Bus Factor</small>
+                    </div>
+                </button>
+
+                <button class="action-btn" @click="performAction('test')" :disabled="!gameActive">
+                    <div class="btn-icon"><i class="bi bi-bug"></i></div>
+                    <div class="btn-text">
+                        <strong>Testes Auto.</strong>
+                        <small>Segurança de Deploy</small>
+                    </div>
+                </button>
+
+                <button class="action-btn" @click="performAction('fix')" :disabled="!gameActive">
+                    <div class="btn-icon"><i class="bi bi-bandaid"></i></div>
+                    <div class="btn-text">
+                        <strong>Hotfix</strong>
+                        <small>Correção Rápida</small>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div class="game-modal-overlay" v-if="!gameActive">
+            <div class="game-modal">
+                <div class="modal-icon" :class="gameWon ? 'won' : 'lost'">
+                    <i :class="gameWon ? 'bi-trophy-fill' : 'bi-x-octagon-fill'"></i>
+                </div>
+                
+                <h2>{{ gameWon ? 'Lançamento V1.0 Sucesso!' : 'Projeto Cancelado' }}</h2>
+                <p>{{ gameOverReason }}</p>
+                
+                <div class="score-box">
+                    <span>Maturidade do Software:</span>
+                    <strong>{{ finalScore }} / 1000 pts</strong>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="primary-btn" @click="resetGame">Jogar Novamente</button>
+                    <button class="secondary-btn" @click="exportData">
+                        <i class="bi bi-download"></i> Baixar Relatório
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="js/game-logic.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gherkin Puzzle - QA Challenge</title>
+
+    <link rel="icon" href="img/favicon.svg">
+    
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/gherkin.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <div id="app" v-cloak>
+        <header class="game-header">
+            <div class="header-content">
+                <div class="logo-area">
+                    <span class="pill">GHERKIN PUZZLE</span>
+                    <h1>Desafio de QA</h1>
+                </div>
+                
+                <div class="stats-area">
+                    <div class="stat-item">
+                        <span class="label">Nível</span>
+                        <span class="value">{{ currentLevelIndex + 1 }}<small>/{{ levels.length }}</small></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Acertos</span>
+                        <span class="value highlight">{{ correctCount }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" :style="{ width: progressPercentage + '%' }"></div>
+            </div>
+        </header>
+
+        <main class="game-container">
+            
+            <div v-if="gameFinished" class="end-screen">
+                <i class="bi bi-trophy-fill trophy-icon"></i>
+                <h2>Parabéns, QA!</h2>
+                <p>Você dominou a lógica do Gherkin completando todos os {{ levels.length }} cenários.</p>
+                <div class="final-actions">
+                    <button @click="exportResults" class="btn-primary">
+                        <i class="bi bi-filetype-json"></i> Baixar Relatório
+                    </button>
+                    <button @click="resetGame" class="btn-secondary">
+                        <i class="bi bi-arrow-counterclockwise"></i> Jogar Novamente
+                    </button>
+                </div>
+            </div>
+
+            <div v-else class="puzzle-area">
+                <div class="scenario-context">
+                    <h3><i class="bi bi-code-square"></i> {{ currentLevel.feature }}</h3>
+                    <p class="scenario-desc">{{ currentLevel.scenarioName }}</p>
+                    <p class="instruction">Arraste as linhas para ordenar a lógica do teste corretamente.</p>
+                </div>
+
+                <div class="drag-list">
+                    <transition-group name="flip-list">
+                        <div 
+                            v-for="(line, index) in userLines" 
+                            :key="line.id"
+                            class="puzzle-piece"
+                            :class="{ 
+                                'correct': isChecked && line.text === currentLevel.correctOrder[index],
+                                'wrong': isChecked && line.text !== currentLevel.correctOrder[index],
+                                'frozen': isChecked,
+                                'drag-over': dragOverIndex === index && !isChecked
+                            }"
+                            :draggable="!isChecked"
+                            @dragstart="dragStart($event, index)"
+                            @dragenter="dragEnter(index)"
+                            @dragend="dragEnd($event)"
+                            @dragover.prevent
+                            @drop="drop(index)"
+                        >
+                            <div class="grip"><i class="bi bi-grip-vertical"></i></div>
+                            <div class="text">{{ line.text }}</div>
+                            <div class="status-icon" v-if="isChecked">
+                                <i v-if="line.text === currentLevel.correctOrder[index]" class="bi bi-check-circle-fill"></i>
+                                <i v-else class="bi bi-x-circle-fill"></i>
+                            </div>
+                        </div>
+                    </transition-group>
+                </div>
+
+                <div class="controls">
+                    <button v-if="!isChecked" @click="checkAnswer" class="btn-primary">
+                        Verificar Resposta
+                    </button>
+                    
+                    <button v-else @click="nextLevel" class="btn-secondary">
+                        <span v-if="currentLevelIndex < levels.length - 1">Próximo Nível <i class="bi bi-arrow-right"></i></span>
+                        <span v-else>Finalizar Jogo <i class="bi bi-flag-fill"></i></span>
+                    </button>
+                </div>
+
+                <div v-if="isChecked" class="feedback-msg" :class="isLevelCorrect ? 'success' : 'error'">
+                    <span v-if="isLevelCorrect"><i class="bi bi-check-lg"></i> Cenário validado com sucesso!</span>
+                    <span v-else><i class="bi bi-exclamation-triangle"></i> A ordem não está correta. Avance para tentar o próximo.</span>
+                </div>
+            </div>
+        </main>
+
+        <button class="fab-export" @click="exportResults" title="Exportar Progresso Atual">
+            <i class="bi bi-download"></i>
+        </button>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    
+    <script src="js/gherkin.js"></script>
+     
+</body>
+</html>
