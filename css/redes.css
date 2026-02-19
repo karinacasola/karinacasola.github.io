@@ -1,0 +1,289 @@
+/* =========================================
+   ESTRUTURA PRINCIPAL DO APP VUE
+   ========================================= */
+.interactive-diagram-wrapper {
+    margin: 40px 0;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+/* =========================================
+   ABAS BLINDADAS 
+   ========================================= */
+.diagram-tabs-container {
+    width: 100%;
+    overflow-x: auto; 
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--border-color);
+    -webkit-overflow-scrolling: touch;
+}
+
+.diagram-tabs-container::-webkit-scrollbar {
+    height: 4px; 
+}
+
+.diagram-tabs-container::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.diagram-tabs {
+    display: inline-flex; 
+    min-width: 100%;
+}
+
+.diagram-tab {
+    white-space: nowrap; 
+    padding: 16px 25px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 2px solid transparent;
+}
+
+.diagram-tab:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.diagram-tab.active {
+    color: var(--accent-blue);
+    border-bottom-color: var(--accent-blue);
+    background: rgba(62, 142, 255, 0.05);
+}
+
+/* =========================================
+   DIAGRAMA PRINCIPAL (FLUXO BIDIRECIONAL)
+   ========================================= */
+.diagram-content { padding: 40px; }
+.diagram-title { text-align: center; color: var(--accent-blue) !important; margin-bottom: 30px !important; }
+
+.visual-flow {
+    background: rgba(0,0,0,0.3);
+    border-radius: 16px;
+    padding: 40px 20px;
+    margin-bottom: 30px;
+    border: 1px dashed var(--border-color);
+    overflow-x: auto; 
+}
+
+.flow-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 600px; 
+}
+
+.flow-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100px;
+}
+
+.node-icon-wrapper {
+    background: rgba(255, 255, 255, 0.05);
+    width: 60px; height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 10px;
+}
+
+.node-icon-wrapper i { font-size: 28px; color: var(--text-primary); }
+.flow-node span { font-weight: 700; font-size: 13px; line-height: 1.2; color: var(--text-primary); }
+.flow-node small { color: var(--text-secondary); font-size: 11px; margin-top: 4px; }
+
+/* Setas Bidirecionais */
+.flow-connection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    gap: 5px;
+}
+
+.req-arrow, .res-arrow {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.req-arrow i, .res-arrow i {
+    width: 100%;
+    color: var(--text-secondary);
+    font-size: 20px;
+    text-align: center;
+}
+
+.packet-label {
+    position: absolute;
+    font-size: 10px;
+    color: var(--text-secondary);
+    left: 50%;
+    transform: translateX(-50%);
+}
+.packet-label.top { top: -15px; }
+.packet-label.bottom { bottom: -15px; }
+
+/* Animação dos Pacotes */
+.data-packet {
+    position: absolute;
+    width: 6px; height: 6px;
+    background-color: var(--accent-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-blue);
+}
+
+.req-packet { top: 50%; transform: translateY(-50%); animation: moveRight 2s infinite linear; }
+.res-packet { top: 50%; transform: translateY(-50%); animation: moveLeft 2s infinite linear; animation-delay: 1s; }
+
+@keyframes moveRight {
+    0% { left: 10%; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { left: 90%; opacity: 0; }
+}
+
+@keyframes moveLeft {
+    0% { right: 10%; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { right: 90%; opacity: 0; }
+}
+
+/* =========================================
+   SEÇÃO INFERIOR E MINI DIAGRAMAS
+   ========================================= */
+.diagram-lower-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.mini-diagram-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mini-diagram-box h4, .details-steps h4 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: var(--accent-blue);
+}
+
+/* --- Mini Diagramas Específicos --- */
+.md-box {
+    border: 1px solid var(--text-secondary);
+    padding: 5px 10px; font-size: 12px; text-align: center; margin: 5px 0;
+}
+.connection-types {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%;
+}
+.conn-item { display: flex; flex-direction: column; align-items: center; font-size: 12px;}
+.conn-item i { font-size: 24px; margin-bottom: 5px; color: var(--text-secondary);}
+
+.handover-diagram {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+}
+.tower-circle {
+    width: 70px; height: 70px; border: 1px dashed var(--text-secondary); border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px;
+}
+.handover-phone { display: flex; flex-direction: column; align-items: center; font-size: 11px; color: var(--accent-blue);}
+
+.cloud-venn { position: relative; height: 120px; width: 150px; margin: 0 auto; }
+.venn-circle {
+    position: absolute; width: 70px; height: 70px; border: 1px solid var(--text-secondary); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 12px; background: rgba(0,0,0,0.5);
+}
+.circle-iaas { top: 0; left: 0; }
+.circle-paas { top: 0; right: 0; }
+.circle-saas { bottom: 0; left: 35px; }
+
+.vpn-box ul { list-style: none; padding: 0; font-size: 13px; color: var(--text-secondary); }
+.vpn-box li { margin-bottom: 10px; }
+.vpn-box i { color: var(--accent-blue); margin-right: 5px; }
+
+/* --- Passos e Nota --- */
+.details-steps ol { padding-left: 20px; color: var(--text-secondary); font-size: 14px; }
+.details-steps li { margin-bottom: 10px; }
+
+.small-note-box {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid var(--text-secondary);
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* =========================================
+   COMPATIBILIDADE TEMA GELO (ICE THEME) 
+   ========================================= */
+
+/* Fundo Principal do App */
+.project-description.ice-theme .interactive-diagram-wrapper {
+    background-color: #F8F9FA; 
+    border-color: #d1d9e6;
+}
+
+/* Abas no Tema Claro */
+.project-description.ice-theme .diagram-tabs-container { background: #E2E8F0; }
+.project-description.ice-theme .diagram-tab { color: #4A5568; }
+.project-description.ice-theme .diagram-tab:hover { background: #CBD5E0; color: #111; }
+.project-description.ice-theme .diagram-tab.active { background: #FFFFFF; color: var(--accent-blue); border-bottom-color: var(--accent-blue); }
+
+/* Fundo dos Fluxos e Caixas Secundárias */
+.project-description.ice-theme .visual-flow { background: #FFFFFF; border-color: #cbd5e0; }
+.project-description.ice-theme .mini-diagram-box { background: #FFFFFF; border-color: #cbd5e0; }
+.project-description.ice-theme .small-note-box { background: #E2E8F0; border-color: #cbd5e0; color: #2D3748; }
+
+/* Correção de Texto Escuro para Tema Claro */
+.project-description.ice-theme .node-icon-wrapper { background: #F0F4F8; border-color: #cbd5e0; }
+.project-description.ice-theme .node-icon-wrapper i { color: #2D3748; }
+.project-description.ice-theme .flow-node span { color: #111111; }
+.project-description.ice-theme .flow-node small { color: #4A5568; }
+.project-description.ice-theme .packet-label { color: #4A5568; }
+.project-description.ice-theme .mini-diagram-box h4,
+.project-description.ice-theme .details-steps h4 { color: #111111; }
+.project-description.ice-theme .details-steps ol { color: #2D3748; }
+.project-description.ice-theme .small-note-box strong { color: #111111; }
+.project-description.ice-theme .small-note-box p { color: #4A5568; }
+
+/* Correção Elementos do Mini Diagrama */
+.project-description.ice-theme .md-box { border-color: #cbd5e0; color: #2D3748; }
+.project-description.ice-theme .tower-circle { border-color: #cbd5e0; color: #2D3748; }
+.project-description.ice-theme .venn-circle { border-color: #cbd5e0; color: #2D3748; background: rgba(255, 255, 255, 0.9); }
+.project-description.ice-theme .conn-item { color: #2D3748; }
+.project-description.ice-theme .conn-item i { color: #4A5568; }
+.project-description.ice-theme .vpn-box ul { color: #2D3748; }
+.project-description.ice-theme .handover-phone span { color: var(--accent-blue); }
+
+@media (max-width: 992px) {
+    .diagram-lower-section { grid-template-columns: 1fr; }
+}
