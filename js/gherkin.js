@@ -13,10 +13,35 @@ createApp({
         const maxAttempts = 3;
         const feedbackMessage = ref('');
         const feedbackType = ref('');
+        const isShaking = ref(false);
         
         // Estado para controle do Drag and Drop
         const draggingIndex = ref(null);
         const dragOverIndex = ref(null);
+
+        const playErrorSound = () => {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const ctx = new AudioContext();
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                
+                osc.type = 'triangle'; // Tipo de onda (triangle soa como um bipe retrô)
+                osc.frequency.setValueAtTime(300, ctx.currentTime); // Frequência inicial
+                osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.2); // Frequência final (cai rapidamente)
+                
+                gainNode.gain.setValueAtTime(0.1, ctx.currentTime); // Volume inicial baixo (para não assustar)
+                gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2); // Fade out
+                
+                osc.connect(gainNode);
+                gainNode.connect(ctx.destination);
+                
+                osc.start();
+                osc.stop(ctx.currentTime + 0.2); // Duração de 200ms
+    } catch (e) {
+        console.warn("API de Áudio não suportada neste navegador.");
+    }
+};
 
         // --- BANCO DE DADOS DE CENÁRIOS REAIS ---
         const allLevels = [
@@ -687,13 +712,14 @@ createApp({
         };
 
         // Verificar Resposta
+       // Verificar Resposta
         const checkAnswer = () => {
             const currentOrder = userLines.value.map(l => l.text);
             const correctOrder = currentLevel.value.correctOrder;
-        
+            
             const isCorrect = JSON.stringify(currentOrder) === JSON.stringify(correctOrder);
-        
-        // Incrementa a tentativa a cada clique
+            
+            // Incrementa a tentativa a cada clique
             attempts.value++;
 
             if (isCorrect) {
@@ -704,6 +730,15 @@ createApp({
                 
                 salvarHistorico(true);
             } else {
+                // --- ATIVA O SHAKE E O SOM DE ERRO ---
+                isShaking.value = true;
+                playErrorSound();
+                
+                // Desativa o shake após 400ms (tempo da animação CSS)
+                setTimeout(() => {
+                    isShaking.value = false;
+                }, 400);
+
                 if (attempts.value < maxAttempts) {
                     // Ainda tem chances
                     const chancesLeft = maxAttempts - attempts.value;
@@ -721,12 +756,12 @@ createApp({
                     userLines.value = correctOrder.map((text, idx) => ({
                         id: `resolved-${currentLevel.value.id}-${idx}`,
                         text: text
-            }));
+                    }));
 
-            salvarHistorico(false);
-        }
-    }
-};
+                    salvarHistorico(false);
+                }
+            }
+        };
 
 const salvarHistorico = (isCorrect) => {
     const existingEntry = userHistory.value.find(h => h.levelId === currentLevel.value.id);

@@ -275,3 +275,20 @@ button {
     .controls { flex-direction: column; }
     .btn-primary, .btn-secondary { width: 100%; }
 }
+
+
+/* ==========================================================================
+   ANIMAÇÃO DE ERRO (SHAKE)
+   ========================================================================== */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.shake-animation {
+    animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    /* Fundo levemente avermelhado durante o shake para dar ênfase */
+    background-color: var(--accent-red) !important; 
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4) !important;
+}
