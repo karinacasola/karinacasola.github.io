@@ -101,7 +101,10 @@
 
                 <div class="controls">
                     <button v-if="!isChecked" @click="checkAnswer" class="btn-primary">
-                        Verificar Resposta
+                        Verificar Resposta 
+                        <span v-if="attempts > 0" style="margin-left: 5px; opacity: 0.8;">
+                            ({{ 3 - attempts }} chances)
+                        </span>
                     </button>
                     
                     <button v-else @click="nextLevel" class="btn-secondary">
@@ -110,11 +113,9 @@
                     </button>
                 </div>
 
-                <div v-if="isChecked" class="feedback-msg" :class="isLevelCorrect ? 'success' : 'error'">
-                    <span v-if="isLevelCorrect"><i class="bi bi-check-lg"></i> Cenário validado com sucesso!</span>
-                    <span v-else><i class="bi bi-exclamation-triangle"></i> A ordem não está correta. Avance para tentar o próximo.</span>
+                <div v-if="feedbackMessage" class="feedback-msg" :class="feedbackType">
+                    <span v-html="feedbackMessage"></span>
                 </div>
-            </div>
         </main>
 
         <button class="fab-export" @click="exportResults" title="Exportar Progresso Atual">

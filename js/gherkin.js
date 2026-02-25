@@ -9,6 +9,10 @@ createApp({
         const isLevelCorrect = ref(false);
         const userHistory = ref([]); 
         const gameFinished = ref(false);
+        const attempts = ref(0); // implementação de feedback
+        const maxAttempts = 3;
+        const feedbackMessage = ref('');
+        const feedbackType = ref('');
         
         // Estado para controle do Drag and Drop
         const draggingIndex = ref(null);
@@ -622,15 +626,18 @@ createApp({
         const loadLevel = () => {
             isChecked.value = false;
             isLevelCorrect.value = false;
+            attempts.value = 0;           // Zera as tentativas
+            feedbackMessage.value = '';   // Limpa as mensagens
+            feedbackType.value = '';
             draggingIndex.value = null;
             dragOverIndex.value = null;
-            
+        
             const shuffled = shuffleArray(currentLevel.value.correctOrder);
             userLines.value = shuffled.map((text, idx) => ({
-                id: `line-${currentLevel.value.id}-${idx}`, // ID único para animação correta
-                text: text
-            }));
-        };
+            id: `line-${currentLevel.value.id}-${idx}`, 
+            text: text
+    }));
+};
 
         // --- Drag and Drop Logic ---
         
@@ -683,24 +690,55 @@ createApp({
         const checkAnswer = () => {
             const currentOrder = userLines.value.map(l => l.text);
             const correctOrder = currentLevel.value.correctOrder;
-            
+        
             const isCorrect = JSON.stringify(currentOrder) === JSON.stringify(correctOrder);
-            
-            isLevelCorrect.value = isCorrect;
-            isChecked.value = true;
+        
+        // Incrementa a tentativa a cada clique
+            attempts.value++;
 
-            // Salva histórico se for a primeira vez jogando este nível nessa sessão
-            const existingEntry = userHistory.value.find(h => h.levelId === currentLevel.value.id);
-            if (!existingEntry) {
-                userHistory.value.push({
-                    levelId: currentLevel.value.id,
-                    scenario: currentLevel.value.scenarioName,
-                    isCorrect: isCorrect,
-                    timestamp: new Date().toISOString()
-                });
-            }
-        };
+            if (isCorrect) {
+                isLevelCorrect.value = true;
+                isChecked.value = true;
+                feedbackMessage.value = '<i class="bi bi-check-lg"></i> Cenário validado com sucesso!';
+                feedbackType.value = 'success';
+                
+                salvarHistorico(true);
+            } else {
+                if (attempts.value < maxAttempts) {
+                    // Ainda tem chances
+                    const chancesLeft = maxAttempts - attempts.value;
+                    const palavraChance = chancesLeft === 1 ? 'chance' : 'chances';
+                    feedbackMessage.value = `<i class="bi bi-exclamation-triangle"></i> Ordem incorreta. Você tem mais <strong>${chancesLeft} ${palavraChance}</strong>.`;
+                    feedbackType.value = 'error';
+                } else {
+                    // Acabaram as chances
+                    isLevelCorrect.value = false;
+                    isChecked.value = true; // Congela as peças
+                    feedbackMessage.value = '<i class="bi bi-x-circle-fill"></i> Suas chances acabaram! Mostrando a resolução correta abaixo.';
+                    feedbackType.value = 'error';
+                    
+                    // Força a exibição da resolução correta reordenando os itens
+                    userLines.value = correctOrder.map((text, idx) => ({
+                        id: `resolved-${currentLevel.value.id}-${idx}`,
+                        text: text
+            }));
 
+            salvarHistorico(false);
+        }
+    }
+};
+
+const salvarHistorico = (isCorrect) => {
+    const existingEntry = userHistory.value.find(h => h.levelId === currentLevel.value.id);
+    if (!existingEntry) {
+        userHistory.value.push({
+            levelId: currentLevel.value.id,
+            scenario: currentLevel.value.scenarioName,
+            isCorrect: isCorrect,
+            timestamp: new Date().toISOString()
+        });
+    }
+};
         const nextLevel = () => {
             if (currentLevelIndex.value < levels.value.length - 1) {
                 currentLevelIndex.value++;
@@ -750,7 +788,11 @@ createApp({
             checkAnswer,
             nextLevel,
             exportResults,
-            resetGame
+            resetGame,
+            // Adicione estas três linhas:
+            attempts,
+            feedbackMessage,
+            feedbackType
         };
     }
 }).mount('#app');
