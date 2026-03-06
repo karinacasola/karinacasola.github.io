@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos Escape Room</title>
+    <link rel="icon" href="img/favicon.svg">
+    
+    <link rel="stylesheet" href="css/escape-style-al.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <div id="app" class="hero">
+        
+        <nav class="navbar" style="position: absolute; top: 20px; width: 100%;">
+            <div class="navbar-content" style="display: flex; justify-content: space-between; max-width: 1000px; margin: 0 auto; width: 95%;">
+                <div style="font-weight: 700; font-size: 20px; color: white;">
+                    ALGO<span style="color: var(--accent-blue);">.ESCAPE</span>
+                </div>
+                <div class="navbar-menu" style="display: flex; gap: 15px; align-items: center;">
+                    <a href="#" class="navbar-link" style="color: white; text-decoration: none;">
+                        <i class="bi bi-arrow-left"></i> Sair
+                    </a>
+                    <div class="inventory-display" v-if="inventory.length > 0">
+                        <span v-for="item in inventory" :key="item" class="inv-item">
+                            <i class="bi bi-backpack"></i> {{ item }}
+                        </span>
+                    </div>
+                    
+                    <div class="level-badge">Nível {{ currentLevelIndex + 1 }}/20</div>
+                </div>
+            </div>
+        </nav>
+
+        <div style="text-align: center; margin-top: 100px;">
+            <div class="section-header-pill" style="display: inline-block; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; color: #aaa; font-size: 12px; margin-bottom: 10px;">TREINAMENTO DE LÓGICA</div>
+            <h1 class="hero-title" style="color: white; font-size: 32px;">Escape do <span class="glitch-text">Mainframe</span></h1>
+        </div>
+
+        <div class="game-container">
+            
+            <div class="terminal-window">
+                <div class="window-header">
+                    <div class="dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span class="title">terminal_output.log</span>
+                </div>
+                <div class="terminal-body" ref="terminalBody">
+                    <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                        <span class="prompt">></span> <span v-html="line.text"></span>
+                    </p>
+                    <div class="typing-cursor" v-if="isTyping">█</div>
+                </div>
+            </div>
+
+            <div class="code-editor-window" :class="{ 'locked': isTyping }">
+                <div class="window-header">
+                    <span class="title">algoritmo_fuga.por</span>
+                    <i class="bi bi-file-earmark-code" style="color: #999;"></i>
+                </div>
+                
+                <div class="editor-body" v-if="currentLevel && !levelComplete">
+                    <p class="comment">// {{ currentLevel.instruction }}</p>
+                    
+                    <div class="code-block">
+                        <div v-for="(line, idx) in currentLevel.codeTemplate" :key="idx" class="code-line">
+                            <span class="line-num">{{ idx + 1 }}</span>
+                            <span v-html="formatCodeLine(line)"></span>
+                        </div>
+                    </div>
+
+                    <div class="options-grid">
+                        <button v-for="option in currentLevel.options" 
+                                :key="option" 
+                                @click="selectOption(option)"
+                                class="code-option-btn">
+                            {{ option }}
+                        </button>
+                    </div>
+
+                    <button class="run-btn" @click="runCode" :disabled="!userSelection">
+                        <i class="bi bi-play-fill"></i> EXECUTAR ALGORITMO
+                    </button>
+
+                    <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                        {{ feedbackMsg }}
+                    </div>
+                </div>
+
+                <div v-else-if="levelComplete && currentLevelIndex < levels.length - 1" class="victory-screen">
+                    <i class="bi bi-check-circle-fill" style="font-size: 50px; color: #4CAF50;"></i>
+                    <h2>Bloco Executado!</h2>
+                    <p>Aguardando próximo setor do sistema...</p>
+                </div>
+
+                <div v-else class="victory-screen">
+                    <i class="bi bi-unlock-fill" style="font-size: 50px; color: #4CAF50;"></i>
+                    <h2>Acesso Root Concedido</h2>
+                    <p>Você escapou do Mainframe dominando a Lógica de Programação!</p>
+                    <button class="run-btn" @click="resetGame">Reiniciar Simulação</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/escape-game-al.js"></script>
+</body>
+</html>
