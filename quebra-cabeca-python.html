@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos em Blocos - Escape Room</title>
+    <link rel="icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="css/blocos-logicos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <div id="app" class="hero">
+        
+        <nav class="navbar" style="position: absolute; top: 20px; width: 100%;">
+            <div class="navbar-content">
+                <div class="logo-title">
+                    CODE<span class="highlight">.BLOCKS</span>
+                </div>
+                <div class="navbar-menu">
+                    <div class="chances-badge" v-if="!levelComplete && !showSolution">
+                        <i class="bi bi-heart-fill"></i> Chances: {{ chances }}
+                    </div>
+                    <div class="level-badge">Desafio {{ currentLevelIndex + 1 }}/5</div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="header-container">
+            <div class="section-header-pill">LÓGICA ESTRUTURADA</div>
+            <h1 class="hero-title">Monte a <span class="glitch-text">Sequência</span></h1>
+        </div>
+
+        <div class="game-container">
+            
+            <div class="terminal-window">
+                <div class="window-header">
+                    <div class="dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span class="title">narrativa.log</span>
+                </div>
+                <div class="terminal-body" ref="terminalBody">
+                    <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                        <span class="prompt">>></span> <span v-html="line.text"></span>
+                    </p>
+                    <div class="typing-cursor" v-if="isTyping">█</div>
+                </div>
+            </div>
+
+            <div class="code-editor-window" :class="{ 'locked': isTyping }">
+                <div class="window-header">
+                    <span class="title">compilador_visual.py</span>
+                    <i class="bi bi-puzzle" style="color: var(--accent-blue);"></i>
+                </div>
+                
+                <div class="editor-body" v-if="currentLevel && !levelComplete">
+                    <p class="comment"># {{ currentLevel.instruction }}</p>
+                    <p class="comment-sub"># Existem 3 formas válidas. Organize os blocos lógicos abaixo.</p>
+                    
+                    <div v-if="showSolution" class="solution-box">
+                        <p><i class="bi bi-exclamation-triangle-fill"></i> Tentativas esgotadas! Estudando a lógica válida:</p>
+                        <div v-for="(step, idx) in currentSolutionDisplay" :key="idx" class="solution-block">
+                            <span class="line-num">{{ idx + 1 }}</span>
+                            <span v-html="step.text.replace(/ /g, '&nbsp;')"></span>
+                        </div>
+                        <button class="run-btn mt-3" @click="nextLevel" style="width: 100%;">
+                            Avançar para o Próximo <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div v-else>
+                        <div class="code-building-area">
+                            <div v-if="selectedBlocks.length === 0" class="empty-state">
+                                Clique nos blocos abaixo para montar seu algoritmo aqui...
+                            </div>
+                            <div v-for="(block, idx) in selectedBlocks" :key="idx" class="built-block" @click="removeBlock(idx)">
+                                <span class="line-num">{{ idx + 1 }}</span>
+                                <span v-html="block.text.replace(/ /g, '&nbsp;')"></span>
+                            </div>
+                        </div>
+
+                        <div class="action-bar">
+                            <button class="btn-clear" @click="clearBlocks" :disabled="selectedBlocks.length === 0">
+                                <i class="bi bi-trash"></i> Limpar
+                            </button>
+                            <button class="run-btn" @click="runCode" :disabled="selectedBlocks.length === 0">
+                                <i class="bi bi-play-fill"></i> VALIDAR LÓGICA
+                            </button>
+                        </div>
+
+                        <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                            {{ feedbackMsg }}
+                        </div>
+
+                        <div class="blocks-pool">
+                            <p class="pool-title">Blocos Disponíveis:</p>
+                            <div class="pool-grid">
+                                <button v-for="block in availableBlocks" 
+                                        :key="block.id" 
+                                        @click="selectBlock(block)"
+                                        class="code-block-btn">
+                                    <span v-html="block.text.replace(/ /g, '&nbsp;')"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-else-if="levelComplete && currentLevelIndex < levels.length - 1" class="victory-screen">
+                    <i class="bi bi-check-circle-fill" style="font-size: 50px; color: #4CAF50;"></i>
+                    <h2>Lógica Validada!</h2>
+                    <p>O algoritmo funcionou perfeitamente. Preparando próximo desafio...</p>
+                </div>
+
+                <div v-else class="victory-screen">
+                    <i class="bi bi-trophy-fill" style="font-size: 50px; color: #ffd43b;"></i>
+                    <h2>Treinamento Concluído!</h2>
+                    <p>Você completou todos os desafios de lógica estruturada.</p>
+                    <button class="run-btn" @click="resetGame">Jogar Novamente</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/blocos-logicos.js"></script>
+</body>
+</html>
