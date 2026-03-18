@@ -1,0 +1,58 @@
+/* css/tradutor.css - INTEGRADO NA NAVBAR (VERSÃO DEFINITIVA DARK GLASS) */
+
+/* 1. Alinhamento na Navbar (Desktop) */
+.gtranslate_wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 15px; /* Espaço antes do botão Academy */
+}
+
+/* 2. Estética do Botão Dropdown (Forçando o Dark Mode) */
+.gtranslate_wrapper select, 
+.gt_switcher {
+    background-color: #141414 !important; /* Fundo escuro profundo para matar o branco */
+    color: #A0A0A0 !important; /* Texto claro */
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    font-family: 'Satoshi', sans-serif !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    outline: none !important;
+    transition: all 0.3s ease !important;
+    
+    /* A MÁGICA: Obriga o navegador a renderizar a lista de opções em tema escuro */
+    color-scheme: dark !important; 
+}
+
+/* 3. Tenta forçar a cor nas opções filhas (garantia para navegadores antigos) */
+.gtranslate_wrapper select option {
+    background-color: #141414 !important;
+    color: #E0E0E0 !important;
+}
+
+/* 4. Efeito ao passar o mouse */
+.gtranslate_wrapper select:hover,
+.gt_switcher:hover {
+    background-color: rgba(62, 142, 255, 0.15) !important;
+    color: #ffffff !important;
+    border-color: rgba(62, 142, 255, 0.3) !important;
+}
+
+/* 5. COMPORTAMENTO MOBILE (Dentro do menu Hamburguer) */
+@media (max-width: 768px) {
+    .gtranslate_wrapper {
+        margin: 15px 0 0 0;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05); /* Linha divisória fina */
+        justify-content: center; /* Centraliza no menu de celular */
+        width: 100%;
+    }
+    
+    .gtranslate_wrapper select, 
+    .gt_switcher {
+        width: 100%; /* Ocupa a largura toda do menu para facilitar o toque */
+        text-align: center;
+        padding: 10px !important; /* Fica um pouco maior para o dedo no celular */
+    }
+}
