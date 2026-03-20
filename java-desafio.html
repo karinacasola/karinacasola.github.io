@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio de Equipe - Java HR Tech</title>
+    <link rel="icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="css/javad.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div style="font-weight: 700; font-size: 20px;">
+                JAVA<span style="color: var(--accent-blue);">.HR_TECH</span>
+            </div>
+            <div class="navbar-menu">
+                <span style="color: var(--warning);"><i class="bi bi-people-fill"></i> DESAFIO DE EQUIPE v2.0</span>
+            </div>
+        </div>
+    </nav>
+
+    <div id="app" class="hero-section">
+        
+        <div class="section-header-pill warning-pill" style="text-align: center;">MÓDULO HARDCORE: DEBUG EM MASSA</div>
+        <h1 class="hero-title" style="text-align: center; margin-bottom: 20px;">O Caos na <span class="glitch-text">Folha de Pagamento</span></h1>
+        <p style="text-align: center; color: #aaa; max-width: 800px; margin: 0 auto 30px auto; line-height: 1.6;">
+            A equipe anterior tentou automatizar o processamento da folha, mas o código está cheio de bugs estruturais. 
+            Vocês precisam trabalhar juntos para identificar e corrigir os erros, além de implementar o totalizador da folha. Vocês têm <strong>10 chances</strong> de compilar.
+        </p>
+
+        <div class="game-status-bar" v-if="!gameComplete">
+            <div class="status-item attempts-box" :class="{'danger-state': attempts <= 3}">
+                Tentativas Restantes: {{ attempts }} / 10
+            </div>
+            <div class="status-item score-box">
+                Erros Corrigidos: <span style="color: #27c93f">{{ fixedBugs }}</span> / 11
+            </div>
+        </div>
+
+        <div class="game-container">
+            <div class="terminal-window" v-show="!gameComplete || victory">
+                <div class="window-header">
+                    <div class="dots">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                    </div>
+                    <span class="title">javac_compiler.log</span>
+                </div>
+                <div class="terminal-body" ref="terminalBody">
+                    <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                        <span class="prompt" v-if="line.text && line.type !== 'log-header'">root@hr-server:~#</span> 
+                        <span v-html="line.text"></span>
+                    </p>
+                    <div class="typing-cursor" v-if="isTyping">█</div>
+                </div>
+            </div>
+
+            <div class="code-editor-window" :class="{ 'locked': isTyping, 'full-width': gameComplete && !victory }">
+                <div class="window-header">
+                    <span class="title" v-if="!gameComplete">FolhaPagamento.java</span>
+                    <span class="title" v-else-if="!victory" style="color: var(--error);">SISTEMA TRAVADO - MODO DE SEGURANÇA ATIVADO</span>
+                    <span class="title" v-else style="color: var(--success);">SISTEMA RESTAURADO</span>
+                    <button class="hint-btn-small" @click="showHint" v-if="!gameComplete" :disabled="isTyping" title="Solicitar Dica">
+                        <i class="bi bi-lightbulb-fill"></i> DICA DE EQUIPE
+                    </button>
+                </div>
+                
+                <div class="editor-body" v-if="!gameComplete">
+                    <textarea v-model="userCode" class="code-textarea large-textarea" spellcheck="false" 
+                              placeholder="// Código da folha de pagamento..."></textarea>
+                    
+                    <button class="run-btn" @click="compileCode" :disabled="isTyping || attempts === 0">
+                        <i class="bi bi-cpu-fill"></i> COMPILAR CÓDIGO (EQUIPE)
+                    </button>
+                </div>
+
+                <div v-else class="victory-screen" style="padding: 20px;">
+                    <i :class="victory ? 'bi bi-trophy-fill' : 'bi bi-x-octagon-fill'" 
+                       :style="{ fontSize: '60px', color: victory ? 'var(--success)' : 'var(--error)', marginBottom: '10px' }"></i>
+                    
+                    <h2>{{ victory ? 'SISTEMA RESTAURADO!' : 'FALHA NO SISTEMA - TENTATIVAS ESGOTADAS' }}</h2>
+                    <p style="font-size: 16px; margin: 10px 0 20px 0; max-width: 600px; color: #ccc;">
+                        {{ victory ? 'Parabéns! A equipe trabalhou em sintonia, encontrou os bugs estruturais e implementou a lógica que faltava.' : 'A folha não foi processada a tempo. Para fins de aprendizado, veja abaixo como o código deveria ter sido estruturado.' }}
+                    </p>
+
+                    <div v-if="!victory" class="resolution-container" style="width: 100%; text-align: left; margin-bottom: 20px;">
+                        <div style="background: rgba(39, 201, 63, 0.1); border-left: 4px solid var(--success); padding: 10px 15px; margin-bottom: 10px;">
+                            <strong style="color: var(--success);"><i class="bi bi-check-circle-fill"></i> Resolução Oficial:</strong>
+                        </div>
+                        <textarea class="code-textarea large-textarea" readonly v-model="resolvedCode" 
+                                  style="height: 350px; border-color: var(--success); background: #0a0a0a;"></textarea>
+                    </div>
+                    
+                    <div class="actions-container" style="flex-direction: row; justify-content: center;">
+                        <button v-if="victory" class="run-btn export-btn" @click="generatePDF" style="margin-top: 0;">
+                            <i class="bi bi-file-earmark-pdf-fill"></i> Baixar Relatório
+                        </button>
+                        <button class="run-btn reset-btn" @click="resetGame" style="margin-top: 0; width: auto; padding: 15px 30px;">
+                            <i class="bi bi-arrow-counterclockwise"></i> Tentar Novamente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/javad.js"></script>
+</body>
+</html>
