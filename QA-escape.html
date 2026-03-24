@@ -1,101 +1,137 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QA Escape Room</title>
+    <title>QA Escape Room - Qualidade de Software</title>
+    
     <link rel="icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/qa.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-    <div id="app" class="hero">
-        <nav class="navbar">
-            <div class="navbar-content">
-                <div class="logo">
-                    QA<span class="highlight">.ESCAPE</span>
-                </div>
-                <div class="level-badge" v-if="!quizFinished">
-                    Questão {{ currentQuestionIndex + 1 }}/{{ questions.length }}
-                </div>
-            </div>
-        </nav>
 
-        <div class="header-section">
-            <div class="section-header-pill">TREINAMENTO DE QA</div>
-            <h1 class="hero-title">Escape the <span class="glitch-text">Bug Room</span></h1>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div style="font-weight: 700; font-size: 20px; color: var(--text-primary);">
+                QA<span style="color: var(--accent-qa);">.ESCAPE</span>
+            </div>
+
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Voltar ao Blog</a>
+                <span style="color: var(--text-secondary); font-size: 14px; margin-left: 15px;">
+                    Treinamento de QA v1.0
+                </span>
+            </div>
         </div>
+    </nav>
 
-        <div class="game-container">
-            <div class="terminal-window">
-                <div class="window-header">
-                    <div class="dots">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
-                    </div>
-                    <span class="title">qa_server_logs.sh</span>
+    <main id="app">
+        <header class="hero" style="padding-bottom: 20px;">
+            <div class="section-header-pill" style="color: var(--accent-qa); border-color: rgba(162, 119, 255, 0.3); background: rgba(162, 119, 255, 0.1);">MÓDULO: QUALIDADE DE SOFTWARE</div>
+            <h1 class="hero-title">Escape the <span style="color: var(--accent-qa);">Bug Room</span></h1>
+        </header>
+
+        <section class="game-section">
+            
+            <div class="game-status-bar" v-if="!quizFinished">
+                <div class="status-item score-box">
+                    Score: <span style="color: var(--success);">{{ score }}</span>
                 </div>
-                <div class="terminal-body" ref="terminalBody">
-                    <p v-for="(line, index) in logs" :key="index" :class="line.type">
-                        <span class="prompt">></span> <span v-html="line.text"></span>
-                    </p>
-                    <div class="typing-cursor" v-if="isTyping">█</div>
+                <div class="status-item level-box">
+                    Questão: <span style="color: var(--text-primary);">{{ currentQuestionIndex + 1 }} / {{ questions.length }}</span>
+                </div>
+                <div class="status-item attempts-box" :class="{'warning-state': attemptsLeft === 1}">
+                    Vidas: 
+                    <span style="margin-left: 8px;">
+                        <i class="bi bi-heart-fill" v-for="n in attemptsLeft" :key="n" style="color: var(--error); margin-right: 3px;"></i>
+                        <i class="bi bi-heart" v-for="n in (3 - attemptsLeft)" :key="'e'+n" style="color: var(--border-color); margin-right: 3px;"></i>
+                    </span>
                 </div>
             </div>
 
-            <div class="code-editor-window" :class="{ 'locked': isTyping || transitionDelay }">
-                <div class="window-header">
-                    <span class="title">quality_assurance.py</span>
-                    <i class="bi bi-shield-check"></i>
-                </div>
+            <div class="game-container">
                 
-                <div class="editor-body" v-if="!quizFinished">
-                    <div class="question-header">
-                        <span class="chances-left">
-                            <i class="bi bi-heart-fill" v-for="n in attemptsLeft" :key="n" style="color: #ff5f56; margin-right: 5px;"></i>
-                            <i class="bi bi-heart" v-for="n in (3 - attemptsLeft)" :key="'e'+n" style="color: #555; margin-right: 5px;"></i>
-                        </span>
-                        <span class="score-display">Score: {{ score }}</span>
+                <div class="terminal-window">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="window-title">qa_server_logs.sh</span>
                     </div>
+                    <div class="terminal-body" ref="terminalBody">
+                        <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                            <span class="prompt" v-if="line.text && line.type !== 'log-header'">qa></span> 
+                            <span v-html="line.text"></span>
+                        </p>
+                        <div class="typing-cursor" v-if="isTyping">█</div>
+                    </div>
+                </div>
 
-                    <p class="comment"># {{ currentQuestion.text }}</p>
+                <div class="code-editor-window" :class="{ 'locked': isTyping || transitionDelay }">
+                    <div class="window-header">
+                        <span class="window-title">quality_assurance.py</span>
+                        <i class="bi bi-shield-check" style="color: var(--text-secondary);"></i>
+                    </div>
                     
-                    <div class="options-container">
-                        <button v-for="(option, idx) in currentQuestion.options" 
-                                :key="idx" 
-                                @click="selectOption(idx)"
-                                :class="['code-option-btn', { 'selected': userSelection === idx }]">
-                            <span class="opt-letter">{{ getLetter(idx) }})</span> {{ option }}
+                    <div class="editor-body" v-if="!quizFinished">
+                        
+                        <div style="margin-bottom: 20px;">
+                            <p class="comment" style="margin: 0; line-height: 1.5;"># {{ currentQuestion.text }}</p>
+                        </div>
+
+                        <div class="options-container">
+                            <button v-for="(option, idx) in currentQuestion.options" 
+                                    :key="idx" 
+                                    @click="selectOption(idx)"
+                                    class="code-option-btn"
+                                    :class="{ 'selected': userSelection === idx }">
+                                <span class="opt-letter">{{ getLetter(idx) }})</span> {{ option }}
+                            </button>
+                        </div>
+
+                        <button class="run-btn" @click="submitAnswer" :disabled="userSelection === null">
+                            <i class="bi bi-terminal"></i> ENVIAR RESPOSTA
                         </button>
+
+                        <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                            {{ feedbackMsg }}
+                        </div>
+
                     </div>
 
-                    <button class="run-btn" @click="submitAnswer" :disabled="userSelection === null">
-                        <i class="bi bi-terminal"></i> ENVIAR RESPOSTA
-                    </button>
-
-                    <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
-                        {{ feedbackMsg }}
+                    <div v-else class="victory-screen">
+                        <i class="bi bi-shield-fill-check" style="font-size: 64px; color: var(--accent-qa); margin-bottom: 20px;"></i>
+                        <h2 style="color: var(--text-primary);">Simulação Concluída</h2>
+                        <p style="font-size: 16px; margin: 15px 0 30px; color: var(--text-secondary);">
+                            Você validou as regras de negócio com sucesso!<br>
+                            Acertos: <strong style="color: var(--success); font-size: 20px;">{{ score }} / {{ questions.length }}</strong>
+                        </p>
+                        
+                        <div class="actions-container">
+                            <button class="run-btn export-btn" @click="exportJSON">
+                                <i class="bi bi-filetype-json"></i> Baixar Relatório (JSON)
+                            </button>
+                            <button class="run-btn reset-btn" @click="resetGame">
+                                <i class="bi bi-arrow-counterclockwise"></i> Reiniciar
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div v-else class="victory-screen">
-                    <i class="bi bi-trophy-fill" style="font-size: 50px; color: #ffbd2e;"></i>
-                    <h2>Simulação Concluída</h2>
-                    <p>Você acertou {{ score }} de {{ questions.length }} questões.</p>
-                    <div class="end-actions">
-                        <button class="run-btn" @click="exportJSON">
-                            <i class="bi bi-download"></i> Exportar Relatório (JSON)
-                        </button>
-                        <button class="run-btn secondary" @click="resetGame" style="margin-top: 10px; background: #444;">
-                            <i class="bi bi-arrow-clockwise"></i> Reiniciar
-                        </button>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
     <script src="js/qa.js"></script>
 </body>
 </html>
