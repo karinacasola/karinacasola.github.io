@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Escape Room - Ecossistema de Design</title>
+    
+    <link rel="icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ux.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div style="font-weight: 700; font-size: 20px; color: var(--text-primary);">
+                UX<span style="color: var(--accent-purple);">.ESCAPE</span>
+            </div>
+
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Voltar ao Menu</a>
+                <span style="color: var(--text-secondary); font-size: 14px; margin-left: 15px;">
+                    Treinamento: Visão 360º em UX
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <main id="app">
+        <header class="hero" style="padding-bottom: 20px;">
+            <div class="section-header-pill" style="color: var(--accent-purple); border-color: rgba(156, 107, 212, 0.3); background: rgba(156, 107, 212, 0.1);">MÓDULO: ECOSSISTEMA UX</div>
+            <h1 class="hero-title">Domine o <span style="color: var(--accent-purple);">Guarda-Chuva de UX</span></h1>
+        </header>
+
+        <section class="game-section">
+            
+            <div class="game-status-bar" v-if="!gameOver">
+                <div class="status-item score-box">
+                    Acertos: <span style="color: var(--success);">{{ score }}</span> / {{ questions.length }}
+                </div>
+                <div class="status-item level-box">
+                    Desafio Atual: <span style="color: var(--text-primary);">{{ currentQuestionIndex + 1 }} / {{ questions.length }}</span>
+                </div>
+                <div class="status-item attempts-box" :class="{'warning-state': attempts >= 2}">
+                    Erros nesta questão: <span :style="{ color: attempts >= 2 ? 'var(--error)' : 'inherit' }">{{ attempts }} / 3</span>
+                </div>
+            </div>
+
+            <div class="game-container">
+                
+                <div class="terminal-window">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="window-title">pesquisa_usuario.log</span>
+                    </div>
+                    <div class="terminal-body" ref="terminalBody">
+                        <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                            <span class="prompt" v-if="line.text && line.type !== 'log-header'">ux_lead></span> 
+                            <span v-html="line.text"></span>
+                        </p>
+                        <div class="typing-cursor" v-if="isTyping">█</div>
+                    </div>
+                </div>
+
+                <div class="code-editor-window" :class="{ 'locked': isTyping || showAnswer }">
+                    <div class="window-header">
+                        <span class="window-title">decisao_projeto.js</span>
+                        <i class="bi bi-palette" style="color: var(--text-secondary);"></i>
+                    </div>
+                    
+                    <div class="editor-body" v-if="!gameOver">
+                        
+                        <div style="margin-bottom: 20px;">
+                            <p class="comment" style="margin: 0;">// {{ currentQuestion.instruction }}</p>
+                        </div>
+                        
+                        <div class="code-block read-only-code">
+                            <p style="margin: 0 0 10px 0; color: var(--ice-white); line-height: 1.6; font-family: 'Segoe UI', sans-serif; font-size: 15px;">
+                                {{ currentQuestion.text }}
+                            </p>
+                        </div>
+
+                        <div class="options-grid">
+                            <button v-for="(option, index) in currentQuestion.options" 
+                                    :key="index" 
+                                    @click="selectOption(option)"
+                                    class="code-option-btn"
+                                    :class="{ 
+                                        'correct': showAnswer && option === currentQuestion.answer, 
+                                        'wrong': userSelection === option && feedbackType === 'error',
+                                        'warning': userSelection === option && feedbackType === 'warning'
+                                    }"
+                                    :disabled="showAnswer">
+                                {{ option }}
+                            </button>
+                        </div>
+
+                        <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                            {{ feedbackMsg }}
+                        </div>
+
+                    </div>
+
+                    <div v-else class="victory-screen">
+                        <i class="bi bi-file-earmark-pdf" style="font-size: 64px; color: var(--accent-purple); margin-bottom: 20px;"></i>
+                        <h2>Avaliação Concluída!</h2>
+                        <p style="font-size: 16px; margin: 15px 0 30px; color: var(--text-secondary);">
+                            Você aplicou os conceitos de UX Design com sucesso.<br>
+                            Acertos: <strong style="color: var(--success); font-size: 20px;">{{ score }} / {{ questions.length }}</strong>
+                        </p>
+                        
+                        <div class="actions-container">
+                            <button class="run-btn export-btn" @click="saveResultPDF">
+                                <i class="bi bi-cloud-download"></i> Exportar Resultado (PDF)
+                            </button>
+                            <button class="run-btn reset-btn" @click="resetGame">
+                                <i class="bi bi-arrow-counterclockwise"></i> Tentar Novamente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="js/ux.js"></script>
+</body>
+</html>
