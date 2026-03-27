@@ -312,3 +312,11 @@
     border-left-color: var(--warning);
 }
 .read-only-mode .solution-block:hover::after { content: none; }
+
+.terminal-body p { 
+    margin-top: 0; 
+    margin-bottom: 8px; 
+    animation: fadeIn 0.3s forwards; 
+    text-align: justify; /* Alinhamento justificado adicionado */
+    word-break: break-word; /* Evita quebra de layout ao justificar */
+}
