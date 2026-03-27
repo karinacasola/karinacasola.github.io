@@ -252,3 +252,11 @@
     border-radius: 16px;
 }
 .code-editor-window { position: relative; }
+
+.terminal-body p { 
+    margin-top: 0; 
+    margin-bottom: 8px; 
+    animation: fadeIn 0.3s forwards; 
+    text-align: justify; /* Alinhamento justificado adicionado */
+    word-break: break-word; /* Evita quebra de layout ao justificar */
+}
