@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos em Blocos - Java Escape Room</title>
+    
+    <link rel="icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+   
+    <link rel="stylesheet" href="css/quebra-java.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div style="font-weight: 700; font-size: 20px; color: var(--text-primary);">
+                JAVA<span style="color: var(--accent-blue);">.BLOCKS</span>
+            </div>
+            <div class="navbar-menu" id="navbar-menu">
+                <span style="color: var(--text-secondary); font-size: 14px; margin-left: 15px;">
+                    Lógica Estruturada Java v1.0
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <main id="app">
+        <header class="hero" style="padding-bottom: 20px;">
+            <div class="section-header-pill" style="color: var(--accent-blue); border-color: rgba(62, 142, 255, 0.3); background: rgba(62, 142, 255, 0.1);">LÓGICA ESTRUTURADA</div>
+            <h1 class="hero-title">Monte a <span style="color: var(--accent-blue);">Sequência Java</span></h1>
+        </header>
+
+        <section class="game-section">
+            
+            <div class="game-status-bar" v-if="!levelComplete">
+                <div class="status-item level-box">
+                    Desafio Atual: <span style="color: var(--text-primary);">{{ currentLevelIndex + 1 }} / {{ levels.length }}</span>
+                </div>
+                <div class="status-item attempts-box" :class="{'warning-state': chances === 1}" v-if="!showSolution">
+                    <i class="bi bi-heart-fill" style="margin-right: 5px;"></i>
+                    Chances: <span :style="{ color: chances === 1 ? 'var(--error)' : 'inherit' }">{{ chances }}</span>
+                </div>
+            </div>
+
+            <div class="game-container">
+                
+                <div class="terminal-window">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="window-title">console.log</span>
+                    </div>
+                    <div class="terminal-body" ref="terminalBody">
+                        <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                            <span class="prompt" v-if="line.text && line.type !== 'log-header'">jvm></span> 
+                            <span v-html="line.text"></span>
+                        </p>
+                        <div class="typing-cursor" v-if="isTyping">█</div>
+                    </div>
+                </div>
+
+                <div class="code-editor-window" :class="{ 'locked': isTyping }">
+                    <div class="window-header">
+                        <span class="window-title">Main.java</span>
+                        <i class="bi bi-filetype-java" style="color: var(--accent-blue); font-size: 18px;"></i>
+                    </div>
+                    
+                    <div class="editor-body" v-if="currentLevel && !levelComplete">
+                        
+                        <div style="margin-bottom: 20px;">
+                            <p class="comment" style="margin: 0;">// {{ currentLevel.instruction }}</p>
+                            <p class="comment-sub" style="margin: 5px 0 0 0;">// Organize os blocos lógicos abaixo para compilar o código.</p>
+                        </div>
+                        
+                        <div v-if="showSolution" class="solution-box">
+                            <p class="solution-title"><i class="bi bi-exclamation-triangle"></i> Tentativas esgotadas! Analise a lógica válida:</p>
+                            
+                            <div class="code-building-area read-only-mode">
+                                <div v-for="(step, idx) in currentSolutionDisplay" :key="idx" class="solution-block">
+                                    <span class="line-num">{{ idx + 1 }}</span>
+                                    <span v-html="step.text.replace(/ /g, '&nbsp;')"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="ide-reminder">
+                                <strong><i class="bi bi-laptop"></i> Lembrete Prático:</strong><br>
+                                Abra sua IDE (Eclipse, IntelliJ ou VS Code), digite exatamente este código, clique em <em>Run</em> e veja funcionando de verdade!
+                            </div>
+
+                            <button class="run-btn next-btn" @click="nextLevel">
+                                Avançar para o Próximo <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <div v-else style="display: flex; flex-direction: column; flex-grow: 1;">
+                            
+                            <div class="code-building-area">
+                                <div v-if="selectedBlocks.length === 0" class="empty-state">
+                                    <i class="bi bi-arrow-down-square" style="font-size: 24px; display: block; margin-bottom: 10px;"></i>
+                                    Clique nos blocos abaixo para montar seu código Java aqui...
+                                </div>
+                                <div v-for="(block, idx) in selectedBlocks" :key="idx" class="built-block" @click="removeBlock(idx)">
+                                    <span class="line-num">{{ idx + 1 }}</span>
+                                    <span v-html="block.text.replace(/ /g, '&nbsp;')"></span>
+                                </div>
+                            </div>
+
+                            <div class="action-bar">
+                                <button class="btn-clear" @click="clearBlocks" :disabled="selectedBlocks.length === 0">
+                                    <i class="bi bi-trash"></i> Limpar
+                                </button>
+                                <button class="run-btn" @click="runCode" :disabled="selectedBlocks.length === 0">
+                                    <i class="bi bi-play-fill"></i> COMPILAR CÓDIGO
+                                </button>
+                            </div>
+
+                            <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                                {{ feedbackMsg }}
+                            </div>
+
+                            <div class="blocks-pool">
+                                <p class="pool-title">Blocos Disponíveis:</p>
+                                <div class="pool-grid">
+                                    <button v-for="block in availableBlocks" 
+                                            :key="block.id" 
+                                            @click="selectBlock(block)"
+                                            class="code-block-btn">
+                                        <span v-html="block.text.replace(/ /g, '&nbsp;')"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div v-else-if="levelComplete && currentLevelIndex < levels.length - 1" class="victory-screen">
+                        <i class="bi bi-check-circle" style="font-size: 64px; color: var(--success); margin-bottom: 20px;"></i>
+                        <h2 style="color: var(--text-primary);">Compilação Concluída!</h2>
+                        <p style="color: var(--text-secondary); margin-top: 10px;">O algoritmo funcionou perfeitamente. Preparando próximo desafio...</p>
+                    </div>
+
+                    <div v-else class="victory-screen">
+                        <i class="bi bi-trophy" style="font-size: 64px; color: var(--warning); margin-bottom: 20px;"></i>
+                        <h2 style="color: var(--text-primary);">Treinamento Java Concluído!</h2>
+                        <p style="font-size: 16px; margin: 15px 0; color: var(--text-secondary);">
+                            Você dominou as estruturas essenciais do Java.
+                        </p>
+                        <div class="ide-reminder" style="margin-bottom: 30px; text-align: left;">
+                            <strong><i class="bi bi-code-square"></i> Próximo Passo:</strong><br>
+                            A verdadeira magia acontece na sua máquina. Abra sua IDE favorita, recrie esses algoritmos do zero e tente alterá-los!
+                        </div>
+                        <div class="actions-container">
+                            <button class="run-btn reset-btn" @click="resetGame">
+                                <i class="bi bi-arrow-counterclockwise"></i> Jogar Novamente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="js/quebra-java.js"></script>
+</body>
+</html>

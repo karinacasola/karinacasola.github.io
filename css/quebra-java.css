@@ -1,9 +1,10 @@
+
 /* ==========================================================================
-   CODE BLOCKS (QUEBRA-CABEÇA PYTHON) - ESTILOS ESPECÍFICOS E RESPONSIVOS
+   JAVA BLOCKS - ESTILOS ESPECÍFICOS E RESPONSIVOS
    ========================================================================== */
 
 :root {
-    --accent-blue: #3E8EFF; /* Azul Tecnológico Padrão do Blog */
+    --accent-blue: #3E8EFF; 
     --terminal-bg: #050505;
     --code-bg: #0A0A0A;
     --ice-white: #f4f7f6;
@@ -29,12 +30,12 @@
 
 .status-item {
     background: transparent;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color, #333);
     padding: 8px 20px;
-    border-radius: 30px; /* Estilo Pill */
+    border-radius: 30px; 
     font-size: 14px;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
     display: flex;
     align-items: center;
 }
@@ -49,14 +50,14 @@
 /* --- Container Principal (Responsividade e Altura Fixa) --- */
 .game-container {
     display: flex;
-    flex-direction: column; /* Mobile: Empilhado */
+    flex-direction: column; 
     gap: 24px;
     width: 100%;
 }
 
 @media (min-width: 992px) {
     .game-container {
-        flex-direction: row; /* Desktop: Lado a Lado */
+        flex-direction: row; 
         align-items: stretch;
     }
     .terminal-window, .code-editor-window {
@@ -66,8 +67,8 @@
 
 /* --- Janelas (Terminal e Editor) --- */
 .terminal-window, .code-editor-window {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
+    background: var(--card-bg, #111);
+    border: 1px solid var(--border-color, #333);
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -78,13 +79,13 @@
 
 @media (min-width: 992px) {
     .terminal-window, .code-editor-window {
-        height: 650px; /* Trava a altura no desktop, ativando o scroll interno na área de montagem */
+        height: 650px; 
     }
 }
 
 .window-header {
     background: rgba(255, 255, 255, 0.02);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color, #333);
     padding: 12px 20px;
     display: flex;
     justify-content: space-between;
@@ -92,8 +93,8 @@
 }
 
 .window-dots { display: flex; gap: 6px; }
-.window-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border-color); }
-.window-title { font-size: 13px; font-family: monospace; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+.window-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border-color, #333); }
+.window-title { font-size: 13px; font-family: monospace; color: var(--text-secondary, #aaa); text-transform: uppercase; letter-spacing: 1px; }
 
 /* --- Terminal de Logs --- */
 .terminal-body {
@@ -103,12 +104,19 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: 13px;
     line-height: 1.6;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
     overflow-y: auto;
     white-space: pre-wrap;
 }
 
-.terminal-body p { margin-top: 0; margin-bottom: 8px; animation: fadeIn 0.3s forwards; }
+.terminal-body p { 
+    margin-top: 0; 
+    margin-bottom: 8px; 
+    animation: fadeIn 0.3s forwards; 
+    text-align: justify; 
+    word-break: break-word; 
+}
+
 .prompt { color: var(--accent-blue); margin-right: 8px; font-weight: bold; }
 .log-error { color: var(--error); } 
 .log-warning { color: var(--warning); } 
@@ -125,18 +133,18 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    overflow-y: auto; /* Scroll ativado se empilhar muitos blocos */
+    overflow-y: auto; 
 }
 
 .editor-body::-webkit-scrollbar, .terminal-body::-webkit-scrollbar { width: 8px; }
-.editor-body::-webkit-scrollbar-track, .terminal-body::-webkit-scrollbar-track { background: var(--bg-dark); }
+.editor-body::-webkit-scrollbar-track, .terminal-body::-webkit-scrollbar-track { background: var(--bg-dark, #000); }
 .editor-body::-webkit-scrollbar-thumb, .terminal-body::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
 .editor-body::-webkit-scrollbar-thumb:hover, .terminal-body::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
 
 .comment { color: #6a9955; font-family: 'Courier New', Courier, monospace; font-size: 14px; font-style: italic;}
-.comment-sub { color: var(--text-secondary); font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 13px; }
+.comment-sub { color: var(--text-secondary, #aaa); font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 13px; }
 
-/* --- Área de Montagem (Dropzone Simulada) --- */
+/* --- Área de Montagem --- */
 .code-building-area {
     background: var(--code-bg);
     border: 1px dashed #444;
@@ -151,7 +159,7 @@
 }
 
 .empty-state { 
-    color: var(--text-secondary); 
+    color: var(--text-secondary, #aaa); 
     font-size: 13px; 
     text-align: center; 
     margin: auto; 
@@ -161,7 +169,7 @@
 /* Blocos Montados */
 .built-block, .solution-block {
     background: transparent;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color, #333);
     border-left: 3px solid var(--success);
     padding: 10px 15px;
     border-radius: 8px;
@@ -200,18 +208,18 @@
     background: rgba(255, 255, 255, 0.02); 
     padding: 20px; 
     border-radius: 12px; 
-    border: 1px solid var(--border-color); 
+    border: 1px solid var(--border-color, #333); 
     margin-top: auto;
 }
 
-.pool-title { margin: 0 0 15px 0; font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;}
+.pool-title { margin: 0 0 15px 0; font-size: 12px; color: var(--text-secondary, #aaa); text-transform: uppercase; letter-spacing: 1px;}
 .pool-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .code-block-btn {
     background: transparent;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color, #333);
     border-left: 3px solid #555;
-    color: var(--text-secondary);
+    color: var(--text-secondary, #aaa);
     padding: 10px 14px;
     font-family: 'Courier New', Courier, monospace;
     font-size: 13px;
@@ -224,7 +232,7 @@
 .code-block-btn:hover { 
     border-color: var(--accent-blue); 
     border-left-color: var(--accent-blue);
-    color: var(--text-primary);
+    color: var(--text-primary, #fff);
     transform: translateY(-2px);
 }
 
@@ -244,7 +252,7 @@
     transition: 0.3s;
 }
 .btn-clear:hover:not(:disabled) { background: var(--error); color: #0A0A0A; }
-.btn-clear:disabled { border-color: var(--text-secondary); color: var(--text-secondary); opacity: 0.4; cursor: not-allowed;}
+.btn-clear:disabled { border-color: var(--text-secondary, #aaa); color: var(--text-secondary, #aaa); opacity: 0.4; cursor: not-allowed;}
 
 .run-btn { 
     background: transparent; 
@@ -263,7 +271,7 @@
     text-transform: uppercase;
 }
 .run-btn:hover:not(:disabled) { background: var(--accent-blue); color: #0A0A0A; }
-.run-btn:disabled { border-color: var(--text-secondary); color: var(--text-secondary); opacity: 0.4; cursor: not-allowed; }
+.run-btn:disabled { border-color: var(--text-secondary, #aaa); color: var(--text-secondary, #aaa); opacity: 0.4; cursor: not-allowed; }
 
 .next-btn { border-color: var(--warning); color: var(--warning); width: 100%; margin-top: 15px;}
 .next-btn:hover { background: var(--warning); color: #0A0A0A; }
@@ -286,15 +294,32 @@
 .feedback-msg.error { background: rgba(255, 85, 85, 0.05); color: var(--error); border: 1px solid rgba(255, 85, 85, 0.2); }
 .feedback-msg.success { background: rgba(94, 177, 119, 0.05); color: var(--success); border: 1px solid rgba(94, 177, 119, 0.2); }
 
+/* --- Lembrete IDE (Exclusivo Java) --- */
+.ide-reminder {
+    background: rgba(62, 142, 255, 0.1);
+    border-left: 3px solid var(--accent-blue);
+    padding: 15px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 15px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary, #aaa);
+}
+
+.ide-reminder strong {
+    color: var(--accent-blue);
+    font-size: 14px;
+}
+
 /* --- Tela Final e Botões de Ação --- */
 .victory-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 30px; }
 .actions-container { display: flex; justify-content: center; width: 100%; max-width: 350px; }
-.reset-btn { border-color: var(--text-secondary); color: var(--text-secondary); }
-.reset-btn:hover { background: var(--text-secondary); color: #0A0A0A; }
+.reset-btn { border-color: var(--text-secondary, #aaa); color: var(--text-secondary, #aaa); }
+.reset-btn:hover { background: var(--text-secondary, #aaa); color: #0A0A0A; }
 
 /* Trava a tela ao digitar/executar */
 .code-editor-window.locked::after {
-    content: 'PROCESSANDO LÓGICA...'; 
+    content: 'COMPILANDO CÓDIGO...'; 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(10, 10, 10, 0.7); 
     display: flex; justify-content: center; align-items: center;
@@ -308,18 +333,7 @@
 /* Desabilitar hover na read-only (caixa de solução) */
 .read-only-mode .solution-block:hover {
     background: transparent;
-    border-color: var(--border-color);
+    border-color: var(--border-color, #333);
     border-left-color: var(--warning);
 }
 .read-only-mode .solution-block:hover::after { content: none; }
-
-.terminal-body p { 
-    margin-top: 0; 
-    margin-bottom: 8px; 
-    animation: fadeIn 0.3s forwards; 
-    text-align: justify; /* Alinhamento justificado adicionado */
-    word-break: break-word; /* Evita quebra de layout ao justificar */
-}
-
-
-
