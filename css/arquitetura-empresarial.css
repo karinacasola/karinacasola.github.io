@@ -1,0 +1,183 @@
+:root {
+    --bg-dark: #0f172a;
+    --card-bg: #1e293b;
+    --border-color: #334155;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-blue: #3b82f6;
+    --success: #10B981;
+    --danger: #EF4444;
+}
+
+[v-cloak] { display: none; }
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Satoshi', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15), transparent 60%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.game-container-wrapper {
+    padding: 60px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-header {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.section-header-pill {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--accent-blue);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.section-title { margin: 0; font-size: 28px; }
+
+.stats-area { display: flex; gap: 30px; }
+.stat-item { display: flex; flex-direction: column; align-items: flex-end; }
+.stat-item .label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; font-weight: 500; }
+.stat-item .value { font-size: 24px; font-weight: 700; font-family: 'Courier New', monospace; }
+.stat-item .value.highlight { color: var(--accent-blue); }
+
+.progress-container {
+    height: 4px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background: var(--accent-blue);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.puzzle-area { display: flex; flex-direction: column; gap: 25px; }
+
+.scenario-context { text-align: center; margin-bottom: 10px; }
+.scenario-context h3 { color: var(--accent-blue); margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+.scenario-context .scenario-desc { font-size: 18px; font-weight: 500; max-width: 90%; margin: 0 auto; line-height: 1.4; }
+.scenario-context .instruction { font-size: 14px; color: var(--text-secondary); margin-top: 15px; }
+
+.drag-list { display: flex; flex-direction: column; gap: 12px; position: relative; }
+
+.puzzle-piece {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 16px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: grab;
+    transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
+    user-select: none;
+}
+
+.puzzle-piece:hover:not(.frozen) {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.puzzle-piece:active { cursor: grabbing; }
+.puzzle-piece.dragging { opacity: 0.3; border: 1px dashed var(--accent-blue); }
+.puzzle-piece.drag-over { border: 1px solid var(--accent-blue); transform: scale(1.01); z-index: 10; background-color: rgba(59, 130, 246, 0.05); }
+.puzzle-piece.frozen { cursor: default; }
+
+.grip { color: var(--text-secondary); opacity: 0.5; font-size: 20px; display: flex; }
+.text { font-weight: 400; font-size: 15px; flex-grow: 1; line-height: 1.5; }
+
+.puzzle-piece.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.05); }
+.puzzle-piece.wrong { border-color: var(--danger); background: rgba(239, 68, 68, 0.05); }
+
+.status-icon { font-size: 18px; }
+.puzzle-piece.correct .status-icon { color: var(--success); }
+.puzzle-piece.wrong .status-icon { color: var(--danger); }
+
+.flip-list-move { transition: transform 0.4s ease; }
+
+.btn-minimalist {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-minimalist:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+.controls { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+
+.feedback-msg { 
+    text-align: center; padding: 16px; border-radius: 12px; font-size: 14px;
+    display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px;
+    border: 1px solid var(--border-color);
+}
+.feedback-msg.success { color: var(--success); border-color: rgba(16, 185, 129, 0.3); }
+.feedback-msg.error { color: var(--danger); border-color: rgba(239, 68, 68, 0.3); }
+
+.explanation-box {
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 10px;
+    animation: fadeIn 0.5s ease;
+}
+.explanation-box h4 { margin: 0 0 10px 0; color: var(--accent-blue); display: flex; gap: 8px; align-items: center;}
+.explanation-box p { margin: 0; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+.shake-animation { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; border-color: var(--danger) !important; }
+
+.end-screen { text-align: center; padding: 60px 20px; background: transparent; border-radius: 20px; border: 1px solid var(--border-color); }
+.trophy-icon { font-size: 60px; color: var(--accent-blue); margin-bottom: 20px; }
+.end-screen h2 { margin-bottom: 15px; }
+.end-screen p { color: var(--text-secondary); margin-bottom: 30px; font-size: 16px; }
+.final-actions { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
