@@ -1,90 +1,117 @@
 /* ==========================================================================
-   IHC ESCAPE ROOM - ESTILOS ESPECÍFICOS E RESPONSIVOS (SATOSHI THEME)
+   CSS ESPECÍFICO - IHC ESCAPE ROOM (Identidade Visual do Blog)
    ========================================================================== */
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap');
 
-:root {
-    --accent-cyan: #4cb3d4; /* Ciano metálico suave para o tema de UX */
-    --terminal-bg: #050505;
-    --code-bg: #0A0A0A;
-    --ice-white: #f4f7f6;
-    --success: #5eb177; 
-    --warning: #d9a05b;
-    --error: #ff5555;
+[v-cloak] { display: none; }
+
+body {
+    background-color: var(--bg-dark, #050505);
+    background-image: radial-gradient(circle at 50% 0%, rgba(62, 142, 255, 0.15), transparent 60%);
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
 }
 
-.game-section {
-    padding: 0 5% 80px;
-    max-width: 1400px;
+/* CONTAINER PRINCIPAL E ESPAÇAMENTOS */
+.game-container-wrapper {
+    padding-top: 130px; 
+    padding-bottom: 50px;
     margin: 0 auto;
-    font-family: 'Satoshi', sans-serif;
+    width: 90%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
 }
 
-/* --- Barra de Status --- */
-.game-status-bar {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+/* HEADER DO JOGO E ESTATÍSTICAS */
+.game-header {
+    background-color: var(--card-bg, #111);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 20px;
+    padding: 30px;
     margin-bottom: 30px;
-    flex-wrap: wrap;
 }
 
-.status-item {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    padding: 8px 20px;
-    border-radius: 30px; /* Estilo Pill */
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    font-family: 'Satoshi', sans-serif;
-}
-
-.attempts-box { transition: all 0.3s ease; }
-.attempts-box.warning-state { 
-    border-color: var(--error); 
-    animation: gentlePulse 2s infinite; 
-}
-
-/* --- Container Principal (Responsividade e Altura Fixa) --- */
-.game-container {
+.header-content {
     display: flex;
-    flex-direction: column; /* Mobile: Empilhado */
-    gap: 24px;
-    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-header-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid rgba(62, 142, 255, 0.3);
+    color: var(--accent-blue, #3e8eff);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.section-title { font-size: 28px; color: var(--text-primary, #fff); margin: 0; }
+
+.stats-area { display: flex; gap: 30px; }
+.stat-item { display: flex; flex-direction: column; align-items: flex-end; }
+.stat-item .label { font-size: 11px; color: var(--text-secondary, #aaa); text-transform: uppercase; font-weight: 500; letter-spacing: 1px; }
+.stat-item .value { font-size: 24px; font-weight: 700; font-family: 'Courier New', monospace; color: var(--text-primary, #fff); }
+.stat-item .value.highlight { color: var(--accent-blue, #3e8eff); }
+.error-text { color: #EF4444 !important; }
+
+/* PROGRESS BAR */
+.progress-container {
+    height: 4px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background: var(--accent-blue, #3e8eff);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   SPLIT AREA (Terminal e Editor)
+   ========================================================================== */
+.ux-split-area {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 @media (min-width: 992px) {
-    .game-container {
-        flex-direction: row; /* Desktop: Lado a Lado */
+    .ux-split-area {
+        flex-direction: row;
         align-items: stretch;
     }
-    .terminal-window, .code-editor-window {
+    .ux-window {
         width: 50%;
+        height: 600px;
     }
 }
 
-/* --- Janelas (Terminal e Editor) --- */
-.terminal-window, .code-editor-window {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
+/* JANELAS (Glassmorphism) */
+.ux-window {
+    background-color: var(--card-bg, #111);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    min-height: 450px;
+    transition: all 0.3s ease;
 }
 
-@media (min-width: 992px) {
-    .terminal-window, .code-editor-window {
-        height: 650px; /* Trava a altura no desktop, ativando o scroll interno */
-    }
+.ux-window:hover {
+    border-color: rgba(62, 142, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .window-header {
     background: rgba(255, 255, 255, 0.02);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color, #333);
     padding: 12px 20px;
     display: flex;
     justify-content: space-between;
@@ -92,33 +119,41 @@
 }
 
 .window-dots { display: flex; gap: 6px; }
-.window-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border-color); }
-.window-title { font-size: 13px; font-family: monospace; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
-
-/* --- Terminal de Logs --- */
-.terminal-body {
-    background: var(--terminal-bg);
-    flex: 1;
-    padding: 20px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    overflow-y: auto;
-    white-space: pre-wrap;
-    text-align: left; /* No terminal mantemos alinhado à esquerda para não criar buracos no log */
+.window-dots span {
+    width: 10px; height: 10px; border-radius: 50%; 
+    background: var(--border-color, #333);
 }
 
-.prompt { color: var(--accent-cyan); margin-right: 8px; font-weight: bold; }
-.log-error { color: var(--error); } 
-.log-warning { color: var(--warning); } 
-.log-success { color: var(--success); }
-.typing-cursor { display: inline-block; animation: blink 1s infinite; color: var(--accent-cyan); }
+.window-title {
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    color: var(--text-secondary, #aaa);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* TERMINAL */
+.terminal-body {
+    background: rgba(0, 0, 0, 0.5);
+    flex: 1;
+    padding: 20px;
+    font-family: 'Courier New', monospace; 
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary, #aaa);
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+.prompt { color: var(--accent-blue, #3e8eff); margin-right: 8px; font-weight: bold; }
+.log-error { color: #EF4444; } 
+.log-warning { color: #d9a05b; } 
+.log-success { color: #10B981; }
+.typing-cursor { display: inline-block; animation: blink 1s infinite; color: var(--accent-blue, #3e8eff); }
 
 @keyframes blink { 50% { opacity: 0; } }
-@keyframes gentlePulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
-/* --- Teoria e Editor de Código --- */
+/* EDITOR */
 .editor-body {
     padding: 25px;
     display: flex;
@@ -127,123 +162,118 @@
     overflow-y: auto;
 }
 
-/* Customização da barra de rolagem minimalista */
-.editor-body::-webkit-scrollbar, .terminal-body::-webkit-scrollbar { width: 8px; }
-.editor-body::-webkit-scrollbar-track, .terminal-body::-webkit-scrollbar-track { background: var(--bg-dark); }
-.editor-body::-webkit-scrollbar-thumb, .terminal-body::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-.editor-body::-webkit-scrollbar-thumb:hover, .terminal-body::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
+.editor-body::-webkit-scrollbar, .terminal-body::-webkit-scrollbar { width: 6px; }
+.editor-body::-webkit-scrollbar-track, .terminal-body::-webkit-scrollbar-track { background: transparent; }
+.editor-body::-webkit-scrollbar-thumb, .terminal-body::-webkit-scrollbar-thumb { background: var(--border-color, #333); border-radius: 10px; }
 
-.comment { color: #6a9955; font-family: 'Courier New', Courier, monospace; font-size: 14px; font-style: italic;}
+.comment {
+    color: #6a9955;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    font-style: italic;
+}
 
 .read-only-code {
-    background: var(--code-bg);
-    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed var(--border-color, #333);
     border-radius: 12px;
-    padding: 20px 15px;
+    padding: 20px;
     margin-bottom: 25px;
 }
-
-/* --- Botões de Opções (Grid Responsivo Vertical) --- */
-.options-grid { 
-    display: grid; 
-    grid-template-columns: 1fr;
-    gap: 12px; 
-    margin-top: auto; 
-    margin-bottom: 20px;
+.read-only-code p {
+    margin: 0;
+    color: var(--text-primary, #fff);
+    line-height: 1.5;
+    font-size: 15px;
+    font-weight: 500;
 }
 
-.code-option-btn {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    padding: 14px 18px;
-    border-radius: 8px;
-    font-size: 15px; /* Tamanho ajustado para legibilidade */
-    font-family: 'Satoshi', sans-serif; /* Forçando a fonte do design system */
+/* BOTÕES DAS OPÇÕES */
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.ux-option-btn, .btn-minimalist {
+    background-color: transparent !important;
+    color: var(--text-secondary, #aaa);
+    border: 1px solid var(--border-color, #333);
+    padding: 16px 20px;
+    border-radius: 12px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: left;
-    line-height: 1.5;
-}
-
-.code-option-btn:hover:not(:disabled) { 
-    border-color: var(--accent-cyan); 
-    color: var(--text-primary); 
-}
-
-/* Estados de Resposta */
-.code-option-btn.correct { 
-    background: rgba(94, 177, 119, 0.1) !important; 
-    border-color: var(--success) !important; 
-    color: var(--success) !important;
-}
-
-.code-option-btn.wrong { 
-    background: rgba(255, 85, 85, 0.1) !important; 
-    border-color: var(--error) !important; 
-    color: var(--error) !important;
-}
-
-.code-option-btn.warning {
-    background: rgba(217, 160, 91, 0.1);
-    border-color: var(--warning);
-    color: var(--warning);
-}
-
-.code-option-btn:disabled { cursor: not-allowed; opacity: 0.6; }
-
-/* --- Feedbacks --- */
-.feedback-msg { 
-    margin-top: 10px; font-size: 15px; text-align: justify; padding: 15px; 
-    border-radius: 8px; font-weight: 500; line-height: 1.5;
     font-family: 'Satoshi', sans-serif;
-}
-.feedback-msg.error { background: rgba(255, 85, 85, 0.05); color: var(--error); border: 1px solid rgba(255, 85, 85, 0.2); }
-.feedback-msg.success { background: rgba(94, 177, 119, 0.05); color: var(--success); border: 1px solid rgba(94, 177, 119, 0.2); }
-.feedback-msg.warning { background: rgba(217, 160, 91, 0.05); color: var(--warning); border: 1px solid rgba(217, 160, 91, 0.2); }
-
-/* --- Tela Final e Botões de Ação --- */
-.victory-screen { 
-    display: flex; flex-direction: column; align-items: center; justify-content: center; 
-    height: 100%; text-align: justify; padding: 30px; 
-    font-family: 'Satoshi', sans-serif;
-}
-.actions-container { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 350px; }
-
-.run-btn {
-    background: transparent;
-    color: var(--accent-cyan);
-    border: 1px solid var(--accent-cyan);
-    padding: 14px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
     transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     font-size: 14px;
-    font-family: 'Satoshi', sans-serif;
+    text-align: left;
+}
+
+.ux-option-btn:hover:not(:disabled), .btn-minimalist:hover {
+    border-color: var(--accent-blue, #3e8eff);
+    color: var(--text-primary, #fff);
+    background-color: rgba(62, 142, 255, 0.05) !important;
+}
+
+.ux-option-btn.correct { border-color: #10B981 !important; color: #10B981 !important; background: rgba(16, 185, 129, 0.05) !important; }
+.ux-option-btn.wrong { border-color: #EF4444 !important; color: #EF4444 !important; background: rgba(239, 68, 68, 0.05) !important; }
+.ux-option-btn.warning { border-color: #d9a05b; color: #d9a05b; background: rgba(217, 160, 91, 0.05) !important; }
+.ux-option-btn:disabled { cursor: default; }
+
+/* FEEDBACK MENSAGENS E ESTADOS */
+.feedback-msg { 
+    text-align: center; 
+    font-weight: 400; 
+    padding: 16px; 
+    border-radius: 12px; 
+    font-size: 14px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 10px;
-    width: 100%;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    border: 1px solid var(--border-color, #333);
+    background-color: transparent;
 }
+.feedback-msg.success { color: #10B981; border-color: rgba(16, 185, 129, 0.3); }
+.feedback-msg.error { color: #EF4444; border-color: rgba(239, 68, 68, 0.3); }
+.feedback-msg.warning { color: #d9a05b; border-color: rgba(217, 160, 91, 0.3); }
 
-.run-btn:hover { background: var(--accent-cyan); color: #0A0A0A; }
-.reset-btn { border-color: var(--text-secondary); color: var(--text-secondary); }
-.reset-btn:hover { background: var(--text-secondary); color: #0A0A0A; }
-
-/* Trava a tela ao digitar/executar */
-.code-editor-window.locked::after {
-    content: 'ANALISANDO HEURÍSTICA...'; 
+.ux-window.locked::after {
+    content: 'ANALISANDO HEURÍSTICA...';
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(10, 10, 10, 0.7); 
+    background: rgba(10, 10, 10, 0.6);
     display: flex; justify-content: center; align-items: center;
-    font-family: 'Satoshi', sans-serif; color: var(--accent-cyan); 
+    font-family: 'Courier New', monospace;
+    color: var(--accent-blue, #3e8eff);
     z-index: 10; font-weight: bold; font-size: 14px; letter-spacing: 2px;
-    backdrop-filter: blur(3px);
-    border-radius: 16px;
+    backdrop-filter: blur(2px);
 }
-.code-editor-window { position: relative; }
+.ux-window.editor { position: relative; }
+
+/* TELA FINAL */
+.end-screen {
+    text-align: center;
+    padding: 60px 30px;
+    background: var(--card-bg, #111);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.trophy-icon { font-size: 50px; color: var(--accent-blue, #3e8eff); margin-bottom: 20px; }
+.end-screen h2 { font-size: 28px; color: var(--text-primary, #fff); margin-bottom: 15px;}
+.end-screen p { color: var(--text-secondary, #aaa); max-width: 400px; margin-bottom: 40px; font-size: 15px; }
+.final-actions { display: flex; gap: 15px; }
+
+/* RESPONSIVIDADE MOBILE */
+@media (max-width: 768px) {
+    .game-container-wrapper { padding-top: 100px; }
+    .header-content { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .stats-area { width: 100%; justify-content: flex-start; gap: 25px; }
+    .stat-item { align-items: flex-start; }
+    .final-actions { flex-direction: column; width: 100%; }
+    .btn-minimalist { width: 100%; justify-content: center; }
+}
