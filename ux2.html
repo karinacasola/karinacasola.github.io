@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UX Escape Room 2 - Engenharia de Produto</title>
+    <title>UX Escape Room 2 - Karina Casola</title>
 
     <link rel="icon" href="img/favicon.svg">
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/ux2.css">
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -17,119 +18,149 @@
 </head>
 <body>
 
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
     <nav class="navbar">
         <div class="navbar-content">
-            <div style="font-weight: 700; font-size: 20px; color: var(--text-primary);">
-                UX<span style="color: var(--accent-purple);">.ESCAPE 2</span>
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+                </a>
             </div>
+
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+
             <div class="navbar-menu" id="navbar-menu">
-                <span style="color: var(--text-secondary); font-size: 14px; margin-left: 15px;">
-                    Treinamento: Engenharia de Produto & Arquitetura
-                </span>
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <main id="app">
-        <header class="hero" style="padding-bottom: 20px; text-align: center; margin-top: 40px;">
-            <div class="section-header-pill" style="display: inline-block; padding: 5px 15px; border-radius: 20px; border: 1px solid rgba(156, 107, 212, 0.3); color: var(--accent-purple); background: rgba(156, 107, 212, 0.1); margin-bottom: 15px; font-weight: bold; font-size: 12px; text-transform: uppercase;">MÓDULO 2: ARQUITETURA E WIREFRAMES</div>
-            <h1 class="hero-title" style="font-size: 2.5rem; margin-bottom: 10px;">Validação de <span style="color: var(--accent-purple);">Concepção Web</span></h1>
-        </header>
-
-        <section class="game-section">
+    <div id="app" v-cloak>
+        <main class="game-container-wrapper wide-wrapper">
             
-            <div class="game-status-bar" v-if="!gameOver">
-                <div class="status-item score-box">
-                    Acertos: <span style="color: var(--success);">{{ score }}</span> / {{ questions.length }}
-                </div>
-                <div class="status-item level-box">
-                    Desafio Atual: <span style="color: var(--text-primary);">{{ currentQuestionIndex + 1 }} / {{ questions.length }}</span>
-                </div>
-                <div class="status-item attempts-box" :class="{'warning-state': attempts >= 2}">
-                    Erros nesta questão: <span :style="{ color: attempts >= 2 ? 'var(--error)' : 'inherit' }">{{ attempts }} / 3</span>
-                </div>
-            </div>
-
-            <div class="game-container">
-                
-                <div class="terminal-window">
-                    <div class="window-header">
-                        <div class="window-dots">
-                            <span></span><span></span><span></span>
-                        </div>
-                        <span class="window-title">analise_produto.log</span>
-                    </div>
-                    <div class="terminal-body" ref="terminalBody">
-                        <p v-for="(line, index) in logs" :key="index" :class="line.type">
-                            <span class="prompt" v-if="line.text && line.type !== 'log-header'">sys_arch></span> 
-                            <span v-html="line.text"></span>
-                        </p>
-                        <div class="typing-cursor" v-if="isTyping">█</div>
-                    </div>
-                </div>
-
-                <div class="code-editor-window" :class="{ 'locked': isTyping || showAnswer }">
-                    <div class="window-header">
-                        <span class="window-title">estruturacao_ai.js</span>
-                        <i class="bi bi-diagram-3" style="color: var(--text-secondary);"></i>
+            <header class="game-header">
+                <div class="header-content">
+                    <div class="logo-area">
+                        <div class="section-header-pill">MÓDULO 2: UX.ESCAPE</div>
+                        <h1 class="section-title">Validação de Concepção Web</h1>
                     </div>
                     
-                    <div class="editor-body" v-if="!gameOver">
-                        
-                        <div style="margin-bottom: 20px;">
-                            <p class="comment" style="margin: 0;">// {{ currentQuestion.instruction }}</p>
+                    <div class="stats-area">
+                        <div class="stat-item">
+                            <span class="label">Desafio</span>
+                            <span class="value">{{ currentQuestionIndex + 1 }}<small>/{{ questions.length }}</small></span>
                         </div>
-                        
-                        <div class="code-block read-only-code">
-                            <p style="margin: 0 0 10px 0; color: var(--ice-white); line-height: 1.6; font-family: 'Segoe UI', sans-serif; font-size: 15px;">
-                                {{ currentQuestion.text }}
-                            </p>
+                        <div class="stat-item">
+                            <span class="label">Tentativas</span>
+                            <span class="value" :class="{'error-text': attempts >= 2}">{{ attempts }}<small>/3</small></span>
                         </div>
-
-                        <div class="options-grid">
-                            <button v-for="(option, index) in currentQuestion.options" 
-                                    :key="index" 
-                                    @click="selectOption(option)"
-                                    class="code-option-btn"
-                                    :class="{ 
-                                        'correct': showAnswer && option === currentQuestion.answer, 
-                                        'wrong': userSelection === option && feedbackType === 'error',
-                                        'warning': userSelection === option && feedbackType === 'warning'
-                                    }"
-                                    :disabled="showAnswer">
-                                {{ option }}
-                            </button>
-                        </div>
-
-                        <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
-                            {{ feedbackMsg }}
-                        </div>
-
-                    </div>
-
-                    <div v-else class="victory-screen">
-                        <i class="bi bi-file-earmark-check" style="font-size: 64px; color: var(--accent-purple); margin-bottom: 20px;"></i>
-                        <h2>Auditoria de Produto Concluída!</h2>
-                        <p style="font-size: 16px; margin: 15px 0 30px; color: var(--text-secondary);">
-                            Sua equipe finalizou o mapeamento e wireframes.<br>
-                            Pontuação Técnica: <strong style="color: var(--success); font-size: 20px;">{{ score }} / {{ questions.length }}</strong>
-                        </p>
-                        
-                        <div class="actions-container">
-                            <button class="run-btn export-btn" @click="saveResultPDF">
-                                <i class="bi bi-cloud-download"></i> Exportar Certificado (PDF)
-                            </button>
-                            <button class="run-btn reset-btn" @click="resetGame">
-                                <i class="bi bi-arrow-counterclockwise"></i> Reiniciar Simulação
-                            </button>
+                        <div class="stat-item">
+                            <span class="label">Acertos</span>
+                            <span class="value highlight">{{ score }}</span>
                         </div>
                     </div>
                 </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" :style="{ width: progressPercentage + '%' }"></div>
+                </div>
+            </header>
 
+            <div class="game-body">
+                
+                <div v-if="gameOver" class="end-screen">
+                    <i class="bi bi-file-earmark-check trophy-icon"></i>
+                    <h2>Auditoria Concluída!</h2>
+                    <p>Sua equipe finalizou o mapeamento e wireframes com <strong>{{ score }} acertos</strong>.</p>
+                    <div class="final-actions">
+                        <button @click="saveResultPDF" class="btn-minimalist">
+                            <i class="bi bi-cloud-download"></i> Baixar Certificado
+                        </button>
+                        <button @click="resetGame" class="btn-minimalist">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reiniciar Simulação
+                        </button>
+                    </div>
+                </div>
+
+                <div v-else class="ux-split-area">
+                    
+                    <div class="ux-window terminal">
+                        <div class="window-header">
+                            <div class="window-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="window-title">analise_produto.log</span>
+                        </div>
+                        <div class="terminal-body" ref="terminalBody">
+                            <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                                <span class="prompt" v-if="line.text && line.type !== 'log-header'">sys_arch></span> 
+                                <span v-html="line.text"></span>
+                            </p>
+                            <div class="typing-cursor" v-if="isTyping">█</div>
+                        </div>
+                    </div>
+
+                    <div class="ux-window editor" :class="{ 'locked': isTyping || showAnswer }">
+                        <div class="window-header">
+                            <span class="window-title">estruturacao_ai.js</span>
+                            <i class="bi bi-diagram-3" style="color: var(--text-secondary);"></i>
+                        </div>
+                        
+                        <div class="editor-body">
+                            <div style="margin-bottom: 20px;">
+                                <p class="comment">// {{ currentQuestion.instruction }}</p>
+                            </div>
+                            
+                            <div class="read-only-code">
+                                <p>{{ currentQuestion.text }}</p>
+                            </div>
+
+                            <div class="options-grid">
+                                <button v-for="(option, index) in currentQuestion.options" 
+                                        :key="index" 
+                                        @click="selectOption(option)"
+                                        class="btn-minimalist ux-option-btn"
+                                        :class="{ 
+                                            'correct': showAnswer && option === currentQuestion.answer, 
+                                            'wrong': userSelection === option && feedbackType === 'error',
+                                            'warning': userSelection === option && feedbackType === 'warning'
+                                        }"
+                                        :disabled="showAnswer">
+                                    {{ option }}
+                                </button>
+                            </div>
+
+                            <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                                <span v-html="feedbackMsg"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </section>
-    </main>
+        </main>
+    </div>
 
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    
     <script src="js/ux2.js"></script>
 </body>
 </html>
