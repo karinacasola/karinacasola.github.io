@@ -4,21 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Django Pytest Escape Room - Karina Casola</title>
-    
+
     <link rel="icon" href="img/favicon.svg">
+    
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/escape-style-py.css">
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
     <nav class="navbar">
         <div class="navbar-content">
-            <div style="font-weight: 700; font-size: 20px; color: var(--text-primary);">
-                PYTEST<span style="color: var(--accent-pytest);">.ESCAPE</span>
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+                </a>
             </div>
 
             <button class="mobile-menu-btn" id="menu-toggle">
@@ -26,114 +38,142 @@
             </button>
 
             <div class="navbar-menu" id="navbar-menu">
-                <a href="index.html" class="navbar-link">Voltar ao Blog</a>
-                <span style="color: var(--text-secondary); font-size: 14px; margin-left: 15px;">
-                    Treinamento QA v1.0
-                </span>
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <main id="app">
-        <header class="hero" style="padding-bottom: 20px;">
-            <div class="section-header-pill" style="color: var(--accent-pytest); border-color: rgba(94, 177, 119, 0.3); background: rgba(94, 177, 119, 0.1);">MÓDULO: DJANGO + PYTEST</div>
-            <h1 class="hero-title">Escape the <span style="color: var(--accent-pytest);">Test Suite</span></h1>
-        </header>
-
-        <section class="game-section">
+    <div id="app" v-cloak>
+        <main class="game-container-wrapper wide-wrapper">
             
-            <div class="game-status-bar" v-if="!(currentLevelIndex >= levels.length - 1 && levelComplete)">
-                <div class="status-item score-box">
-                    Score: <span style="color: var(--accent-pytest);">{{ score }}</span> / 20
-                </div>
-                <div class="status-item level-box">
-                    Teste: <span style="color: var(--text-primary);">{{ currentLevelIndex + 1 }} / 20</span>
-                </div>
-                <div class="status-item attempts-box" :class="{'warning-state': attempts === 1}">
-                    Tentativas: <span :style="{ color: attempts === 1 ? 'var(--error)' : 'inherit' }">{{ attempts }}</span>
-                </div>
-            </div>
-
-            <div class="game-container">
-                
-                <div class="terminal-window">
-                    <div class="window-header">
-                        <div class="window-dots">
-                            <span></span><span></span><span></span>
-                        </div>
-                        <span class="window-title">pytest_runner.log</span>
-                    </div>
-                    <div class="terminal-body" ref="terminalBody">
-                        <p v-for="(line, index) in logs" :key="index" :class="line.type">
-                            <span class="prompt" v-if="line.text && line.type !== 'log-header'">pytest></span> 
-                            <span v-html="line.text"></span>
-                        </p>
-                        <div class="typing-cursor" v-if="isTyping">█</div>
-                    </div>
-                </div>
-
-                <div class="code-editor-window" :class="{ 'locked': isTyping }">
-                    <div class="window-header">
-                        <span class="window-title">test_suite.py</span>
-                        <i class="bi bi-filetype-py" style="color: var(--text-secondary);"></i>
+            <header class="game-header">
+                <div class="header-content">
+                    <div class="logo-area">
+                        <div class="section-header-pill">PYTEST.ESCAPE</div>
+                        <h1 class="section-title">Validação <span class="glitch-text">Backend Django</span></h1>
                     </div>
                     
-                    <div class="editor-body" v-if="currentLevel && !(currentLevelIndex >= levels.length - 1 && levelComplete)">
-                        
-                        <div style="margin-bottom: 20px;">
-                            <p class="comment" style="margin: 0; line-height: 1.5;"># {{ currentLevel.instruction }}</p>
+                    <div class="stats-area">
+                        <div class="stat-item">
+                            <span class="label">Teste Unitário</span>
+                            <span class="value">{{ currentLevelIndex + 1 }}<small>/{{ levels.length }}</small></span>
                         </div>
-                        
-                        <div class="code-block read-only-code">
-                            <div v-for="(line, idx) in currentLevel.codeTemplate" :key="idx" class="code-line">
-                                <span class="line-num">{{ idx + 1 }}</span>
-                                <span v-html="line"></span>
-                            </div>
+                        <div class="stat-item">
+                            <span class="label">Tentativas Restantes</span>
+                            <span class="value" :class="{'error-text': attempts <= 1}">{{ attempts }}<small>/3</small></span>
                         </div>
-
-                        <div class="options-grid">
-                            <button v-for="option in currentLevel.options" 
-                                    :key="option" 
-                                    @click="userSelection = option"
-                                    class="code-option-btn"
-                                    :class="{ 'selected': userSelection === option }">
-                                {{ option }}
-                            </button>
-                        </div>
-
-                        <button class="run-btn" @click="runCode" :disabled="!userSelection || levelComplete">
-                            <i class="bi bi-play-fill"></i> EXECUTAR TESTE
-                        </button>
-
-                        <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
-                            {{ feedbackMsg }}
-                        </div>
-
-                    </div>
-
-                    <div v-else-if="currentLevelIndex >= levels.length - 1 && levelComplete" class="victory-screen">
-                        <i class="bi bi-shield-check" style="font-size: 64px; color: var(--accent-pytest); margin-bottom: 20px;"></i>
-                        <h2 style="color: var(--text-primary);">Suite de Testes Finalizada!</h2>
-                        <p style="font-size: 16px; margin: 15px 0 30px; color: var(--text-secondary);">
-                            Sua pontuação final: <strong style="color: var(--accent-pytest); font-size: 20px;">{{ score }} / 20</strong>
-                        </p>
-                        
-                        <div class="actions-container">
-                            <button class="run-btn export-btn" @click="exportJSON">
-                                <i class="bi bi-filetype-json"></i> Baixar Relatório (JSON)
-                            </button>
-                            <button class="run-btn reset-btn" @click="resetGame">
-                                <i class="bi bi-arrow-counterclockwise"></i> Reiniciar Treinamento
-                            </button>
+                        <div class="stat-item">
+                            <span class="label">Score (Acertos)</span>
+                            <span class="value highlight">{{ score }}</span>
                         </div>
                     </div>
                 </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" :style="{ width: progressPercentage + '%' }"></div>
+                </div>
+            </header>
 
+            <div class="game-body">
+                
+                <div v-if="gameOver" class="end-screen">
+                    <i class="bi bi-shield-check trophy-icon"></i>
+                    <h2>Suite de Testes Finalizada!</h2>
+                    <p>Você processou todas as rotinas de TDD no ambiente Django.<br>
+                    <strong>Pontuação Final: {{ score }} / {{ levels.length }}</strong></p>
+                    
+                    <div class="final-actions">
+                        <button @click="saveResultPDF" class="btn-minimalist">
+                            <i class="bi bi-cloud-download"></i> Baixar Relatório (PDF)
+                        </button>
+                        <button @click="resetGame" class="btn-minimalist">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reiniciar Treinamento
+                        </button>
+                    </div>
+                </div>
+
+                <div v-else class="ux-split-area">
+                    
+                    <div class="ux-window terminal">
+                        <div class="window-header">
+                            <div class="window-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="window-title">pytest_output.log</span>
+                        </div>
+                        <div class="terminal-body" ref="terminalBody">
+                            <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                                <span class="prompt" v-if="line.text && line.type !== 'log-header'">(venv) pytest></span> 
+                                <span v-html="line.text"></span>
+                            </p>
+                            <div class="typing-cursor" v-if="isTyping">█</div>
+                        </div>
+                    </div>
+
+                    <div class="ux-window editor" :class="{ 'locked': isTyping || levelComplete }">
+                        <div class="window-header">
+                            <span class="window-title">test_suite.py</span>
+                            <i class="bi bi-filetype-py" style="color: var(--text-secondary);"></i>
+                        </div>
+                        
+                        <div class="editor-body">
+                            <div style="margin-bottom: 15px;">
+                                <p class="comment"># {{ currentLevel.instruction }}</p>
+                            </div>
+                            
+                            <div class="code-block">
+                                <div v-for="(line, idx) in currentLevel.codeTemplate" :key="idx" class="code-line">
+                                    <span class="line-num">{{ idx + 1 }}</span>
+                                    <span v-html="formatCodeLine(line)"></span>
+                                </div>
+                            </div>
+
+                            <div class="options-grid">
+                                <button v-for="(option, index) in currentLevel.options" 
+                                        :key="index" 
+                                        @click="selectOption(option)"
+                                        class="btn-minimalist ux-option-btn"
+                                        :class="{ 
+                                            'selected': userSelection === option,
+                                            'correct': levelComplete && option === currentLevel.correctAnswer, 
+                                            'wrong': userSelection === option && feedbackType === 'error',
+                                            'warning': userSelection === option && feedbackType === 'warning'
+                                        }"
+                                        :disabled="levelComplete">
+                                    {{ option }}
+                                </button>
+                            </div>
+
+                            <button class="run-code-btn" @click="runCode" :disabled="!userSelection || levelComplete || isTyping">
+                                <i class="bi bi-play-fill"></i> RODAR TESTE
+                            </button>
+
+                            <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                                <span v-html="feedbackMsg"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </section>
-    </main>
+        </main>
+    </div>
 
     <script src="js/script.js"></script>
+    
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    
     <script src="js/escape-game-py.js"></script>
+    
 </body>
 </html>
