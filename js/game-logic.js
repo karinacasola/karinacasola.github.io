@@ -1,53 +1,53 @@
-const { createApp } = Vue;
+const { createApp, ref, computed, onMounted } = Vue;
 
 createApp({
-    data() {
-        return {
-            // Estado inicial do projeto
-            stats: {
-                quality: 70,     // Saúde do código
-                docs: 50,        // Documentação disponível
-                tests: 50,       // Cobertura de testes
-                maintenance: 80  // Facilidade de manutenção (vs Dívida Técnica)
-            },
-            day: 1,
-            maxDays: 20, // Meta: Lançar a versão 1.0 no dia 20
-            
-            gameActive: true,
-            gameWon: false,
-            gameOverReason: "",
-            
-            // Texto explicativo que aparece após uma ação
-            lastActionExplanation: "",
-            
-            // Histórico simples para exportação
-            logs: []
-        }
-    },
-    computed: {
-        // Lógica de Pontuação Final
-        finalScore() {
-            // Média dos status
-            const avgStats = (this.stats.quality + this.stats.docs + this.stats.tests + this.stats.maintenance) / 4;
-            // Bônus por dias sobrevividos
-            const dayBonus = this.day * 15;
-            // Cálculo final
-            return Math.floor(avgStats * 6 + dayBonus);
-        },
+    setup() {
+        // --- Estado Inicial ---
+        const stats = ref({
+            quality: 70,     // Saúde do código
+            docs: 50,        // Documentação disponível
+            tests: 50,       // Cobertura de testes
+            maintenance: 80  // Facilidade de manutenção
+        });
         
-        // --- MENTOR VIRTUAL INTELIGENTE ---
-        // Analisa o estado atual e sugere a melhor ação
-        advisorTip() {
-            if (!this.gameActive) return "Simulação finalizada. Verifique o relatório.";
+        const day = ref(1);
+        const maxDays = ref(20); // Meta: Lançar a versão 1.0 no dia 20
+        
+        const gameActive = ref(true);
+        const gameWon = ref(false);
+        const gameOverReason = ref("");
+        const lastActionExplanation = ref("");
+        const logs = ref([]);
 
-            const lowest = this.getLowestStat();
+        // --- Computeds ---
+        const finalScore = computed(() => {
+            const avgStats = (stats.value.quality + stats.value.docs + stats.value.tests + stats.value.maintenance) / 4;
+            const dayBonus = day.value * 15;
+            return Math.floor(avgStats * 6 + dayBonus);
+        });
+        
+        const getLowestStat = () => {
+            let keys = Object.keys(stats.value);
+            let minKey = keys[0];
+            let minVal = stats.value[keys[0]];
+            keys.forEach(key => {
+                if (stats.value[key] < minVal) {
+                    minVal = stats.value[key];
+                    minKey = key;
+                }
+            });
+            return { key: minKey, val: minVal };
+        };
+
+        const advisorTip = computed(() => {
+            if (!gameActive.value) return "Simulação finalizada. Verifique o relatório.";
+
+            const lowest = getLowestStat();
             
-            // Dica de Reta Final
-            if (this.day >= this.maxDays - 3) {
+            if (day.value >= maxDays.value - 3) {
                 return "Estamos na reta final (Release Candidate)! Mantenha todos os status acima de 30% para o lançamento.";
             }
 
-            // Dicas baseadas em problemas críticos (< 40%)
             if (lowest.val <= 40) {
                 switch(lowest.key) {
                     case 'quality': 
@@ -61,151 +61,171 @@ createApp({
                 }
             }
 
-            // Dicas gerais de equilíbrio
             return "O projeto está estável. Tente equilibrar Qualidade e Testes para garantir sustentabilidade a longo prazo.";
-        }
-    },
-    methods: {
-        // Retorna cor baseada na porcentagem (Verde, Amarelo, Vermelho)
-        getBarColor(value) {
-            if (value > 60) return '#4CAF50'; 
-            if (value > 30) return '#FFC107'; 
-            return '#F44336'; 
-        },
+        });
 
-        // Acha o status mais baixo para gerar alertas
-        getLowestStat() {
-            let keys = Object.keys(this.stats);
-            let minKey = keys[0];
-            let minVal = this.stats[keys[0]];
-            keys.forEach(key => {
-                if (this.stats[key] < minVal) {
-                    minVal = this.stats[key];
-                    minKey = key;
-                }
-            });
-            return { key: minKey, val: minVal };
-        },
+        // --- Métodos ---
+        const getBarColor = (value) => {
+            if (value > 60) return '#10B981'; // Verde Gherkin
+            if (value > 30) return '#d9a05b'; // Laranja/Amarelo Gherkin
+            return '#EF4444'; // Vermelho Gherkin
+        };
 
-        // --- LÓGICA PRINCIPAL DAS AÇÕES ---
-        performAction(action) {
-            if (!this.gameActive) return;
+        const endGame = (won, reason) => {
+            gameActive.value = false;
+            gameWon.value = won;
+            gameOverReason.value = reason;
+        };
 
-            // 1. Entropia do Software: Tudo piora um pouco a cada dia se não cuidado
-            const entropy = 3;
-            this.stats.quality -= entropy;
-            this.stats.docs -= entropy;
-            this.stats.tests -= entropy;
-            this.stats.maintenance -= entropy;
-
-            const boost = 25; // Quanto a ação melhora o foco principal
-            const cost = 10;  // Custo de oportunidade (Trade-off)
-
-            switch(action) {
-                case 'refactor':
-                    this.stats.quality += boost;
-                    this.stats.maintenance -= cost;
-                    this.lastActionExplanation = "♻️ Refatoração: Você limpou o código e reduziu a complexidade. Isso facilita futuras alterações, mas consumiu tempo que poderia ser usado corrigindo bugs atuais.";
-                    break;
-                case 'docs':
-                    this.stats.docs += boost;
-                    this.stats.tests -= cost;
-                    this.lastActionExplanation = "📝 Documentação: O conhecimento foi registrado na Wiki. A equipe agora trabalha mais rápido, mas deixamos de escrever novos testes automatizados hoje.";
-                    break;
-                case 'test':
-                    this.stats.tests += boost;
-                    this.stats.quality += 5; // Testes ajudam levemente a qualidade
-                    this.stats.docs -= cost;
-                    this.lastActionExplanation = "🛡️ Testes Automatizados: Criamos uma rede de segurança. O deploy é mais seguro, mas a documentação ficou desatualizada com as novas mudanças.";
-                    break;
-                case 'fix':
-                    this.stats.maintenance += boost;
-                    this.stats.quality -= cost;
-                    this.lastActionExplanation = "🚑 Hotfix: Bug corrigido em produção! O cliente está feliz, mas a solução foi uma 'gambiarra' rápida que piorou a qualidade interna do código.";
-                    break;
-            }
-
-            // 2. Normalização (Impede que passe de 100 ou caia de 0)
-            Object.keys(this.stats).forEach(key => {
-                if (this.stats[key] > 100) this.stats[key] = 100;
-                if (this.stats[key] < 0) this.stats[key] = 0;
-            });
-
-            // 3. Registrar Log
-            this.logs.push({
-                day: this.day,
-                action: action,
-                result: this.lastActionExplanation
-            });
-
-            // 4. Avançar dia e checar status
-            this.day++;
-            this.checkGameStatus();
-        },
-
-        checkGameStatus() {
-            // Condição de Derrota (Falência do Projeto)
-            // Se qualquer atributo chegar a 0, o projeto morre.
-            const lowest = this.getLowestStat().val;
+        const checkGameStatus = () => {
+            const lowest = getLowestStat().val;
             
+            // Condição de Derrota
             if (lowest <= 0) {
-                this.endGame(false, "FALÊNCIA DO PROJETO: Um dos pilares essenciais chegou a 0%. O sistema tornou-se insustentável e foi cancelado pela diretoria.");
+                endGame(false, "FALÊNCIA DO PROJETO: Um dos pilares essenciais chegou a 0%. O sistema tornou-se insustentável e foi cancelado pela diretoria.");
                 return;
             }
 
-            // Condição de Fim de Prazo (Lançamento V1.0)
-            if (this.day > this.maxDays) {
-                // Para vencer, nenhum status pode estar "Crítico" (abaixo de 30)
+            // Condição de Fim de Prazo
+            if (day.value > maxDays.value) {
                 if (lowest >= 30) {
-                    this.endGame(true, "SUCESSO! Você gerenciou os trade-offs e lançou a Versão 1.0 com um sistema estável e confiável.");
+                    endGame(true, "SUCESSO! Você gerenciou os trade-offs de engenharia e lançou a Versão 1.0 com um software estável.");
                 } else {
-                    this.endGame(false, "LANÇAMENTO FRACASSADO: O prazo acabou, mas o software estava instável demais (alguns status críticos). O lançamento foi abortado.");
+                    endGame(false, "LANÇAMENTO FRACASSADO: O prazo acabou, mas o software estava instável demais. O lançamento foi abortado.");
                 }
             }
-        },
+        };
 
-        endGame(won, reason) {
-            this.gameActive = false;
-            this.gameWon = won;
-            this.gameOverReason = reason;
-            this.advisorTip = won ? "Missão Cumprida! O projeto é um sucesso." : "Projeto Cancelado.";
-        },
+        const performAction = (action) => {
+            if (!gameActive.value) return;
 
-        resetGame() {
-            this.stats = { quality: 70, docs: 50, tests: 50, maintenance: 80 };
-            this.day = 1;
-            this.gameActive = true;
-            this.gameWon = false;
-            this.lastActionExplanation = "";
-            this.logs = [];
-        },
+            // 1. Entropia: Tudo piora um pouco
+            const entropy = 3;
+            stats.value.quality -= entropy;
+            stats.value.docs -= entropy;
+            stats.value.tests -= entropy;
+            stats.value.maintenance -= entropy;
 
-        // Função de Exportar JSON (Relatório)
-        exportData() {
-            const projectData = {
-                meta: {
-                    simulation: "Project Pet Simulator",
-                    date: new Date().toLocaleString(),
-                    outcome: this.gameWon ? "VITÓRIA" : "DERROTA",
-                    finalScore: this.finalScore,
-                    reason: this.gameOverReason
-                },
-                finalStats: this.stats,
-                actionHistory: this.logs
+            const boost = 25; 
+            const cost = 10;  
+
+            switch(action) {
+                case 'refactor':
+                    stats.value.quality += boost;
+                    stats.value.maintenance -= cost;
+                    lastActionExplanation.value = "♻️ Refatoração: Você limpou o código e reduziu a complexidade. Isso facilita alterações futuras, mas consumiu tempo da manutenção.";
+                    break;
+                case 'docs':
+                    stats.value.docs += boost;
+                    stats.value.tests -= cost;
+                    lastActionExplanation.value = "📝 Documentação: O conhecimento foi registrado na Wiki. A equipe agora trabalha mais rápido, mas deixamos de escrever novos testes.";
+                    break;
+                case 'test':
+                    stats.value.tests += boost;
+                    stats.value.quality += 5;
+                    stats.value.docs -= cost;
+                    lastActionExplanation.value = "🛡️ Testes Automatizados: Criamos uma rede de segurança. O deploy é mais seguro, mas a documentação ficou levemente desatualizada.";
+                    break;
+                case 'fix':
+                    stats.value.maintenance += boost;
+                    stats.value.quality -= cost;
+                    lastActionExplanation.value = "🚑 Hotfix: Bug corrigido em produção! O cliente está feliz, mas a solução rápida gerou dívida técnica.";
+                    break;
+            }
+
+            // Normalização
+            Object.keys(stats.value).forEach(key => {
+                if (stats.value[key] > 100) stats.value[key] = 100;
+                if (stats.value[key] < 0) stats.value[key] = 0;
+            });
+
+            // Registra Log
+            logs.value.push({ day: day.value, action: action, result: lastActionExplanation.value });
+
+            // Avança o dia
+            day.value++;
+            checkGameStatus();
+        };
+
+        const resetGame = () => {
+            stats.value = { quality: 70, docs: 50, tests: 50, maintenance: 80 };
+            day.value = 1;
+            gameActive.value = true;
+            gameWon.value = false;
+            lastActionExplanation.value = "";
+            logs.value = [];
+        };
+
+        const saveResultPDF = () => {
+            const dataStr = new Date().toLocaleString();
+            const printElement = document.createElement('div');
+            
+            printElement.style.padding = '40px'; 
+            printElement.style.fontFamily = 'Arial, sans-serif'; 
+            printElement.style.color = '#333';
+            
+            let performanceMsg = gameWon.value 
+                ? "Gestão excelente! O balanceamento entre qualidade e entrega foi mantido com sucesso." 
+                : "Atenção: O projeto sofreu colapso técnico. Revise as práticas de engenharia de software.";
+            
+            // Certificado em PDF
+            printElement.innerHTML = `
+                <div style="text-align: center; border-bottom: 2px solid #3e8eff; padding-bottom: 20px; margin-bottom: 30px;">
+                    <h1 style="color: #3e8eff; margin: 0;">Relatório de Engenharia de Software</h1>
+                    <h2 style="color: #555; margin: 5px 0;">Simulador: Project.Sim</h2>
+                </div>
+                <div style="margin-bottom: 30px; font-size: 16px; line-height: 1.6; text-align: justify;">
+                    <p><strong>Data da Simulação:</strong> ${dataStr}</p>
+                    <p><strong>Status do Projeto:</strong> <span style="color: ${gameWon.value ? '#10B981' : '#EF4444'}">${gameWon.value ? 'LANÇADO' : 'CANCELADO'}</span></p>
+                    <p>Este documento atesta as decisões arquiteturais e de gerenciamento de tempo tomadas durante ${day.value - 1} dias de Sprint, equilibrando Refatoração, Documentação, Testes e Hotfixes.</p>
+                    
+                    <div style="background-color: #f4f7f6; padding: 20px; border-radius: 8px; margin-top: 30px; text-align: center; border: 1px solid #e0e0e0;">
+                        <h3 style="margin-top: 0; color: #333;">Nível de Maturidade Atingido</h3>
+                        <p style="font-size: 28px; color: ${gameWon.value ? '#10B981' : '#EF4444'}; margin: 15px 0;">
+                            <strong>${finalScore.value} Pontos</strong>
+                        </p>
+                        <p style="font-size: 15px; color: #666; font-style: italic;">Diagnóstico: ${performanceMsg}</p>
+                        
+                        <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+                        
+                        <div style="display: flex; justify-content: space-around; font-size: 13px; color: #555;">
+                            <span>Qualidade: ${Math.round(stats.value.quality)}%</span>
+                            <span>Docs: ${Math.round(stats.value.docs)}%</span>
+                            <span>Testes: ${Math.round(stats.value.tests)}%</span>
+                            <span>Manutenção: ${Math.round(stats.value.maintenance)}%</span>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-size: 13px; color: #888; text-align: center; margin-top: 50px; border-top: 1px dashed #ccc; padding-top: 15px;">
+                    Documento gerado pelo simulador PROJECT.SIM
+                </p>
+            `;
+
+            const opt = {
+                margin:       0.5,
+                filename:     `ProjectSim_Report_${new Date().toISOString().slice(0,10)}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
-            
-            const jsonString = JSON.stringify(projectData, null, 2);
-            const blob = new Blob([jsonString], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `relatorio_projeto_${this.gameWon ? 'sucesso' : 'falha'}.json`;
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
+
+            html2pdf().set(opt).from(printElement).save();
+        };
+
+        return {
+            stats,
+            day,
+            maxDays,
+            gameActive,
+            gameWon,
+            gameOverReason,
+            lastActionExplanation,
+            finalScore,
+            advisorTip,
+            getBarColor,
+            performAction,
+            resetGame,
+            saveResultPDF
+        };
     }
 }).mount('#app');
