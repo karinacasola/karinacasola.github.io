@@ -1,0 +1,281 @@
+/* ==========================================================================
+   CSS ESPECÍFICO - MATH ESCAPE BOOLEANA (Identidade Visual Azul Minimalista)
+   ========================================================================== */
+
+[v-cloak] { display: none; }
+
+body {
+    background-color: var(--bg-dark);
+    background-image: radial-gradient(circle at 50% 0%, rgba(62, 142, 255, 0.15), transparent 60%);
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+}
+
+/* CONTAINER PRINCIPAL E ESPAÇAMENTOS */
+.game-container-wrapper {
+    padding-top: 130px; 
+    padding-bottom: 50px;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER DO JOGO E ESTATÍSTICAS */
+.game-header {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-header-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid rgba(62, 142, 255, 0.3);
+    color: var(--accent-blue);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.section-title { font-size: 28px; color: var(--text-primary); margin: 0; }
+
+.stats-area { display: flex; gap: 30px; }
+.stat-item { display: flex; flex-direction: column; align-items: flex-end; }
+.stat-item .label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; font-weight: 500; letter-spacing: 1px; }
+.stat-item .value { font-size: 24px; font-weight: 700; font-family: 'Courier New', monospace; color: var(--text-primary); }
+.stat-item .value.highlight { color: var(--accent-blue); }
+.error-text { color: #EF4444 !important; }
+
+/* PROGRESS BAR */
+.progress-container {
+    width: 100%;
+    height: 4px;
+    background-color: var(--border-color);
+    border-radius: 2px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background-color: var(--accent-blue);
+    transition: width 0.4s ease;
+}
+
+/* ==========================================================================
+   SPLIT AREA (Terminal e Editor)
+   ========================================================================== */
+.ux-split-area {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+@media (min-width: 992px) {
+    .ux-split-area {
+        flex-direction: row;
+        align-items: stretch;
+    }
+    .ux-window {
+        width: 50%;
+        height: 600px;
+    }
+}
+
+/* JANELAS (Glassmorphism) */
+.ux-window {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.ux-window:hover {
+    border-color: rgba(62, 142, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.window-header {
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.window-dots { display: flex; gap: 6px; }
+.window-dots span {
+    width: 10px; height: 10px; border-radius: 50%; 
+    background: var(--border-color);
+}
+
+.window-title {
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* TERMINAL */
+.terminal-body {
+    background: rgba(0, 0, 0, 0.2);
+    flex: 1;
+    padding: 20px;
+    font-family: 'Courier New', monospace; 
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+.prompt { color: var(--accent-blue); margin-right: 8px; font-weight: bold; }
+.log-error { color: #EF4444; } 
+.log-warning { color: #d9a05b; } 
+.log-success { color: #10B981; }
+.typing-cursor { display: inline-block; animation: blink 1s infinite; color: var(--accent-blue); }
+
+@keyframes blink { 50% { opacity: 0; } }
+
+/* EDITOR */
+.editor-body {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.editor-body::-webkit-scrollbar, .terminal-body::-webkit-scrollbar { width: 6px; }
+.editor-body::-webkit-scrollbar-track, .terminal-body::-webkit-scrollbar-track { background: transparent; }
+.editor-body::-webkit-scrollbar-thumb, .terminal-body::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+
+.comment {
+    color: #6a9955;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.read-only-code {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+.read-only-code p {
+    margin: 0;
+    color: var(--text-primary);
+    line-height: 1.5;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* BOTÕES DAS OPÇÕES */
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.ux-option-btn, .btn-minimalist {
+    background-color: transparent !important;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Satoshi', sans-serif;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    text-align: left;
+}
+
+.ux-option-btn:hover:not(:disabled), .btn-minimalist:hover {
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+    background-color: rgba(62, 142, 255, 0.05) !important;
+}
+
+.ux-option-btn.correct { border-color: #10B981 !important; color: #10B981 !important; background: rgba(16, 185, 129, 0.05) !important; }
+.ux-option-btn.wrong { border-color: #EF4444 !important; color: #EF4444 !important; background: rgba(239, 68, 68, 0.05) !important; }
+.ux-option-btn.warning { border-color: #d9a05b; color: #d9a05b; background: rgba(217, 160, 91, 0.05) !important; }
+.ux-option-btn:disabled { cursor: default; }
+
+/* FEEDBACK MENSAGENS E ESTADOS */
+.feedback-msg { 
+    text-align: center; 
+    font-weight: 400; 
+    padding: 16px; 
+    border-radius: 12px; 
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+}
+.feedback-msg.success { color: #10B981; border-color: rgba(16, 185, 129, 0.3); }
+.feedback-msg.error { color: #EF4444; border-color: rgba(239, 68, 68, 0.3); }
+.feedback-msg.warning { color: #d9a05b; border-color: rgba(217, 160, 91, 0.3); }
+
+.ux-window.locked::after {
+    content: 'COMPILANDO LÓGICA...';
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 10, 10, 0.6);
+    display: flex; justify-content: center; align-items: center;
+    font-family: 'Courier New', monospace;
+    color: var(--accent-blue);
+    z-index: 10; font-weight: bold; font-size: 14px; letter-spacing: 2px;
+    backdrop-filter: blur(2px);
+}
+.ux-window.editor { position: relative; }
+
+/* TELA FINAL */
+.end-screen {
+    text-align: center;
+    padding: 60px 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.trophy-icon { font-size: 50px; color: var(--accent-blue); margin-bottom: 20px; }
+.end-screen h2 { font-size: 28px; color: var(--text-primary); margin-bottom: 15px;}
+.end-screen p { color: var(--text-secondary); max-width: 400px; margin-bottom: 40px; font-size: 15px; }
+.final-actions { display: flex; gap: 15px; }
+
+/* RESPONSIVIDADE MOBILE */
+@media (max-width: 768px) {
+    .game-container-wrapper { padding-top: 100px; }
+    .header-content { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .stats-area { width: 100%; justify-content: flex-start; gap: 25px; }
+    .stat-item { align-items: flex-start; }
+    .final-actions { flex-direction: column; width: 100%; }
+    .btn-minimalist { width: 100%; justify-content: center; }
+}
