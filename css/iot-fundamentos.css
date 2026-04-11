@@ -1,0 +1,209 @@
+/* ==========================================================================
+   CSS ESPECÍFICO DO QUIZ IOT (Complementa o style.css)
+   ========================================================================== */
+
+[v-cloak] { display: none; }
+
+body {
+    background-color: var(--bg-dark);
+    background-image: radial-gradient(circle at 50% 0%, rgba(62, 142, 255, 0.15), transparent 60%);
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+}
+
+.override-btn {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color);
+}
+.override-btn:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue) !important;
+}
+
+.game-container-wrapper {
+    padding-top: 130px; 
+    padding-bottom: 50px;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-header {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.game-header:hover {
+    border-color: var(--accent-blue);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.stats-area { display: flex; gap: 30px; }
+.stat-item { display: flex; flex-direction: column; align-items: flex-end; }
+.stat-item .label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; font-weight: 500; letter-spacing: 1px; }
+.stat-item .value { font-size: 24px; font-weight: 700; font-family: 'Courier New', monospace; color: var(--text-primary); }
+.stat-item .value.highlight { color: var(--accent-blue); }
+
+.progress-container {
+    height: 4px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background: var(--accent-blue);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.puzzle-area {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.scenario-context { text-align: center; margin-bottom: 10px; }
+.scenario-context h3 { color: var(--accent-blue); margin-bottom: 10px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+.scenario-context .scenario-desc { font-size: 18px; font-weight: 500; color: var(--text-primary); max-width: 90%; margin: 0 auto; line-height: 1.4; }
+.scenario-context .instruction { font-size: 14px; color: var(--text-secondary); margin-top: 15px; }
+
+/* OPÇÕES DO QUIZ */
+.quiz-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.quiz-option {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    padding: 16px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.quiz-option:hover:not(.locked):not(.correct):not(.wrong) {
+    background-color: rgba(62, 142, 255, 0.05);
+    border-color: rgba(62, 142, 255, 0.5);
+}
+
+.quiz-option.locked {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.quiz-option.correct {
+    border-color: #10B981;
+    background: rgba(16, 185, 129, 0.05);
+    opacity: 1;
+}
+
+.quiz-option.wrong {
+    border-color: #EF4444;
+    background: rgba(239, 68, 68, 0.05);
+    opacity: 0.6;
+}
+
+.option-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.quiz-option.correct .option-marker { background: transparent; color: #10B981; font-size: 20px; }
+.quiz-option.wrong .option-marker { background: transparent; color: #EF4444; font-size: 20px; }
+
+.text { font-family: 'Satoshi', sans-serif; font-weight: 500; font-size: 15px; flex-grow: 1; color: var(--text-primary); line-height: 1.5; }
+
+/* CONTROLES E FEEDBACK */
+.controls { display: flex; justify-content: center; margin-top: 15px; }
+
+.btn-minimalist {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Satoshi', sans-serif;
+    transition: all 0.3s ease;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-minimalist:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    background-color: rgba(62, 142, 255, 0.03);
+}
+
+.feedback-msg { 
+    text-align: center; font-weight: 400; padding: 16px; border-radius: 12px; font-size: 14px;
+    animation: fadeIn 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 10px; border: 1px solid var(--border-color); background-color: transparent;
+}
+.feedback-msg.success { color: #10B981; border-color: rgba(16, 185, 129, 0.3); }
+.feedback-msg.error { color: #EF4444; border-color: rgba(239, 68, 68, 0.3); }
+.feedback-msg.info { color: var(--accent-blue); border-color: rgba(62, 142, 255, 0.3); }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.end-screen {
+    text-align: center; padding: 60px 30px; background: transparent; border: 1px solid var(--border-color);
+    border-radius: 20px; display: flex; flex-direction: column; align-items: center;
+}
+.trophy-icon { font-size: 50px; color: var(--accent-blue); margin-bottom: 20px; }
+.end-screen h2 { font-size: 28px; color: var(--text-primary); margin-bottom: 15px;}
+.end-screen p { color: var(--text-secondary); max-width: 400px; margin-bottom: 10px; font-size: 15px; }
+.final-score { font-size: 18px; color: var(--text-primary); margin-bottom: 30px; }
+.final-actions { display: flex; gap: 15px; }
+
+@media (max-width: 768px) {
+    .game-container-wrapper { padding-top: 100px; }
+    .header-content { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .stats-area { width: 100%; justify-content: flex-start; gap: 25px; }
+    .quiz-option { padding: 14px; gap: 12px; }
+}
+
+/* Som e Animação de Erro */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+.shake-animation { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }

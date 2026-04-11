@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Fundamentos - Desafio QA/Hardware</title>
+
+    <link rel="icon" href="img/favicon.svg">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/iot-fundamentos.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="app" v-cloak>
+        <main class="game-container-wrapper">
+            
+            <header class="game-header">
+                <div class="header-content">
+                    <div class="logo-area">
+                        <div class="section-header-pill">IOT FUNDAMENTOS</div>
+                        <h1 class="section-title">Desafio de Hardware</h1>
+                    </div>
+                    
+                    <div class="stats-area">
+                        <div class="stat-item">
+                            <span class="label">Questão</span>
+                            <span class="value">{{ currentLevelIndex + 1 }}<small>/{{ levels.length }}</small></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Acertos</span>
+                            <span class="value highlight">{{ correctCount }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" :style="{ width: progressPercentage + '%' }"></div>
+                </div>
+            </header>
+
+            <div class="game-body">
+                <div v-if="gameFinished" class="end-screen">
+                    <i class="bi bi-cpu trophy-icon"></i>
+                    <h2>Missão Concluída!</h2>
+                    <p>Você finalizou o teste de conhecimentos em Sensores, Atuadores e Arduino.</p>
+                    <p class="final-score">Pontuação: <strong>{{ correctCount }} de {{ levels.length }}</strong></p>
+                    <div class="final-actions">
+                        <button @click="resetGame" class="btn-minimalist">
+                            <i class="bi bi-arrow-counterclockwise"></i> Tentar Novamente
+                        </button>
+                    </div>
+                </div>
+
+                <div v-else class="puzzle-area">
+                    <div class="scenario-context">
+                        <h3><i class="bi bi-motherboard"></i> Questão {{ currentLevelIndex + 1 }}</h3>
+                        <p class="scenario-desc">{{ currentLevel.question }}</p>
+                        <p class="instruction" v-if="!isQuestionLocked">
+                            Escolha a resposta correta. Você tem {{ 3 - attempts }} tentativa(s) restante(s).
+                        </p>
+                    </div>
+
+                    <div class="quiz-options-list">
+                        <div 
+                            v-for="(option, index) in currentLevel.options" 
+                            :key="index"
+                            class="quiz-option"
+                            :class="{
+                                'correct': option.status === 'correct',
+                                'wrong': option.status === 'wrong',
+                                'locked': isQuestionLocked && option.status !== 'correct'
+                            }"
+                            @click="selectOption(index)"
+                        >
+                            <div class="option-marker">
+                                <i v-if="option.status === 'correct'" class="bi bi-check-circle-fill"></i>
+                                <i v-else-if="option.status === 'wrong'" class="bi bi-x-circle-fill"></i>
+                                <span v-else>{{ String.fromCharCode(65 + index) }}</span>
+                            </div>
+                            <div class="text">{{ option.text }}</div>
+                        </div>
+                    </div>
+
+                    <div v-if="feedbackMessage" class="feedback-msg" :class="feedbackType">
+                        <span v-html="feedbackMessage"></span>
+                    </div>
+
+                    <div class="controls" v-if="isQuestionLocked">
+                        <button @click="nextLevel" class="btn-minimalist">
+                            <span v-if="currentLevelIndex < levels.length - 1">Próxima Questão <i class="bi bi-arrow-right"></i></span>
+                            <span v-else>Finalizar Desafio <i class="bi bi-flag"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script> 
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="js/iot-fundamentos.js"></script>
+</body>
+</html>
