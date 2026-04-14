@@ -1,0 +1,227 @@
+/* ==========================================================================
+   CSS DO QUIZ (Minimalista - Branco Gelo e Verde Metálico)
+   ========================================================================== */
+
+[v-cloak] { display: none; }
+
+:root {
+    --bg-dark: #0A0A0A;
+    --card-bg: #111111;
+    --text-primary: #F8F9FA; /* Branco Gelo */
+    --text-secondary: #A0A0A0;
+    --accent-metal: #547A62; /* Verde Metálico */
+    --border-neutral: rgba(248, 249, 250, 0.15);
+    --error-muted: #8A5A5A;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Satoshi', sans-serif;
+}
+
+.override-btn {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-neutral);
+}
+.override-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--bg-dark) !important;
+    background-color: var(--text-primary) !important;
+}
+
+.quiz-container-wrapper {
+    padding-top: 130px; 
+    padding-bottom: 50px;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.quiz-header {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-neutral);
+    border-radius: 12px; /* Reduzido para um visual mais flat/minimalista */
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.stats-area { display: flex; gap: 30px; }
+.stat-item { display: flex; flex-direction: column; align-items: flex-end; }
+.stat-item .label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; font-weight: 500; letter-spacing: 1px; }
+.stat-item .value { font-size: 24px; font-weight: 700; font-family: 'Courier New', monospace; color: var(--text-primary); }
+
+.progress-container {
+    height: 2px; /* Linha mais fina e elegante */
+    background: rgba(248,249,250,0.05);
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background: var(--text-primary); /* Branco gelo preenchendo */
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.question-area {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.question-context { text-align: left; margin-bottom: 10px; }
+.question-text { font-size: 20px; font-weight: 500; color: var(--text-primary); line-height: 1.5; }
+
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-item {
+    background-color: transparent;
+    border: 1px solid var(--border-neutral);
+    padding: 18px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.option-item input[type="radio"] {
+    display: none;
+}
+
+.option-item:hover:not(.disabled) {
+    background-color: rgba(248, 249, 250, 0.03);
+    border-color: rgba(248, 249, 250, 0.4);
+}
+
+.option-item.selected:not(.disabled) {
+    border-color: var(--text-primary);
+    background-color: rgba(248, 249, 250, 0.08);
+}
+
+.option-text {
+    font-size: 15px;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+}
+
+.option-item.selected .option-text { color: var(--text-primary); }
+
+/* Feedbacks Visuais Minimalistas */
+.option-item.correct-reveal {
+    border-color: var(--accent-metal);
+    background-color: rgba(84, 122, 98, 0.1);
+}
+.option-item.correct-reveal .option-text { color: var(--accent-metal); font-weight: 700; }
+
+.option-item.wrong-reveal {
+    border-color: var(--error-muted);
+    background-color: rgba(138, 90, 90, 0.05);
+    opacity: 0.7;
+}
+
+.option-item.disabled { cursor: default; }
+
+.controls { display: flex; justify-content: flex-end; margin-top: 15px; }
+
+.btn-minimalist {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-neutral);
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Satoshi', sans-serif;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-minimalist:hover:not(:disabled) {
+    border-color: var(--text-primary);
+    background-color: var(--text-primary);
+    color: var(--bg-dark);
+}
+
+.btn-minimalist:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.btn-minimalist.next-btn {
+    border-color: var(--accent-metal);
+    color: var(--accent-metal);
+}
+.btn-minimalist.next-btn:hover {
+    background-color: var(--accent-metal);
+    color: var(--text-primary);
+}
+
+.explanation-box {
+    margin-top: 20px;
+    padding: 20px;
+    border-left: 3px solid var(--accent-metal);
+    background-color: var(--card-bg);
+    border-radius: 0 8px 8px 0;
+}
+
+.explanation-box h4 {
+    color: var(--accent-metal);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.explanation-box p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.end-screen {
+    text-align: center;
+    padding: 60px 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-neutral);
+    border-radius: 12px;
+}
+.trophy-icon { font-size: 40px; color: var(--text-primary); margin-bottom: 20px; }
+.end-screen h2 { font-size: 28px; color: var(--text-primary); margin-bottom: 15px;}
+.final-score {
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    color: var(--text-secondary);
+    margin: 30px 0;
+}
+.final-score span {
+    color: var(--accent-metal);
+    font-weight: 700;
+    font-size: 32px;
+}
+.final-actions { display: flex; justify-content: center; gap: 15px; margin-top: 20px;}
+
+.fade-enter-active, .fade-leave-active { transition: opacity 0.4s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+
+@media (max-width: 768px) {
+    .quiz-container-wrapper { padding-top: 100px; }
+    .header-content { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .final-actions { flex-direction: column; }
+}

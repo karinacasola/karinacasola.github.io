@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass Quiz - Posicionamento e Comunicação</title>
+    <link rel="icon" href="img/favicon.svg">
+
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/quiz.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+                </a>
+            </div>
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="quiz-app" v-cloak class="quiz-container-wrapper">
+        <header class="quiz-header">
+            <div class="header-content">
+                <div class="logo-area">
+                    <div class="section-header-pill">AVALIAÇÃO DE CONHECIMENTO</div>
+                    <h1 class="section-title">Posicionamento Profissional</h1>
+                </div>
+                <div class="stats-area" v-if="!quizFinished">
+                    <div class="stat-item">
+                        <span class="label">Questão</span>
+                        <span class="value">{{ currentQuestionIndex + 1 }}<small>/{{ questions.length }}</small></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Tentativas Restantes</span>
+                        <span class="value">{{ attemptsLeft }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-container" v-if="!quizFinished">
+                <div class="progress-bar" :style="{ width: progressPercentage + '%' }"></div>
+            </div>
+        </header>
+
+        <main class="quiz-body">
+            <div v-if="quizFinished" id="pdf-export-area" class="end-screen">
+                <i class="bi bi-clipboard-data trophy-icon"></i>
+                <h2>Auditoria Concluída</h2>
+                <p>Seu motor de empregabilidade foi testado.</p>
+                <div class="final-score">
+                    Acertos: <span>{{ score }}</span> / {{ questions.length }}
+                </div>
+                <div class="final-actions" data-html2canvas-ignore>
+                    <button @click="exportToPDF" class="btn-minimalist">
+                        <i class="bi bi-file-earmark-pdf"></i> Exportar Relatório PDF
+                    </button>
+                    <button @click="resetQuiz" class="btn-minimalist">
+                        <i class="bi bi-arrow-counterclockwise"></i> Refazer Auditoria
+                    </button>
+                </div>
+            </div>
+
+            <div v-else class="question-area">
+                <div class="question-context">
+                    <p class="question-text">{{ currentQuestion.text }}</p>
+                </div>
+
+                <div class="options-list">
+                    <label 
+                        v-for="(option, index) in currentQuestion.options" 
+                        :key="index"
+                        class="option-item"
+                        :class="{ 
+                            'selected': selectedOption === index,
+                            'correct-reveal': showExplanation && index === currentQuestion.correctAnswer,
+                            'wrong-reveal': showExplanation && selectedOption === index && index !== currentQuestion.correctAnswer,
+                            'disabled': showExplanation
+                        }"
+                    >
+                        <input 
+                            type="radio" 
+                            :value="index" 
+                            v-model="selectedOption"
+                            :disabled="showExplanation"
+                        >
+                        <span class="option-text">{{ option }}</span>
+                    </label>
+                </div>
+
+                <div class="controls">
+                    <button 
+                        v-if="!showExplanation" 
+                        @click="checkAnswer" 
+                        class="btn-minimalist"
+                        :disabled="selectedOption === null"
+                    >
+                        Confirmar Resposta
+                    </button>
+                    <button 
+                        v-else 
+                        @click="nextQuestion" 
+                        class="btn-minimalist next-btn"
+                    >
+                        {{ currentQuestionIndex < questions.length - 1 ? 'Avançar para a próxima' : 'Finalizar' }} <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+
+                <transition name="fade">
+                    <div v-if="showExplanation" class="explanation-box">
+                        <h4><i class="bi bi-info-circle"></i> Feedback do Mediador:</h4>
+                        <p v-html="currentQuestion.explanation"></p>
+                    </div>
+                </transition>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/quiz.js"></script>
+    
+</body>
+</html>
