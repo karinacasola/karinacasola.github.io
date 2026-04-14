@@ -17,6 +17,13 @@
 </head>
 <body>
 
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
     <nav class="navbar">
         <div class="navbar-content">
             <div class="navbar-logo">
@@ -24,15 +31,18 @@
                     <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
                 </a>
             </div>
+
             <button class="mobile-menu-btn" id="menu-toggle">
                 <i class="bi bi-list"></i>
             </button>
+
             <div class="navbar-menu" id="navbar-menu">
                 <a href="index.html" class="navbar-link">Inicio</a>
                 <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
                 <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
                 <a href="sobre.html" class="navbar-link">Sobre</a>
                 <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
                     <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
                 </div>
             </div>
@@ -136,6 +146,10 @@
     </div>
 
     <script src="js/quiz.js"></script>
-    
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>
