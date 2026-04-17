@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Logic Room - Abstração e Algoritmos</title>
+
+    <link rel="icon" href="img/favicon.svg">
+    
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/codar-java.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="app" v-cloak>
+        <main class="game-container-wrapper wide-wrapper">
+            
+            <header class="game-header">
+                <div class="header-content">
+                    <div class="logo-area">
+                        <div class="section-header-pill">JAVA.LOGIC</div>
+                        <h1 class="section-title">Treinamento de Abstração Java</h1>
+                    </div>
+                    
+                    <div class="stats-area">
+                        <div class="stat-item">
+                            <span class="label">Desafio</span>
+                            <span class="value">{{ currentQuestionIndex + 1 }}<small>/{{ questions.length }}</small></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Tentativas</span>
+                            <span class="value" :class="{'error-text': attempts >= 2}">{{ attempts }}<small>/3</small></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Acertos</span>
+                            <span class="value highlight">{{ score }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" :style="{ width: progressPercentage + '%' }"></div>
+                </div>
+            </header>
+
+            <div class="game-body">
+                
+                <div v-if="gameOver" class="end-screen">
+                    <i class="bi bi-code-slash trophy-icon"></i>
+                    <h2>Treinamento Concluído!</h2>
+                    <p>Você completou os exercícios de abstração lógica em Java.<br>
+                    <strong>{{ score }} acertos</strong> de {{ questions.length }} desafios propostos.</p>
+                    <div class="final-actions">
+                        <button @click="saveResultPDF" class="btn-minimalist">
+                            <i class="bi bi-cloud-download"></i> Baixar Relatório PDF
+                        </button>
+                        <button @click="resetGame" class="btn-minimalist">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reiniciar Treinamento
+                        </button>
+                    </div>
+                </div>
+
+                <div v-else class="ux-split-area">
+                    
+                    <div class="ux-window terminal">
+                        <div class="window-header">
+                            <div class="window-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="window-title">console_output.log</span>
+                        </div>
+                        <div class="terminal-body" ref="terminalBody">
+                            <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                                <span class="prompt" v-if="line.text && line.type !== 'log-header'">java_env></span> 
+                                <span v-html="line.text"></span>
+                            </p>
+                            <div class="typing-cursor" v-if="isTyping">█</div>
+                        </div>
+                    </div>
+
+                    <div class="ux-window editor" :class="{ 'locked': isTyping }">
+                        <div class="window-header">
+                            <span class="window-title">Main.java</span>
+                            <i class="bi bi-filetype-java" style="color: var(--text-secondary);"></i>
+                        </div>
+                        
+                        <div class="editor-body">
+                            <div style="margin-bottom: 15px;">
+                                <p class="comment">// {{ currentQuestion.instruction }}</p>
+                                <p class="comment">// Variáveis disponíveis: {{ currentQuestion.variables }}</p>
+                            </div>
+                            
+                            <textarea 
+                                v-model="userCode" 
+                                class="code-textarea" 
+                                placeholder="Escreva seu código Java aqui..."
+                                :disabled="roundOver"
+                                spellcheck="false"
+                            ></textarea>
+
+                            <div class="action-grid" v-if="!roundOver">
+                                <div style="display: flex; gap: 10px; width: 100%;">
+                                    <button @click="submitCode" class="btn-minimalist ux-submit-btn" style="flex: 2;">
+                                        <i class="bi bi-play-fill"></i> Executar Código
+                                    </button>
+                                    <button @click="requestHint" class="btn-minimalist ux-hint-btn" style="flex: 1;" :disabled="hintsUsed >= maxHints">
+                                        <i class="bi bi-lightbulb"></i> Dica ({{ maxHints - hintsUsed }})
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                                <span v-html="feedbackMsg"></span>
+                            </div>
+
+                            <div v-if="roundOver" class="explanation-box">
+                                <h4><i class="bi bi-info-circle"></i> Explicação:</h4>
+                                <p>{{ currentQuestion.explanation }}</p>
+                                <p v-if="feedbackType === 'error'" class="correct-syntax">
+                                    <strong>Exemplo de solução:</strong><br>
+                                    <code>{{ currentQuestion.expectedExample }}</code>
+                                </p>
+                            </div>
+
+                            <div class="action-grid" v-if="roundOver" style="margin-top: 15px;">
+                                <button @click="nextQuestion" class="btn-minimalist btn-next">
+                                    Avançar para o Próximo Desafio <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    
+    <script src="js/codar-java.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
