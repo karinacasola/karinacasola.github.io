@@ -8,24 +8,41 @@
     <link rel="icon" href="img/favicon.svg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     
-   
-    <link rel="stylesheet" href="css/quebra-java.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/quebra-java.css">
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
 
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
     <nav class="navbar">
         <div class="navbar-content">
-            <div style="font-weight: 700; font-size: 20px; color: var(--text-primary);">
-                JAVA<span style="color: var(--accent-blue);">.BLOCKS</span>
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+                </a>
             </div>
+
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+
             <div class="navbar-menu" id="navbar-menu">
-                <span style="color: var(--text-secondary); font-size: 14px; margin-left: 15px;">
-                    Lógica Estruturada Java v1.0
-                </span>
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -168,6 +185,12 @@
         </section>
     </main>
 
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <script src="js/script.js"></script>
     <script src="js/quebra-java.js"></script>
 </body>
 </html>

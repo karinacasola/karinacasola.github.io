@@ -10,6 +10,8 @@
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     
+    <link rel="stylesheet" href="css/style.css">
+    
     <link rel="stylesheet" href="css/empatia.css">
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -24,49 +26,45 @@
     </div>
 
     <nav class="navbar">
-        <div class="navbar-content">
-            <div class="navbar-logo">
-                <a href="index.html">
-                    <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
-                </a>
-            </div>
-
-            <button class="mobile-menu-btn" id="menu-toggle">
-                <i class="bi bi-list"></i>
-            </button>
-
-            <div class="navbar-menu" id="navbar-menu">
-                <a href="index.html" class="navbar-link">Inicio</a>
-                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
-                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
-                <a href="sobre.html" class="navbar-link">Sobre</a>
-                <div class="nav-actions">
-                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
-                </div>
-            </div>
+    <div class="navbar-content">
+        <div class="navbar-logo">
+            <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
         </div>
-    </nav>
 
+        <button class="mobile-menu-btn" id="menu-toggle">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <div class="navbar-menu" id="navbar-menu">
+            <a href="index.html" class="navbar-link">Inicio</a>
+            <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+            <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+            <a href="sobre.html" class="navbar-link">Sobre</a>
+		<div class="nav-actions">
+                
+                <div class="gtranslate_wrapper"></div>
+            <a href="index.html#contato" class="navbar-button">Contato</a>
+        </div>
+    </div>
+    </nav>
     <div id="app" v-cloak>
         <main class="game-container-wrapper">
             
             <header class="game-header">
-                <div class="header-content">
+                <div class="game-header-content">
                     <div class="logo-area">
-                        <div class="section-header-pill">SIMULAÇÃO ATIVA</div>
-                        <h1 class="section-title">Decodificando o <span class="highlight-text">Usuário</span></h1>
+                        <div class="game-header-pill">IHC: DESIGN THINKING</div>
+                        <h1 class="game-title">Extração de <span class="accent-text">Empatia</span></h1>
                     </div>
                     
                     <div class="stats-area">
                         <div class="stat-item">
-                            <span class="label">Questão</span>
+                            <span class="label">Progresso</span>
                             <span class="value">{{ currentQuestionIndex + 1 }}<small>/{{ questions.length }}</small></span>
                         </div>
                         <div class="stat-item">
-                            <span class="label">Integridade</span>
-                            <span class="value" :class="{'error-text': mistakes >= 2}">
-                                {{ 3 - mistakes }}<small>/3</small>
-                            </span>
+                            <span class="label">Falhas Criticas</span>
+                            <span class="value" :class="{'error-text': mistakes >= 4}">{{ mistakes }}<small>/6</small></span>
                         </div>
                     </div>
                 </div>
@@ -76,63 +74,60 @@
                 </div>
             </header>
 
-            <div v-if="gameFinished" class="end-screen">
-                <i class="bi bi-cpu trophy-icon"></i>
-                <h2>Treinamento Concluído</h2>
-                <p>Você processou com sucesso todos os dados sobre o Mapa de Empatia.</p>
-                <button @click="restartGame" class="btn-minimalist" style="margin-top: 20px;">
-                    <i class="bi bi-arrow-counterclockwise"></i> Reiniciar Simulação
-                </button>
-            </div>
-
-            <div v-else class="ux-split-area">
+            <div class="game-body">
                 
-                <div class="ux-window terminal">
-                    <div class="window-header">
-                        <div class="window-title-left">
-                            <div class="window-dots">
-                                <span></span><span></span><span></span>
-                            </div>
-                            <span class="window-title">dados_pesquisa.log</span>
-                        </div>
-                    </div>
-                    <div class="terminal-body">
-                        <p><span class="prompt">system@ux:~#</span> Analisando diretrizes de pesquisa...</p>
-                        <p class="log-info">Extraindo conceito do arquivo "O_mapa_da_empatia.pdf"...</p>
-                        <br>
-                        <p style="font-size: 16px; color: var(--text-primary);">
-                            <i class="bi bi-terminal"></i> <strong>DICA:</strong><br>
-                            {{ currentQuestion.hint }}
-                        </p>
-                        
-                        <div class="word-display-area" style="margin-top: 40px; text-align: center;">
-                            <div class="word-slots">
-                                <span v-for="(letter, index) in maskedWordArray" :key="index" 
-                                      class="code-slot" :class="{'filled': letter !== '_'}">
-                                    {{ letter }}
-                                </span>
-                            </div>
-                        </div>
+                <div v-if="gameFinished" class="end-screen">
+                    <i class="bi bi-cpu-fill trophy-icon"></i>
+                    <h2>Mapeamento Concluído</h2>
+                    <p>Você demonstrou compreensão profunda sobre os sentimentos e necessidades do usuário.<br>
+                    <strong>Nível de Empatia: Avançado</strong></p>
+                    
+                    <div class="final-actions">
+                        <button @click="restartGame" class="run-code-btn" style="width: auto; padding: 14px 40px;">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reiniciar Treinamento
+                        </button>
                     </div>
                 </div>
 
-                <div class="ux-window editor" :class="{'locked': showFeedback}">
-                    <div class="window-header">
-                        <div class="window-title-left">
-                            <div class="window-dots" style="visibility: hidden;">
+                <div v-else class="ux-split-area">
+                    
+                    <div class="ux-window terminal">
+                        <div class="window-header">
+                            <div class="window-dots">
                                 <span></span><span></span><span></span>
                             </div>
-                            <span class="window-title">input_terminal.exe</span>
+                            <span class="window-title">contexto_usuario.log</span>
                         </div>
-                        <i class="bi bi-keyboard" style="color: var(--text-secondary);"></i>
+                        <div class="terminal-body">
+                            <div class="scenario-box">
+                                <p class="scenario-hint"><i class="bi bi-lightbulb"></i> Insight: {{ currentQuestion.hint }}</p>
+                                <p class="scenario-text">{{ currentQuestion.scenario || currentQuestion.feedback }}</p>
+                            </div>
+                            
+                            <div class="hangman-display">
+                                <div class="word-display">
+                                    <span v-for="(char, idx) in maskedWordArray" :key="idx" class="char-box" :class="{'found': char !== '_'}">
+                                        {{ char }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="editor-body">
-                        <div v-if="!showFeedback" class="keyboard-grid">
-                            <button v-for="letter in alphabet" :key="letter"
+
+                    <div class="ux-window editor">
+                        <div class="window-header">
+                            <span class="window-title">seletor_de_termos.exe</span>
+                            <i class="bi bi-search" style="color: var(--text-secondary);"></i>
+                        </div>
+                        
+                        <div class="editor-body">
+                            <div v-if="!showFeedback" class="keyboard-grid">
+                                <button 
+                                    v-for="letter in alphabet" 
+                                    :key="letter" 
                                     @click="guessLetter(letter)"
-                                    class="ux-option-btn key-btn"
-                                    :class="{
+                                    class="ux-option-btn"
+                                    :class="{ 
                                         'correct': guessedLetters.includes(letter) && currentQuestion.word.includes(letter),
                                         'wrong': guessedLetters.includes(letter) && !currentQuestion.word.includes(letter)
                                     }"
@@ -161,6 +156,8 @@
 
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+    
+    <script src="js/script.js"></script>
     <script src="js/empatia.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 /* ==========================================================================
    CSS ESPECÍFICO - PYTHON ESCAPE ROOM
+   Isolado para não interferir no style.css global
    ========================================================================== */
 
 [v-cloak] { display: none; }
@@ -11,7 +12,7 @@ body {
     background-attachment: fixed; 
 }
 
-/* CONTAINER E HEADER */
+/* CONTAINER E HEADER DO JOGO */
 .game-container-wrapper {
     padding-top: 130px; 
     padding-bottom: 50px;
@@ -30,9 +31,9 @@ body {
     margin-bottom: 30px;
 }
 
-.header-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.game-header-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
 
-.section-header-pill {
+.game-header-pill {
     display: inline-block;
     padding: 4px 12px;
     border: 1px solid rgba(62, 142, 255, 0.3);
@@ -45,7 +46,13 @@ body {
     text-transform: uppercase;
 }
 
-.section-title { font-size: 28px; color: var(--text-primary, #fff); margin: 0; }
+.game-title { 
+    font-size: 28px; 
+    color: var(--text-primary, #fff); 
+    margin: 0; 
+    font-weight: 700;
+}
+
 .glitch-text { color: var(--accent-blue, #3e8eff); text-shadow: 2px 0 rgba(255,0,0,0.5), -2px 0 rgba(0,0,255,0.5); }
 
 .stats-area { display: flex; gap: 30px; }
@@ -59,9 +66,7 @@ body {
 .progress-container { height: 4px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
 .progress-bar { height: 100%; background: var(--accent-blue, #3e8eff); transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
 
-/* ==========================================================================
-   SPLIT AREA (Terminal e Editor)
-   ========================================================================== */
+/* SPLIT AREA */
 .ux-split-area { display: flex; flex-direction: column; gap: 25px; }
 @media (min-width: 992px) {
     .ux-split-area { flex-direction: row; align-items: stretch; }
@@ -85,7 +90,7 @@ body {
 /* TERMINAL */
 .terminal-body {
     background: rgba(0, 0, 0, 0.7); flex: 1; padding: 20px; font-family: 'Courier New', monospace; 
-    font-size: 13px; line-height: 1.6; color: #4CAF50; /* Verde Hacker Clássico */
+    font-size: 13px; line-height: 1.6; color: #4CAF50; 
     overflow-y: auto; white-space: pre-wrap;
 }
 .terminal-body p { margin-bottom: 8px; opacity: 0; animation: fadeIn 0.3s forwards; }
@@ -104,11 +109,11 @@ body {
 .editor-body::-webkit-scrollbar-track, .terminal-body::-webkit-scrollbar-track { background: transparent; }
 .editor-body::-webkit-scrollbar-thumb, .terminal-body::-webkit-scrollbar-thumb { background: var(--border-color, #333); border-radius: 10px; }
 
-/* SINTAXE E CÓDIGO PYTHON */
+/* SINTAXE PYTHON */
 .comment { color: #6a9955; font-family: 'Courier New', monospace; font-size: 13px; font-style: italic; }
 
 .code-block {
-    background: #1e1e1e; /* Fundo VS Code */
+    background: #1e1e1e;
     border: 1px solid var(--border-color, #333);
     border-radius: 12px;
     padding: 20px;
@@ -122,9 +127,9 @@ body {
 .code-line { margin-bottom: 5px; display: flex; align-items: center; }
 .line-num { color: #858585; margin-right: 15px; font-size: 12px; user-select: none; }
 
-.keyword { color: #569cd6; } /* def, if, else, for */
-.string { color: #ce9178; }  /* "text" */
-.func { color: #dcdcaa; }    /* print, input */
+.keyword { color: #569cd6; } 
+.string { color: #ce9178; }  
+.func { color: #dcdcaa; }    
 
 .code-slot {
     display: inline-block; min-width: 60px;
@@ -162,7 +167,7 @@ body {
 .run-code-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
 .run-code-btn:hover:not(:disabled) { filter: brightness(1.1); box-shadow: 0 5px 15px rgba(62, 142, 255, 0.3); }
 
-/* FEEDBACK MENSAGENS E ESTADOS */
+/* FEEDBACK */
 .feedback-msg { 
     text-align: center; font-weight: 400; padding: 16px; border-radius: 12px; font-size: 14px;
     display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px;
@@ -199,7 +204,7 @@ body {
 /* RESPONSIVIDADE MOBILE */
 @media (max-width: 768px) {
     .game-container-wrapper { padding-top: 100px; }
-    .header-content { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .game-header-content { flex-direction: column; align-items: flex-start; gap: 20px; }
     .stats-area { width: 100%; justify-content: flex-start; gap: 15px; flex-wrap: wrap; }
     .stat-item { align-items: flex-start; }
     .final-actions { flex-direction: column; width: 100%; }

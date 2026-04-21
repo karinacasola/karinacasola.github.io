@@ -13,6 +13,39 @@
     --error: #ff5555;
 }
 
+/* --- Wrapper Global do Jogo (Isolado do CSS Principal) --- */
+.game-container-wrapper {
+    padding-top: 130px; /* Compensa a altura da Navbar fixa */
+    width: 100%;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 0 5%;
+}
+
+.game-header-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 212, 59, 0.3);
+    background: rgba(255, 212, 59, 0.1);
+    color: var(--accent-py);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.game-title {
+    font-size: 32px;
+    color: var(--text-primary);
+    margin: 0;
+    font-weight: 700;
+}
+
 .game-section {
     padding: 0 5% 80px;
     max-width: 1400px;

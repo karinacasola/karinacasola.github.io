@@ -9,35 +9,47 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     
     <link rel="stylesheet" href="css/style.css">
+    
     <link rel="stylesheet" href="css/python-basico.css">
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="navbar-content">
-            <div style="font-weight: 700; font-size: 20px; color: var(--text-primary);">
-                PY<span style="color: var(--accent-py);">.START</span>
-            </div>
-
-            <button class="mobile-menu-btn" id="menu-toggle">
-                <i class="bi bi-list"></i>
-            </button>
-
-            <div class="navbar-menu" id="navbar-menu">
-                <a href="index.html" class="navbar-link">Voltar ao Blog</a>
-                <span style="color: var(--text-secondary); font-size: 14px; margin-left: 15px;">
-                    Fundamentos Python v1.0
-                </span>
-            </div>
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
         </div>
-    </nav>
+    </div>
 
-    <main id="app">
-        <header class="hero" style="padding-bottom: 20px;">
-            <div class="section-header-pill" style="color: var(--accent-py); border-color: rgba(255, 212, 59, 0.3); background: rgba(255, 212, 59, 0.1);">MÓDULO: PYTHON BÁSICO</div>
-            <h1 class="hero-title">Escape the <span style="color: var(--accent-py);">Syntax Room</span></h1>
+    <nav class="navbar">
+    <div class="navbar-content">
+        <div class="navbar-logo">
+            <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+        </div>
+
+        <button class="mobile-menu-btn" id="menu-toggle">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <div class="navbar-menu" id="navbar-menu">
+            <a href="index.html" class="navbar-link">Inicio</a>
+            <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+            <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+            <a href="sobre.html" class="navbar-link">Sobre</a>
+		<div class="nav-actions">
+                
+                <div class="gtranslate_wrapper"></div>
+            <a href="index.html#contato" class="navbar-button">Contato</a>
+        </div>
+    </div>
+    </nav>
+    <main id="app" class="game-container-wrapper">
+        
+        <header class="game-header">
+            <div class="game-header-pill">MÓDULO: PYTHON BÁSICO</div>
+            <h1 class="game-title">Escape the <span style="color: var(--accent-py);">Syntax Room</span></h1>
         </header>
 
         <section class="game-section">
@@ -135,6 +147,11 @@
         </section>
     </main>
 
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    
     <script src="js/script.js"></script>
     <script src="js/python-basico.js"></script>
 </body>
