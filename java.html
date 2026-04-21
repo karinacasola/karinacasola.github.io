@@ -16,10 +16,19 @@
 </head>
 <body>
 
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
     <nav class="navbar">
         <div class="navbar-content">
-            <div style="font-weight: 700; font-size: 20px; color: var(--text-primary);">
-                JAVA<span style="color: var(--accent-orange);">.ESCAPE</span>
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+                </a>
             </div>
 
             <button class="mobile-menu-btn" id="menu-toggle">
@@ -27,10 +36,14 @@
             </button>
 
             <div class="navbar-menu" id="navbar-menu">
-                <a href="index.html" class="navbar-link">Voltar ao Blog</a>
-                <span style="color: var(--text-secondary); font-size: 14px; margin-left: 15px;">
-                    Treinamento Lógica RH v2.0
-                </span>
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -135,6 +148,11 @@
             </div>
         </section>
     </main>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
 
     <script src="js/script.js"></script>
     <script src="js/java.js"></script>
