@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python + Arduino (pyFirmata2) - Lab IoT</title>
+    
+    <link rel="icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pyfirmata2.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <h2 style="color: white; font-size: 20px; margin:0;">IoT<span style="color: var(--iot-accent);">Lab</span></h2>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="app">
+        <header class="hero" style="padding-bottom: 20px;">
+            <div class="section-header-pill" style="color: var(--iot-accent); border-color: rgba(62, 142, 255, 0.3); background: rgba(62, 142, 255, 0.1);">PYTHON & HARDWARE</div>
+            <h1 class="hero-title">Codifique a <span style="color: var(--iot-accent);">Placa</span></h1>
+        </header>
+
+        <section class="game-section">
+            
+            <div class="game-status-bar" v-if="!levelComplete">
+                <div class="status-item level-box">
+                    Desafio: <span style="color: var(--text-primary);">{{ currentLevelIndex + 1 }} / 20</span>
+                </div>
+                <div class="status-item attempts-box" :class="{'warning-state': chances === 1}" v-if="!showSolution">
+                    <i class="bi bi-cpu-fill" style="margin-right: 5px;"></i>
+                    Tentativas Restantes: <span :style="{ color: chances === 1 ? 'var(--error)' : 'inherit' }">{{ chances }}</span>
+                </div>
+            </div>
+
+            <div class="game-container">
+                
+                <div class="terminal-window">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="window-title">python_console.log</span>
+                    </div>
+                    <div class="terminal-body" ref="terminalBody">
+                        <p v-for="(line, index) in logs" :key="index" :class="line.type">
+                            <span class="prompt" v-if="line.text && line.type !== 'log-header'">>>></span> 
+                            <span v-html="line.text"></span>
+                        </p>
+                        <div class="typing-cursor" v-if="isTyping">█</div>
+                    </div>
+                </div>
+
+                <div class="code-editor-window" :class="{ 'locked': isTyping }">
+                    <div class="window-header">
+                        <span class="window-title">app.py</span>
+                        <i class="bi bi-filetype-py" style="color: var(--text-secondary);"></i>
+                    </div>
+                    
+                    <div class="editor-body" v-if="!levelComplete">
+                        
+                        <div style="margin-bottom: 20px;">
+                            <p class="comment" style="margin: 0;"># {{ currentLevel.instruction }}</p>
+                            <p class="comment-sub" style="margin: 5px 0 0 0;"># Clique nos blocos para montar o script Python.</p>
+                        </div>
+                        
+                        <div v-if="showSolution" class="solution-box">
+                            <p class="solution-title"><i class="bi bi-exclamation-triangle"></i> Erro de Sintaxe! Solução autorizada:</p>
+                            
+                            <div class="code-building-area read-only-mode">
+                                <div v-for="(step, idx) in currentSolutionDisplay" :key="idx" class="solution-block">
+                                    <span class="line-num">{{ idx + 1 }}</span>
+                                    <span v-html="step.text.replace(/ /g, '&nbsp;')"></span>
+                                </div>
+                            </div>
+                            
+                            <button class="run-btn next-btn" @click="nextLevel">
+                                Avançar Nível <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <div v-else style="display: flex; flex-direction: column; flex-grow: 1;">
+                            
+                            <div class="code-building-area">
+                                <div v-if="selectedBlocks.length === 0" class="empty-state">
+                                    <i class="bi bi-code-square" style="font-size: 24px; display: block; margin-bottom: 10px;"></i>
+                                    Monte a lógica Python aqui...
+                                </div>
+                                <div v-for="(block, idx) in selectedBlocks" :key="idx" class="built-block" @click="removeBlock(idx)">
+                                    <span class="line-num">{{ idx + 1 }}</span>
+                                    <span v-html="block.text.replace(/ /g, '&nbsp;')"></span>
+                                </div>
+                            </div>
+
+                            <div class="action-bar">
+                                <button class="btn-clear" @click="clearBlocks" :disabled="selectedBlocks.length === 0">
+                                    <i class="bi bi-trash"></i> Reset
+                                </button>
+                                <button class="run-btn" @click="runCode" :disabled="selectedBlocks.length === 0">
+                                    <i class="bi bi-play-fill"></i> EXECUTAR SCRIPT
+                                </button>
+                            </div>
+
+                            <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                                {{ feedbackMsg }}
+                            </div>
+
+                            <div class="blocks-pool">
+                                <p class="pool-title">Blocos Disponíveis:</p>
+                                <div class="pool-grid">
+                                    <button v-for="block in availableBlocks" 
+                                            :key="block.id" 
+                                            @click="selectBlock(block)"
+                                            class="code-block-btn">
+                                        <span v-html="block.text.replace(/ /g, '&nbsp;')"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div v-else-if="levelComplete && currentLevelIndex < levels.length - 1" class="victory-screen">
+                        <i class="bi bi-check-circle-fill" style="font-size: 64px; color: var(--success); margin-bottom: 20px;"></i>
+                        <h2 style="color: var(--text-primary);">Execução Bem-Sucedida!</h2>
+                        <p style="color: var(--text-secondary); margin-top: 10px;">O script Python controlou o hardware corretamente.</p>
+                    </div>
+
+                    <div v-else class="victory-screen">
+                        <i class="bi bi-award-fill" style="font-size: 64px; color: var(--warning); margin-bottom: 20px;"></i>
+                        <h2 style="color: var(--text-primary);">Mestre do pyFirmata2!</h2>
+                        <p style="font-size: 16px; margin: 15px 0 30px; color: var(--text-secondary);">
+                            Você dominou os 20 desafios de integração Python + Arduino com um total de <strong>{{ totalErros }} erros</strong>.
+                        </p>
+                        <div class="actions-container" style="gap: 15px; flex-wrap: wrap; justify-content: center;">
+                            <button class="run-btn" @click="exportarPDF">
+                                <i class="bi bi-file-earmark-pdf-fill"></i> Baixar Relatório
+                            </button>
+                            <button class="run-btn reset-btn" @click="resetGame">
+                                <i class="bi bi-arrow-counterclockwise"></i> Reiniciar Laboratório
+                            </button>
+                        </div>
+
+                        <div id="relatorio-pdf" style="display: none; padding: 40px; background: white; color: black; font-family: sans-serif; text-align: left;">
+                            <h1 style="color: #3E8EFF; border-bottom: 2px solid #3E8EFF; padding-bottom: 10px;">Certificado de Conclusão</h1>
+                            <h2 style="margin-top: 20px;">Laboratório IoT: Python & pyFirmata2</h2>
+                            <p><strong>Data de Conclusão:</strong> {{ dataAtual }}</p>
+                            <p><strong>Níveis Completados:</strong> 20 / 20</p>
+                            <p><strong>Total de Falhas (Gabaritos):</strong> {{ totalErros }}</p>
+                            <p style="margin-top: 30px; text-align: justify; line-height: 1.6;">O aluno concluiu com êxito os desafios de integração de software e hardware, dominando o uso de bibliotecas Python para controle de portas digitais, sinais PWM, amostragem de dados e leitura de sensores analógicos via protocolo Firmata.</p>
+                            <div style="margin-top: 60px; border-top: 1px solid #ccc; width: 300px; text-align: center; padding-top: 10px; margin-left: auto; margin-right: auto;">
+                                Validação do Sistema
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script src="js/pyfirmata2.js"></script>
+</body>
+</html>
