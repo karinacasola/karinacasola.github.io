@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probabilidade - Simulador e Mapa Mental</title>
+
+    <link rel="icon" href="img/favicon.svg">
+    
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ihc.css">
+    <link rel="stylesheet" href="css/probabilidade.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+                </a>
+            </div>
+            <button class="mobile-menu-btn" id="menu-toggle"><i class="bi bi-list"></i></button>
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="app" v-cloak>
+        <main class="game-container-wrapper wide-wrapper">
+            
+            <header class="game-header">
+                <div class="header-content">
+                    <div class="logo-area">
+                        <div class="section-header-pill">MATH.PROB</div>
+                        <h1 class="section-title">Laboratório de Probabilidade</h1>
+                    </div>
+                    
+                    <div class="stats-area" v-if="currentView === 'quiz'">
+                        <div class="stat-item">
+                            <span class="label">Pontuação Prática</span>
+                            <span class="value highlight">{{ practicalScore }}/10</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Pontuação Conceitual</span>
+                            <span class="value" style="color: #10B981;">{{ conceptualScore }}/10</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div v-if="currentView === 'menu'" class="group-selection">
+<h2 style="text-align: center; margin-bottom: 30px; color: var(--text-primary);">Selecione um módulo de Estudo</h2>                <div class="grid-container">
+                    <div v-for="group in 6" :key="group" class="grid-card group-card" @click="selectGroup(group)" style="cursor: pointer;">
+                        <div class="grid-icon"><i class="bi bi-diagram-3"></i></div>
+                        <div class="grid-content">
+                            <h3>Grupo {{ group }}: {{ getGroupName(group) }}</h3>
+                            <p>10 Questões Práticas | 10 Conceituais</p>
+                            <span class="read-more">Iniciar Módulo <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="currentView === 'quiz'" class="quiz-interface">
+                
+                <div class="quiz-tabs">
+                    <button :class="{ active: currentTab === 'practical' }" @click="changeTab('practical')">
+                        <i class="bi bi-calculator"></i> Questões Práticas
+                    </button>
+                    <button :class="{ active: currentTab === 'conceptual' }" @click="changeTab('conceptual')">
+                        <i class="bi bi-book"></i> Questões Conceituais
+                    </button>
+                    <button :class="{ active: currentTab === 'mindmap' }" @click="changeTab('mindmap')">
+                        <i class="bi bi-node-plus"></i> Mapa Mental Livre
+                    </button>
+                    <button @click="currentView = 'menu'" class="btn-minimalist" style="margin-left: auto;">
+                        <i class="bi bi-house"></i> Voltar
+                    </button>
+                </div>
+
+                <div v-if="currentTab !== 'mindmap'" class="ux-split-area">
+                    <div class="ux-window terminal">
+                        <div class="window-header">
+                            <span class="window-title">log_probabilidade.py</span>
+                        </div>
+                        <div class="terminal-body">
+                            <p class="log-info">>> Módulo: {{ getGroupName(selectedGroup) }}</p>
+                            <p class="log-default">>> Modo: {{ currentTab === 'practical' ? 'Prático (Cálculo)' : 'Conceitual (Teoria)' }}</p>
+                            <br>
+                            <div v-if="currentQuestion">
+                                <p class="log-warning">Analisando cenário: {{ currentQuestion.context }}</p>
+                                <br>
+                                <p class="log-default">>> Status: <span style="color:var(--accent-blue);">Aguardando input...</span></p>
+                                <p class="log-default">>> Tentativas restantes: <strong :class="{'log-error': attempts >= 2}">{{ 3 - attempts }}</strong></p>
+                                <br>
+                                <p v-if="feedback" :class="feedback.type === 'correct' ? 'log-success' : 'log-error'">
+                                    >> {{ feedback.text }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ux-window editor" style="height: auto; min-height: 600px;">
+                        <div class="window-header">
+                            <span class="window-title">desafio_{{ currentQuestionIndex + 1 }}.json</span>
+                        </div>
+                        
+                        <div class="editor-body" v-if="currentQuestion">
+                            <div class="read-only-code">
+                                <p>{{ currentQuestion.text }}</p>
+                            </div>
+                            
+                            <div class="options-grid">
+                                <button v-for="(option, idx) in currentQuestion.options" 
+                                        :key="idx" 
+                                        @click="answerQuestion(option)"
+                                        class="ux-option-btn"
+                                        :class="{
+                                            'correct': showAnswer && option === currentQuestion.answer,
+                                            'wrong': (userSelection === option && option !== currentQuestion.answer && showAnswer) || (userSelection === option && feedback?.type === 'error' && !showAnswer)
+                                        }"
+                                        :disabled="showAnswer">
+                                    {{ option }}
+                                </button>
+                            </div>
+
+                            <div v-if="showAnswer" class="explanation-box">
+                                <h4 style="color: var(--accent-blue); margin-bottom: 5px;"><i class="bi bi-lightbulb"></i> Explicação do Sistema</h4>
+                                <p style="font-size: 14px; color: var(--text-secondary);">{{ currentQuestion.explanation }}</p>
+                            </div>
+
+                            <button v-if="showAnswer" @click="nextQuestion" class="btn-minimalist" style="margin-top: 15px; width: 100%; justify-content: center;">
+                                Próxima Questão <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="editor-body" v-else>
+                            <div class="end-screen">
+                                <i class="bi bi-check-circle trophy-icon" style="font-size: 50px; color: #10B981; margin-bottom: 20px;"></i>
+                                <h2>Aba Concluída!</h2>
+                                <p>Você finalizou todas as questões desta seção.<br>Explore as outras abas ou o Mapa Mental!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="currentTab === 'mindmap'" class="mindmap-container">
+                    <div class="mindmap-sidebar" data-html2canvas-ignore="true">
+                        <h3>Construtor Livre</h3>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px;">
+                            Crie seus próprios conceitos.
+                        </p>
+                        
+                        <div class="add-node-form">
+                            <input type="text" v-model="newNodeText" placeholder="Digite um conceito..." @keyup.enter="addCustomNode">
+                            <button @click="addCustomNode" class="btn-minimalist" style="width: 100%; justify-content: center; margin-top: 10px;">
+                                <i class="bi bi-plus-circle"></i> Adicionar Nó
+                            </button>
+                        </div>
+
+                        <div style="margin-top: auto; padding-top: 20px;">
+                            <p style="font-size: 11px; color: #aaa; margin-bottom: 10px; text-align: center;">Dica: Clique em um nó e depois no outro para ligar.</p>
+                            <button @click="exportPDF" class="btn-minimalist" style="width: 100%; justify-content: center; border-color: var(--accent-blue); color: var(--accent-blue); background: transparent;">
+                                    <i class="bi bi-file-earmark-pdf"></i> Exportar PDF
+                            </button>
+                                
+                        </div>
+                    </div>
+                    
+                    <div class="mindmap-canvas" id="pdf-export-area">
+                        <div class="pdf-only-header">
+                            <h2>Relatório de Probabilidade - {{ getGroupName(selectedGroup) }}</h2>
+                            <p>Prática: {{ practicalScore }}/10 | Conceitual: {{ conceptualScore }}/10</p>
+                        </div>
+
+                        <svg class="mindmap-edges" id="mindmap-svg">
+                            <line v-for="(edge, idx) in edges" :key="idx"
+                                  :x1="getNode(edge.from).x + 80" :y1="getNode(edge.from).y + 25"
+                                  :x2="getNode(edge.to).x + 80" :y2="getNode(edge.to).y + 25"
+                                  stroke="rgba(62, 142, 255, 0.5)" stroke-width="2"/>
+                        </svg>
+
+                        <div v-for="node in nodes" :key="node.id"
+                             class="mindmap-node"
+                             :style="{ left: node.x + 'px', top: node.y + 'px' }"
+                             @mousedown="startDragNode($event, node)"
+                             @click="selectNodeForEdge(node.id)">
+                            
+                            <span class="delete-node" @click.stop="deleteNode(node.id)"><i class="bi bi-x"></i></span>
+                            {{ node.text }}
+                            <div v-if="edgeStartNode === node.id" class="node-linking-indicator"></div>
+                        </div>
+                        
+                        <div v-if="nodes.length === 0" class="canvas-empty-state">
+                            Seu mapa está vazio.<br>Use a barra lateral para criar o primeiro conceito.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+    <script src="js/probabilidade.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
