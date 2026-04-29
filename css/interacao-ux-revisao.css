@@ -1,0 +1,230 @@
+/* ==========================================================================
+   CSS ESPECÍFICO - MÓDULO UX/UI E IHC
+   ========================================================================== */
+
+/* Segurança extra para a Navbar Fixa não encobrir o título */
+.game-container-wrapper {
+    padding-top: 130px; 
+    padding-bottom: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.quiz-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border-color, #333);
+    padding-bottom: 15px;
+}
+
+.quiz-tabs button {
+    background: transparent;
+    border: 1px solid var(--border-color, #333);
+    color: var(--text-secondary, #aaa);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quiz-tabs button:hover { border-color: var(--accent-blue, #3e8eff); color: var(--text-primary, #fff); }
+.quiz-tabs button.active { background: rgba(62, 142, 255, 0.1); border-color: var(--accent-blue, #3e8eff); color: var(--accent-blue, #3e8eff); }
+
+.explanation-box {
+    margin-top: 20px;
+    padding: 15px 20px;
+    background: rgba(62, 142, 255, 0.05);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: 8px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.mindmap-container {
+    display: flex;
+    height: 600px;
+    background-color: var(--card-bg, #111);
+    border: 1px solid var(--border-color, #333);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.mindmap-sidebar {
+    width: 280px;
+    background: rgba(0, 0, 0, 0.3);
+    border-right: 1px solid var(--border-color, #333);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-node-form { margin-top: 10px; }
+.add-node-form input {
+    width: 100%; padding: 12px 15px; background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color, #333); color: var(--text-primary, #fff);
+    border-radius: 8px; font-family: 'Satoshi', sans-serif; font-size: 14px; outline: none;
+}
+.add-node-form input:focus { border-color: var(--accent-blue, #3e8eff); }
+
+.mindmap-canvas {
+    flex: 1;
+    position: relative;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    overflow: hidden; 
+}
+
+.mindmap-edges {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 1; min-width: 2000px; min-height: 2000px;
+}
+
+.mindmap-node {
+    position: absolute; width: 160px; min-height: 50px; background: var(--card-bg, #1A1A1A);
+    border: 2px solid var(--accent-blue, #3e8eff); color: var(--text-primary);
+    padding: 12px 15px; border-radius: 12px; text-align: center; font-size: 13px;
+    font-weight: 500; cursor: move; z-index: 2; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    user-select: none; display: flex; align-items: center; justify-content: center;
+}
+
+.mindmap-node:hover { filter: brightness(1.2); }
+
+.delete-node {
+    position: absolute; top: -10px; right: -10px; background: #EF4444; color: white;
+    border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center;
+    justify-content: center; font-size: 14px; cursor: pointer; opacity: 0; transition: all 0.2s ease;
+}
+.mindmap-node:hover .delete-node { opacity: 1; }
+.delete-node:hover { transform: scale(1.1); }
+
+.node-linking-indicator {
+    position: absolute; top: -5px; left: -5px; width: 12px; height: 12px;
+    background: #10B981; border-radius: 50%; animation: pulse 1.5s infinite;
+}
+
+.canvas-empty-state {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    color: var(--text-secondary); text-align: center; font-style: italic; pointer-events: none;
+}
+
+.pdf-only-header { display: none; }
+
+/* Estilos específicos de grid e botões de opção */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.ux-option-btn {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 15px;
+    border-radius: 10px;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.ux-option-btn:hover:not(:disabled) {
+    background-color: rgba(62, 142, 255, 0.1);
+    border-color: var(--accent-blue);
+}
+
+.ux-option-btn.correct {
+    background-color: rgba(16, 185, 129, 0.2);
+    border-color: #10B981;
+    color: #10B981;
+}
+
+.ux-option-btn.wrong {
+    background-color: rgba(239, 68, 68, 0.2);
+    border-color: #EF4444;
+    color: #EF4444;
+}
+
+/* Área Dividida (Terminal + Editor) */
+.ux-split-area {
+    display: flex;
+    gap: 20px;
+}
+
+.ux-window {
+    background-color: #0A0A0A;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal { flex: 1; }
+.editor { flex: 2; }
+
+.window-header {
+    background-color: #1A1A1A;
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-color);
+    font-family: monospace;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.terminal-body {
+    padding: 20px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.editor-body {
+    padding: 30px;
+}
+
+.log-info { color: #3e8eff; }
+.log-warning { color: #F59E0B; }
+.log-success { color: #10B981; }
+.log-error { color: #EF4444; }
+.log-default { color: #A0A0A0; }
+
+.btn-minimalist {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-family: 'Satoshi', sans-serif;
+}
+
+.btn-minimalist:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+@keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+
+@media (max-width: 992px) {
+    .ux-split-area { flex-direction: column; }
+    .options-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) { 
+    .mindmap-container { flex-direction: column; height: 800px; } 
+    .mindmap-sidebar { width: 100%; height: 250px; border-right: none; border-bottom: 1px solid var(--border-color); } 
+}
