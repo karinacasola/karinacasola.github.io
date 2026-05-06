@@ -1,0 +1,90 @@
+/* ==========================================================================
+   CSS JOGO DA FORCA (Requer style.css global carregado antes)
+   ========================================================================== */
+
+[v-cloak] { display: none; }
+
+body {
+    background-image: radial-gradient(circle at 50% 0%, rgba(62, 142, 255, 0.1), transparent 60%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* ESTRUTURA GERAL */
+.game-container-wrapper { padding-top: 130px; padding-bottom: 50px; margin: 0 auto; width: 90%; max-width: 1100px; display: flex; flex-direction: column; }
+.game-header { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 30px; margin-bottom: 30px; }
+.header-content { display: flex; justify-content: space-between; align-items: center; }
+.section-header-pill { display: inline-block; padding: 4px 12px; border: 1px solid rgba(62, 142, 255, 0.3); color: var(--accent-blue); border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; }
+.section-title { font-size: 28px; margin: 0; }
+.stats-area { display: flex; gap: 30px; }
+.stat-item { display: flex; flex-direction: column; align-items: flex-end; }
+.stat-item .label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; font-weight: 500; letter-spacing: 1px; }
+.stat-item .value { font-size: 24px; font-weight: 700; font-family: 'Courier New', monospace; }
+.stat-item .value.highlight { color: var(--accent-blue); }
+.error-text { color: #EF4444 !important; }
+
+/* JANELAS */
+.ux-split-area { display: flex; flex-direction: column; gap: 25px; }
+@media (min-width: 992px) {
+    .ux-split-area { flex-direction: row; align-items: stretch; }
+    .forca-art-window { width: 40%; }
+    .keyboard-window { width: 60%; }
+}
+
+.ux-window { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; display: flex; flex-direction: column; overflow: hidden; transition: all 0.3s ease; }
+.window-header { background: rgba(255, 255, 255, 0.02); border-bottom: 1px solid var(--border-color); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+.window-dots { display: flex; gap: 6px; }
+.window-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border-color); }
+.window-title { font-size: 12px; font-family: 'Courier New', monospace; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
+/* TERMINAL ASCII */
+.terminal-body { background: rgba(0, 0, 0, 0.5); flex: 1; padding: 25px; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+.flex-col { display: flex; flex-direction: column; height: 100%; }
+.mt-auto { margin-top: auto; }
+
+.hint-box { background: rgba(62, 142, 255, 0.05); border-left: 3px solid var(--accent-blue); padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0; }
+.prompt { color: var(--accent-blue); font-weight: bold; display: block; margin-bottom: 5px; font-size: 12px; }
+.hint-text { color: var(--text-primary); font-family: 'Satoshi', sans-serif; font-style: italic; }
+
+.ascii-art-container { display: flex; justify-content: center; align-items: center; padding: 20px 0; flex: 1; }
+.ascii-art-container pre { font-family: 'Courier New', Courier, monospace; font-size: 18px; color: var(--text-primary); font-weight: bold; line-height: 1.2; letter-spacing: 2px; }
+
+.status-box { padding: 15px; border-radius: 8px; text-align: center; font-family: 'Satoshi', sans-serif; font-weight: 500; margin-bottom: 20px; animation: popIn 0.3s ease-out; }
+.status-box.error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #EF4444; }
+.status-box.success { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #10B981; }
+
+@keyframes popIn { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+/* EDITOR - TECLADO E PALAVRA IGUAL AO PRINT */
+.editor-body { padding: 30px; display: flex; flex-direction: column; justify-content: center; flex: 1; }
+
+.word-display { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 30px; width: 100%; }
+.word-group { display: flex; gap: 8px; } /* Mantém as letras da mesma palavra juntas */
+.letter-slot { width: 35px; height: 45px; border-bottom: 3px solid var(--text-primary); display: flex; justify-content: center; align-items: center; font-size: 24px; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; }
+.letter-slot.space { border-bottom: none; width: 10px; }
+
+.divider { border: 0; border-top: 1px dashed var(--border-color); margin: 20px 0 30px 0; }
+
+.keyboard-grid { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+.keyboard-row { display: flex; justify-content: center; gap: 8px; width: 100%; }
+
+.ux-key-btn { width: 45px; height: 50px; padding: 0; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border-color); border-radius: 8px; background: rgba(255, 255, 255, 0.02); color: var(--text-primary); font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.ux-key-btn:hover:not(:disabled) { border-color: var(--accent-blue); background: rgba(62, 142, 255, 0.1); transform: translateY(-2px); }
+
+/* Estados do Teclado */
+.ux-key-btn.correct { background: rgba(16, 185, 129, 0.1); border-color: #10B981; color: #10B981; opacity: 0.8; }
+.ux-key-btn.wrong { background: rgba(239, 68, 68, 0.05); border-color: #333; color: #555; opacity: 0.4; }
+
+.btn-minimalist { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); padding: 12px 20px; border-radius: 8px; font-family: 'Satoshi', sans-serif; font-weight: 600; cursor: pointer; transition: 0.3s; width: 100%; display: flex; justify-content: center; align-items: center; gap: 10px; }
+.btn-minimalist:hover { border-color: var(--accent-blue); background: rgba(62, 142, 255, 0.1); }
+
+.ux-window.locked::after { content: 'AGUARDANDO PRÓXIMO CAPÍTULO...'; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 10, 0.7); display: flex; justify-content: center; align-items: center; font-family: 'Courier New', monospace; color: var(--accent-blue); z-index: 10; font-weight: bold; font-size: 14px; letter-spacing: 2px; backdrop-filter: blur(2px); }
+.ux-window.editor { position: relative; }
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .header-content { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .letter-slot { width: 25px; height: 35px; font-size: 18px; }
+    .ux-key-btn { width: 32px; height: 42px; font-size: 14px; }
+    .keyboard-row { gap: 4px; }
+}

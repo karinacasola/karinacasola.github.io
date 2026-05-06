@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Prototipagem & Teste Quiz</title>
+
+    <link rel="icon" href="img/favicon.svg">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="css/forca.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img alt="Logo" width="100" src="img/logo.png"/>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="app" v-cloak>
+        <main class="game-container-wrapper wide-wrapper">
+            
+            <header class="game-header">
+                <div class="header-content">
+                    <div class="logo-area">
+                        <div class="section-header-pill">UX.RESEARCH</div>
+                        <h1 class="section-title">Enigma: Usabilidade & Testes</h1>
+                    </div>
+                    
+                    <div class="stats-area">
+                        <div class="stat-item">
+                            <span class="label">Tentativas Restantes</span>
+                            <span class="value" :class="{'error-text': mistakes >= 4}">{{ 6 - mistakes }}<small>/6</small></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Score</span>
+                            <span class="value highlight">{{ score }}</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="game-body">
+                <div class="ux-split-area">
+                    
+                    <div class="ux-window terminal forca-art-window">
+                        <div class="window-header">
+                            <div class="window-dots"><span></span><span></span><span></span></div>
+                            <span class="window-title">debugger_ux.log</span>
+                        </div>
+                        
+                        <div class="terminal-body flex-col">
+                            <div class="hint-box">
+                                <span class="prompt">pergunta_do_teste></span> 
+                                <span class="hint-text">"{{ currentPuzzle.hint }}"</span>
+                            </div>
+
+                            <div class="ascii-art-container">
+                                <pre>{{ currentAsciiArt }}</pre>
+                            </div>
+
+                            <div v-if="gameOver || victory" class="explanation-box-terminal">
+                                <div v-if="gameOver" class="status-box error">
+                                    <i class="bi bi-x-circle-fill"></i> Falha no Teste! Era: <strong>{{ currentPuzzle.text }}</strong>
+                                </div>
+                                <div v-if="victory" class="status-box success">
+                                    <i class="bi bi-check-circle-fill"></i> Usabilidade Validada!
+                                </div>
+                                <p class="explanation-text"><strong>Por que esta resposta?</strong> {{ currentPuzzle.explanation }}</p>
+                            </div>
+
+                            <button v-if="gameOver || victory" @click="initGame" class="btn-minimalist mt-auto">
+                                <i class="bi bi-play-fill"></i> Próxima Questão
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ux-window editor keyboard-window" :class="{'locked': gameOver || victory}">
+                        <div class="window-header">
+                            <span class="window-title">input_usuario.vue</span>
+                            <i class="bi bi-keyboard" style="color: var(--text-secondary);"></i>
+                        </div>
+                        
+                        <div class="editor-body">
+                            <div class="word-display">
+                                <div class="word-group" v-for="(word, wIndex) in displayedWordGroups" :key="'w'+wIndex">
+                                    <span v-for="(char, index) in word" :key="index" 
+                                          class="letter-slot" 
+                                          :class="{'space': char === ' '}">
+                                        {{ char }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <hr class="divider">
+
+                            <div class="keyboard-grid">
+                                <div class="keyboard-row" v-for="(row, rIndex) in keyboardLayout" :key="rIndex">
+                                    <button v-for="key in row" :key="key"
+                                            @click="guessLetter(key)"
+                                            :disabled="guessedLetters.includes(key) || gameOver || victory"
+                                            class="btn-minimalist ux-key-btn"
+                                            :class="getKeyClass(key)">
+                                        {{ key }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/dpt.js"></script>
+</body>
+</html>
