@@ -1,74 +1,91 @@
 /* ==========================================================================
-   ESTILOS ESPECÍFICOS DO SIMULADOR (ESCAPE ROOM)
+   ESTILOS ESPECÍFICOS DO SIMULADOR (ESCAPE ROOM) - CORRIGIDOS
    ========================================================================== */
 
 [v-cloak] { display: none; }
 
+/* Contêiner Principal - Ajustado para centralizar e não esticar infinitamente */
 .game-container-wrapper {
-    padding-top: 120px;
+    padding-top: 130px;
     padding-bottom: 60px;
+    padding-left: 5%;
+    padding-right: 5%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    max-width: 1400px; /* Limita o tamanho em telas Ultrawide */
+    margin: 0 auto;
 }
 
 .game-header {
     margin-bottom: 30px;
 }
 
+/* Header Content - Flexbox robusto para manter Título e Stats alinhados */
 .header-content {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 20px;
+    align-items: center; /* Centraliza verticalmente */
+    margin-bottom: 25px;
+    gap: 30px;
+}
+
+.logo-area {
+    flex: 1; /* Permite que a área do logo ocupe o espaço disponível */
 }
 
 .logo-area .section-title {
     margin: 0;
-    font-size: 28px;
+    font-size: 32px;
     text-align: left;
+    line-height: 1.2;
 }
 
+/* Área de Status - Alinhamento corrigido */
 .stats-area {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     background: var(--card-bg);
-    padding: 15px 25px;
+    padding: 15px 30px;
     border-radius: 12px;
     border: 1px solid var(--border-color);
+    flex-shrink: 0; /* Impede que esprema os números */
 }
 
 .stat-item {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .stat-item .label {
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
     color: var(--text-secondary);
     letter-spacing: 1px;
+    margin-bottom: 4px;
 }
 
 .stat-item .value {
     font-size: 24px;
     font-weight: 700;
     color: var(--text-primary);
+    line-height: 1;
 }
 
 .stat-item .value.highlight { color: #10B981; }
 .stat-item .value.error-text { color: #EF4444; }
-.stat-item .value small { font-size: 14px; color: var(--text-secondary); font-weight: 400; }
+.stat-item .value small { font-size: 14px; color: var(--text-secondary); font-weight: 400; margin-left: 2px; }
 
+/* Barra de Progresso */
 .progress-container {
     height: 6px;
     background: var(--card-bg);
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--border-color);
+    width: 100%;
 }
 
 .progress-bar {
@@ -77,12 +94,13 @@
     transition: width 0.5s ease;
 }
 
-/* Telas Divididas */
+/* Telas Divididas - Terminal e Questões */
 .ux-split-area {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    height: 600px;
+    gap: 25px;
+    height: calc(100vh - 350px); /* Altura dinâmica baseada na tela */
+    min-height: 550px;
 }
 
 .ux-window {
@@ -96,14 +114,14 @@
 
 .window-header {
     background: #222;
-    padding: 10px 15px;
+    padding: 12px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--border-color);
 }
 
-.window-dots { display: flex; gap: 6px; }
+.window-dots { display: flex; gap: 8px; }
 .window-dots span { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
 .window-dots span:nth-child(1) { background: #FF5F56; }
 .window-dots span:nth-child(2) { background: #FFBD2E; }
@@ -125,11 +143,7 @@
     background-color: #0d0d0d;
 }
 
-.terminal-body p {
-    margin-bottom: 8px;
-    line-height: 1.4;
-}
-
+.terminal-body p { margin-bottom: 10px; line-height: 1.5; }
 .prompt { color: #27C93F; margin-right: 8px; }
 .log-default { color: #E0E0E0; }
 .log-info { color: #3E8EFF; }
@@ -150,17 +164,18 @@
 /* Área do Editor (Perguntas) */
 .editor { background: var(--card-bg); }
 .editor.locked { opacity: 0.7; pointer-events: none; }
-.editor-body { padding: 30px; display: flex; flex-direction: column; h-100; overflow-y: auto; }
-.comment { color: #6A9955; font-family: monospace; margin-bottom: 10px; }
-.read-only-code { background: rgba(255,255,255,0.02); padding: 15px; border-left: 3px solid var(--accent-blue); margin-bottom: 25px; border-radius: 4px; }
-.read-only-code p { color: var(--text-primary); font-size: 16px; margin: 0; }
+.editor-body { padding: 30px; display: flex; flex-direction: column; overflow-y: auto; height: 100%; }
 
-.options-grid { display: grid; gap: 12px; }
+.comment { color: #6A9955; font-family: monospace; margin-bottom: 15px; font-size: 14px;}
+.read-only-code { background: rgba(255,255,255,0.02); padding: 20px; border-left: 3px solid var(--accent-blue); margin-bottom: 25px; border-radius: 4px; }
+.read-only-code p { color: var(--text-primary); font-size: 16px; margin: 0; line-height: 1.6; }
+
+.options-grid { display: flex; flex-direction: column; gap: 12px; }
 
 .ux-option-btn {
     width: 100%;
     text-align: left;
-    padding: 15px 20px;
+    padding: 16px 20px;
     background: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
@@ -168,6 +183,7 @@
     cursor: pointer;
     transition: 0.2s;
     font-size: 15px;
+    line-height: 1.4;
 }
 
 .ux-option-btn:hover:not(:disabled) {
@@ -214,7 +230,51 @@
 }
 .btn-minimalist:hover { background: var(--accent-blue); border-color: var(--accent-blue); }
 
+/* ==========================================================================
+   RESPONSIVIDADE (MOBILE & TABLET)
+   ========================================================================== */
+
 @media (max-width: 992px) {
-    .ux-split-area { grid-template-columns: 1fr; height: auto; }
-    .ux-window.terminal { height: 300px; }
+    /* Empilha as telas do terminal e código */
+    .ux-split-area { 
+        grid-template-columns: 1fr; 
+        height: auto; 
+    }
+    
+    .ux-window.terminal { 
+        height: 350px; 
+    }
+    
+    /* Afasta o conteúdo da margem direita para o ícone de Libras não sobrepor texto */
+    .editor-body {
+        padding-right: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start; /* Alinha à esquerda no mobile */
+        gap: 20px;
+    }
+
+    .logo-area .section-title {
+        font-size: 24px; /* Diminui a fonte do título */
+    }
+
+    .stats-area {
+        width: 100%;
+        justify-content: space-between; /* Distribui os 3 itens uniformemente */
+        padding: 15px 20px;
+        gap: 10px;
+    }
+
+    .stat-item .label {
+        font-size: 9px;
+        text-align: center;
+    }
+
+    .stat-item .value {
+        font-size: 20px;
+    }
 }
