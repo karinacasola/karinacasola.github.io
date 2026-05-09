@@ -1,0 +1,220 @@
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS DO SIMULADOR (ESCAPE ROOM)
+   ========================================================================== */
+
+[v-cloak] { display: none; }
+
+.game-container-wrapper {
+    padding-top: 120px;
+    padding-bottom: 60px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-header {
+    margin-bottom: 30px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.logo-area .section-title {
+    margin: 0;
+    font-size: 28px;
+    text-align: left;
+}
+
+.stats-area {
+    display: flex;
+    gap: 20px;
+    background: var(--card-bg);
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-item .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+.stat-item .value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stat-item .value.highlight { color: #10B981; }
+.stat-item .value.error-text { color: #EF4444; }
+.stat-item .value small { font-size: 14px; color: var(--text-secondary); font-weight: 400; }
+
+.progress-container {
+    height: 6px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--accent-blue);
+    transition: width 0.5s ease;
+}
+
+/* Telas Divididas */
+.ux-split-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    height: 600px;
+}
+
+.ux-window {
+    background: #151515;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.window-header {
+    background: #222;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.window-dots { display: flex; gap: 6px; }
+.window-dots span { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.window-dots span:nth-child(1) { background: #FF5F56; }
+.window-dots span:nth-child(2) { background: #FFBD2E; }
+.window-dots span:nth-child(3) { background: #27C93F; }
+
+.window-title {
+    font-family: monospace;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+/* Terminal Log */
+.terminal-body {
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    overflow-y: auto;
+    flex-grow: 1;
+    background-color: #0d0d0d;
+}
+
+.terminal-body p {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.prompt { color: #27C93F; margin-right: 8px; }
+.log-default { color: #E0E0E0; }
+.log-info { color: #3E8EFF; }
+.log-success { color: #10B981; }
+.log-warning { color: #FFBD2E; }
+.log-error { color: #EF4444; }
+
+.typing-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background: #27C93F;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Área do Editor (Perguntas) */
+.editor { background: var(--card-bg); }
+.editor.locked { opacity: 0.7; pointer-events: none; }
+.editor-body { padding: 30px; display: flex; flex-direction: column; h-100; overflow-y: auto; }
+.comment { color: #6A9955; font-family: monospace; margin-bottom: 10px; }
+.read-only-code { background: rgba(255,255,255,0.02); padding: 15px; border-left: 3px solid var(--accent-blue); margin-bottom: 25px; border-radius: 4px; }
+.read-only-code p { color: var(--text-primary); font-size: 16px; margin: 0; }
+
+.options-grid { display: grid; gap: 12px; }
+
+.ux-option-btn {
+    width: 100%;
+    text-align: left;
+    padding: 15px 20px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 15px;
+}
+
+.ux-option-btn:hover:not(:disabled) {
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+    background: rgba(62, 142, 255, 0.05);
+}
+
+.ux-option-btn.correct { background: rgba(16, 185, 129, 0.1); border-color: #10B981; color: #10B981; }
+.ux-option-btn.wrong { background: rgba(239, 68, 68, 0.1); border-color: #EF4444; color: #EF4444; }
+.ux-option-btn.warning { background: rgba(255, 189, 46, 0.1); border-color: #FFBD2E; color: #FFBD2E; }
+
+.feedback-msg { margin-top: 20px; padding: 15px; border-radius: 8px; font-weight: 500; font-size: 15px; }
+.feedback-msg.success { background: rgba(16, 185, 129, 0.1); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3); }
+.feedback-msg.error { background: rgba(239, 68, 68, 0.1); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+.feedback-msg.warning { background: rgba(255, 189, 46, 0.1); color: #FFBD2E; border: 1px solid rgba(255, 189, 46, 0.3); }
+
+/* Tela Final */
+.end-screen {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.trophy-icon { font-size: 64px; color: var(--accent-blue); margin-bottom: 20px; display: inline-block; }
+.end-screen h2 { font-size: 32px; margin-bottom: 15px; color: var(--text-primary); }
+.end-screen p { font-size: 18px; margin-bottom: 30px; color: var(--text-secondary); }
+
+.final-actions { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+.btn-minimalist {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn-minimalist:hover { background: var(--accent-blue); border-color: var(--accent-blue); }
+
+@media (max-width: 992px) {
+    .ux-split-area { grid-template-columns: 1fr; height: auto; }
+    .ux-window.terminal { height: 300px; }
+}

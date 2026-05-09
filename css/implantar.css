@@ -1,0 +1,26 @@
+.explanation-box-terminal {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    animation: fadeIn 0.5s ease;
+}
+
+.explanation-text {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-top: 10px;
+}
+
+.explanation-text strong {
+    color: var(--accent-blue);
+    display: block;
+    margin-bottom: 5px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
