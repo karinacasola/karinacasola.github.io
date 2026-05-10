@@ -111,6 +111,9 @@ createApp({
         const score = ref(0);
         const maxMistakes = 6;
         
+        // Fila de perguntas disponíveis
+        let availablePuzzles = [...database];
+        
         const keyboardLayout = [
             ['Q', 'W', 'E', 'R', 'T', 'Y', 'U'],
             ['I', 'O', 'P', 'A', 'S', 'D', 'F'],
@@ -150,12 +153,18 @@ createApp({
         });
 
         const initGame = () => {
-            let newPuzzle;
-            do {
-                newPuzzle = database[Math.floor(Math.random() * database.length)];
-            } while (currentPuzzle.value.text === newPuzzle.text && database.length > 1);
+            // Se as perguntas acabarem, recarrega a lista com todas as 20 novamente
+            if (availablePuzzles.length === 0) {
+                availablePuzzles = [...database];
+            }
 
-            currentPuzzle.value = newPuzzle;
+            // Sorteia um índice dentro das perguntas AINDA disponíveis
+            const randomIndex = Math.floor(Math.random() * availablePuzzles.length);
+            currentPuzzle.value = availablePuzzles[randomIndex];
+            
+            // Remove a pergunta sorteada da lista para que não repita
+            availablePuzzles.splice(randomIndex, 1);
+
             guessedLetters.value = [];
             mistakes.value = 0;
         };
