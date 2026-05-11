@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula - Arquitetura de Sistemas para Indústria 4.0</title>
+    
+    <link rel="icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/aula-iot.css">
+</head>
+<body>
+
+    <canvas id="particles-canvas" class="particles-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+            </div>
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <div class="gtranslate_wrapper"></div>
+                    <a href="index.html#contato" class="navbar-button">Contato</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="course-main">
+        
+        <header class="course-header">
+            <span class="course-module-tag">— MÓDULO 1 · AULA 1</span>
+            <h1 class="course-title">Arquitetura de Sistemas para <span class="highlight">Indústria 4.0</span></h1>
+            <p class="course-description">
+                Construindo um Pipeline de Dados em Python para IA (PoC Integrada). Capacitando a projetar arquiteturas de integração de dados industriais utilizando Python.
+            </p>
+            <button class="btn-play-course" onclick="abrirApresentacao(0)">
+                <i class="bi bi-play-fill"></i> ACESSAR APRESENTAÇÃO COMPLETA
+            </button>
+        </header>
+
+        <section class="course-list-section">
+            <div class="list-header">
+                <h2>Conteúdo da Aula</h2>
+                <span class="count-tag">3 ETAPAS</span>
+            </div>
+
+            <div class="course-grid">
+                <div class="course-card" onclick="abrirApresentacao(1)">
+                    <div class="card-cover">
+                        <img src="latex/aula0/capa.gif" alt="Capa Etapa 1">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-watermark">1</span>
+                        <div class="card-text-wrapper">
+                            <span class="card-meta">ETAPA 1 (IoT 1)</span>
+                            <h3 class="card-title">Visão Geral e Arquitetura</h3>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action">ACESSAR &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" onclick="abrirApresentacao(2)">
+                    <div class="card-cover">
+                        <img src="latex/aula0/capa.png" alt="Capa Etapa 2">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-watermark">2</span>
+                        <div class="card-text-wrapper">
+                            <span class="card-meta">ETAPA 2 (IoT 2)</span>
+                            <h3 class="card-title">Configuração de Ambiente</h3>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action">ACESSAR &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card" onclick="abrirApresentacao(3)">
+                    <div class="card-cover">
+                        <img src="latex/aula0/capa.png" alt="Capa Etapa 3">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-watermark">3</span>
+                        <div class="card-text-wrapper">
+                            <span class="card-meta">ETAPA 3 (IoT 3)</span>
+                            <h3 class="card-title">Inteligência e Detecção</h3>
+                        </div>
+                        <div class="card-footer">
+                            <span class="action">ACESSAR &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="slideModal" class="slide-modal-overlay">
+        <div class="slide-modal-container">
+            <div class="slide-modal-header">
+                <h3 id="modalTitle">Título</h3>
+                <div class="modal-header-actions">
+                    <button class="btn-icon" id="btnTogglePdf" onclick="togglePdfView()" title="Ver Apresentação Interativa (PDF)">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                    </button>
+                    
+                    <button class="btn-icon" onclick="alterarZoom(-0.25)" title="Reduzir Zoom"><i class="bi bi-zoom-out"></i></button>
+                    <button class="btn-icon" onclick="resetarZoom()" title="Tamanho Original"><i class="bi bi-arrow-counterclockwise"></i></button>
+                    <button class="btn-icon" onclick="alterarZoom(0.25)" title="Aumentar Zoom"><i class="bi bi-zoom-in"></i></button>
+                    
+                    <div class="header-separator"></div>
+                    
+                    <button class="btn-icon" onclick="toggleFullScreen()" title="Tela Cheia"><i class="bi bi-box-arrow-up-right"></i></button>
+                    <button class="btn-icon btn-close-modal" onclick="fecharApresentacao()">
+                        <i class="bi bi-x-lg"></i> Fechar
+                    </button>
+                </div>
+            </div>
+            
+            <div class="slide-modal-body" id="presentationArea">
+                <button class="slide-nav prev" onclick="mudarSlide(-1)"><i class="bi bi-chevron-left"></i></button>
+                
+                <div class="image-wrapper">
+                    <img id="slideImage" src="" alt="Slide">
+                    <iframe id="pdfViewer" class="pdf-viewer-container" style="display: none;" title="Apresentação de Slides"></iframe>
+                </div>
+                
+                <button class="slide-nav next" onclick="mudarSlide(1)"><i class="bi bi-chevron-right"></i></button>
+            </div>
+
+            <div class="slide-modal-footer">
+                <p id="modalDesc">Descrição técnica da etapa.</p>
+                <a id="btn-praticar" href="#" class="btn-exercise" style="text-decoration: none; display: inline-block; text-align: center;">PRATICAR AGORA &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/aula-iot.js"></script>
+</body>
+</html>

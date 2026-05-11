@@ -21,186 +21,60 @@ createApp({
             totalErros: 0,
             dataAtual: new Date().toLocaleDateString('pt-BR'),
             
-            // 20 Desafios de pyFirmata2 focados na sintaxe do PDF
+            // 3 Desafios baseados no código do sensor LDR
             levels: [
                 {
-                    id: 1, concept: "Conexão Básica", story: "Antes de mais nada, precisamos instanciar a placa usando a porta USB (COM3).", instruction: "Importe o pyfirmata2 e conecte a placa.",
+                    id: 1, 
+                    concept: "Importação e Conexão", 
+                    story: "Para iniciar nosso sistema de luminosidade, precisamos importar as bibliotecas, conectar a placa e definir os pinos do LED e do LDR.", 
+                    instruction: "Importe as bibliotecas, instancie a placa na COM4 e mapeie os pinos d:9:o e a:5:i.",
                     blocks: [
                         { id: 'b1', text: 'from pyfirmata2 import Arduino' },
-                        { id: 'b2', text: 'placa = Arduino("COM3")' }
+                        { id: 'b2', text: 'import time' },
+                        { id: 'b3', text: 'placa = Arduino("COM4")' },
+                        { id: 'b4', text: 'led = placa.get_pin("d:9:o")' },
+                        { id: 'b5', text: 'ldr = placa.get_pin("a:5:i")' }
                     ],
-                    solutions: [['b1', 'b2']], successLog: "Conexão serial estabelecida na COM3."
+                    // Aceita variações na ordem dos imports e na ordem de definição dos pinos
+                    solutions: [
+                        ['b1', 'b2', 'b3', 'b4', 'b5'], 
+                        ['b2', 'b1', 'b3', 'b4', 'b5'],
+                        ['b1', 'b2', 'b3', 'b5', 'b4'],
+                        ['b2', 'b1', 'b3', 'b5', 'b4']
+                    ], 
+                    successLog: "Bibliotecas carregadas e hardware conectado com sucesso!"
                 },
                 {
-                    id: 2, concept: "Definição de Pinos (A forma moderna)", story: "Para controlar o LED no pino 13, usamos o get_pin('d:13:o').", instruction: "Instancie o pino 13 como digital e saída.",
+                    id: 2, 
+                    concept: "Amostragem e Callback", 
+                    story: "Precisamos dizer à placa para começar a ler os dados continuamente e registrar a nossa função 'atualizar_luz' para ser ativada sempre que o valor do LDR mudar.", 
+                    instruction: "Ligue a amostragem, registre o callback e ative o reporte de dados do LDR.",
                     blocks: [
-                        { id: 'b1', text: 'led = placa.get_pin("d:13:o")' }
+                        { id: 'b1', text: 'placa.samplingOn()' },
+                        { id: 'b2', text: 'ldr.register_callback(atualizar_luz)' },
+                        { id: 'b3', text: 'ldr.enable_reporting()' }
                     ],
-                    solutions: [['b1']], successLog: "Pino 13 mapeado como Output (Saída)."
+                    // A amostragem geralmente vem antes, e a ordem do callback/reporting pode variar levemente
+                    solutions: [
+                        ['b1', 'b2', 'b3'], 
+                        ['b1', 'b3', 'b2']
+                    ], 
+                    successLog: "Fluxo de dados do sensor habilitado e atrelado à função!"
                 },
                 {
-                    id: 3, concept: "Ligar o LED", story: "Para acender o LED, passamos o valor lógico 1 usando o método write().", instruction: "Escreva o valor 1 no objeto led.",
-                    blocks: [
-                        { id: 'b1', text: 'led.write(1)' }
-                    ],
-                    solutions: [['b1']], successLog: "Sinal elétrico enviado. LED aceso!"
-                },
-                {
-                    id: 4, concept: "Pausa (Delay em Python)", story: "Diferente do C++, o tempo no Python é em segundos.", instruction: "Importe time, pause por 1 segundo e desligue o LED.",
-                    blocks: [
-                        { id: 'b1', text: 'import time' },
-                        { id: 'b2', text: 'time.sleep(1)' },
-                        { id: 'b3', text: 'led.write(0)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3']], successLog: "Pausa de 1 segundo executada via thread local."
-                },
-                {
-                    id: 5, concept: "Simulando o void loop()", story: "No Arduino C++, usamos loop(). No Python, criamos um laço infinito.", instruction: "Crie um loop while True para exibir uma mensagem.",
-                    blocks: [
-                        { id: 'b1', text: 'while True:' },
-                        { id: 'b2', text: '    print("Rodando para sempre...")' },
-                        { id: 'b3', text: '    time.sleep(1)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3']], successLog: "Loop infinito estabelecido. Identação correta."
-                },
-                {
-                    id: 6, concept: "Pisca LED Contínuo", story: "Junte tudo para criar o clássico Blink contínuo.", instruction: "Ligue, espere, desligue e espere dentro do loop.",
-                    blocks: [
-                        { id: 'b1', text: 'while True:' },
-                        { id: 'b2', text: '    led.write(1)' },
-                        { id: 'b3', text: '    time.sleep(1)' },
-                        { id: 'b4', text: '    led.write(0)' },
-                        { id: 'b5', text: '    time.sleep(1)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3', 'b4', 'b5']], successLog: "Blink contínuo operando. Lógica escrava perfeita."
-                },
-                {
-                    id: 7, concept: "Configurando Entradas (Push Button)", story: "Vamos preparar o pino 2 para ler um botão.", instruction: "Use get_pin para definir o pino 2 como digital e entrada (i).",
-                    blocks: [
-                        { id: 'b1', text: 'btn = placa.get_pin("d:2:i")' }
-                    ],
-                    solutions: [['b1']], successLog: "Pino 2 mapeado como Input (Entrada)."
-                },
-                {
-                    id: 8, concept: "Amostragem de Dados (Vital)", story: "Sem ativar a amostragem, a leitura dos botões sempre retornará None.", instruction: "Ative o sampling na placa.",
-                    blocks: [
-                        { id: 'b1', text: 'placa.samplingOn()' }
-                    ],
-                    solutions: [['b1']], successLog: "Fluxo contínuo de dados assíncronos ativado."
-                },
-                {
-                    id: 9, concept: "Lendo o Botão", story: "Leia o estado atual do botão usando read() e exiba na tela.", instruction: "Atribua a leitura a uma variável e imprima.",
-                    blocks: [
-                        { id: 'b1', text: 'estado = btn.read()' },
-                        { id: 'b2', text: 'print(estado)' }
-                    ],
-                    solutions: [['b1', 'b2']], successLog: "Valor digital lido com sucesso (True/False)."
-                },
-                {
-                    id: 10, concept: "Botão controla LED", story: "Se o botão for apertado, o LED acende. Senão, apaga.", instruction: "Use a estrutura de controle if/else.",
-                    blocks: [
-                        { id: 'b1', text: 'if btn.read():' },
-                        { id: 'b2', text: '    led.write(1)' },
-                        { id: 'b3', text: 'else:' },
-                        { id: 'b4', text: '    led.write(0)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3', 'b4']], successLog: "Condicional aplicada com base na leitura física."
-                },
-                {
-                    id: 11, concept: "Alívio de CPU (Estabilidade)", story: "Ler um botão em um loop Python consumirá 100% do seu PC.", instruction: "Adicione um pequeno sleep ao final do seu while True.",
-                    blocks: [
-                        { id: 'b1', text: 'while True:' },
-                        { id: 'b2', text: '    if btn.read():' },
-                        { id: 'b3', text: '        led.write(1)' },
-                        { id: 'b4', text: '    time.sleep(0.01)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3', 'b4']], successLog: "Uso da CPU estabilizado. Polling eficiente."
-                },
-                {
-                    id: 12, concept: "Paralelismo Lógico (Alarme)", story: "Como o envio serial é muito rápido, podemos ligar LED e Buzzer 'ao mesmo tempo'.", instruction: "Ligue o led e o buzzer antes de dar o sleep.",
-                    blocks: [
-                        { id: 'b1', text: 'led.write(1)' },
-                        { id: 'b2', text: 'buzzer.write(1)' },
-                        { id: 'b3', text: 'time.sleep(1)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3'], ['b2', 'b1', 'b3']], successLog: "Acionamento simultâneo via USB realizado."
-                },
-                {
-                    id: 13, concept: "Controle Interativo por Teclado", story: "O programa pode esperar o usuário digitar algo no PC para acionar a placa.", instruction: "Use input() para pedir um comando e travar o fluxo.",
-                    blocks: [
-                        { id: 'b1', text: 'comando = input("Digite 1 para ligar: ")' },
-                        { id: 'b2', text: 'print("Comando recebido!")' }
-                    ],
-                    solutions: [['b1', 'b2']], successLog: "Interrupção por teclado aguardando input."
-                },
-                {
-                    id: 14, concept: "Teclado + LED", story: "Verifique se a string digitada é '1' para acender o LED.", instruction: "Crie a condicional if avaliando o texto do input.",
-                    blocks: [
-                        { id: 'b1', text: 'if comando == "1":' },
-                        { id: 'b2', text: '    led.write(1)' },
-                        { id: 'b3', text: 'elif comando == "0":' },
-                        { id: 'b4', text: '    led.write(0)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3', 'b4']], successLog: "Teclado do PC operando hardware físico remotamente."
-                },
-                {
-                    id: 15, concept: "Semáforo (Múltiplos LEDs)", story: "Ligue e desligue o verde, depois passe para o amarelo.", instruction: "Desligue o verde e ligue o amarelo na mesma lógica.",
-                    blocks: [
-                        { id: 'b1', text: 'verde.write(1)' },
-                        { id: 'b2', text: 'time.sleep(5)' },
-                        { id: 'b3', text: 'verde.write(0)' },
-                        { id: 'b4', text: 'amarelo.write(1)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3', 'b4']], successLog: "Sequência temporal de semáforo acionada."
-                },
-                {
-                    id: 16, concept: "Entrada Analógica (LDR)", story: "Pinos analógicos medem variações. Instancie o pino analógico 0 (A0).", instruction: "Use get_pin('a:0:i') para o sensor de luz.",
-                    blocks: [
-                        { id: 'b1', text: 'ldr = placa.get_pin("a:0:i")' },
-                        { id: 'b2', text: 'placa.samplingOn()' }
-                    ],
-                    solutions: [['b1', 'b2'], ['b2', 'b1']], successLog: "Canal ADC ativado para leitura analógica."
-                },
-                {
-                    id: 17, concept: "Fotocélula Inteligente", story: "O valor lido vai de 0.0 a 1.0. Se for menor que 0.3 (escuro), acenda o LED.", instruction: "Leia o LDR e avalie o limiar.",
-                    blocks: [
-                        { id: 'b1', text: 'valor = ldr.read()' },
-                        { id: 'b2', text: 'if valor is not None and valor < 0.3:' },
-                        { id: 'b3', text: '    led.write(1)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3']], successLog: "Ponto de corte de luminosidade testado e validado."
-                },
-                {
-                    id: 18, concept: "Temporizador For Loop", story: "Em Python, laços for são ótimos para contagens finitas (ex: piscar 5 vezes).", instruction: "Use for i in range(5) para piscar o LED.",
-                    blocks: [
-                        { id: 'b1', text: 'for i in range(5):' },
-                        { id: 'b2', text: '    led.write(1)' },
-                        { id: 'b3', text: '    time.sleep(0.5)' },
-                        { id: 'b4', text: '    led.write(0)' },
-                        { id: 'b5', text: '    time.sleep(0.5)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3', 'b4', 'b5']], successLog: "Iteração finita substituindo loops gigantescos."
-                },
-                {
-                    id: 19, concept: "Segurança de Saída (try/except)", story: "Ao parar o script, é crucial fechar a serial, senão a porta COM fica travada.", instruction: "Envolva o loop em try e feche no finally.",
+                    id: 3, 
+                    concept: "Loop de Execução e Segurança", 
+                    story: "O sistema precisa ficar rodando indefinidamente. Mas, se o usuário pressionar Ctrl+C (KeyboardInterrupt), devemos liberar a porta COM para ela não travar.", 
+                    instruction: "Crie o bloco try/except com um loop infinito e encerre a placa em caso de interrupção.",
                     blocks: [
                         { id: 'b1', text: 'try:' },
-                        { id: 'b2', text: '    while True: pass' },
-                        { id: 'b3', text: 'finally:' },
-                        { id: 'b4', text: '    placa.exit()' }
+                        { id: 'b2', text: '    while True:' },
+                        { id: 'b3', text: '        time.sleep(0.1)' },
+                        { id: 'b4', text: 'except KeyboardInterrupt:' },
+                        { id: 'b5', text: '    placa.exit()' }
                     ],
-                    solutions: [['b1', 'b2', 'b3', 'b4']], successLog: "Porta serial liberada adequadamente pelo sistema operacional."
-                },
-                {
-                    id: 20, concept: "O Mestre do pyFirmata", story: "Junte a importação, conexão, amostragem e loop num script seguro.", instruction: "Construa o esqueleto base definitivo.",
-                    blocks: [
-                        { id: 'b1', text: 'from pyfirmata2 import Arduino' },
-                        { id: 'b2', text: 'placa = Arduino("COM3")' },
-                        { id: 'b3', text: 'placa.samplingOn()' },
-                        { id: 'b4', text: 'while True:' },
-                        { id: 'b5', text: '    time.sleep(0.1)' }
-                    ],
-                    solutions: [['b1', 'b2', 'b3', 'b4', 'b5']], successLog: "SISTEMA COMPLETO CONCLUÍDO! VOCÊ ZEROU O LABORATÓRIO PYFIRMATA2!"
+                    solutions: [['b1', 'b2', 'b3', 'b4', 'b5']], 
+                    successLog: "Sistema completo, loop rodando e segurança implementada! VOCÊ CONCLUIU O LABORATÓRIO!"
                 }
             ]
         }

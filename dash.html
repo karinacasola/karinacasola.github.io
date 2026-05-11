@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Indústria 4.0 - Karina Casola</title>
+    
+    <link rel="icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/cookies.css">
+    <link rel="stylesheet" href="css/list.css">
+    <link rel="stylesheet" href="css/card.css">
+    <link rel="stylesheet" href="css/newsletter.css">
+    <link rel="stylesheet" href="css/post.css">
+    <link rel="stylesheet" href="css/tradutor.css">
+
+    <link rel="stylesheet" href="css/dash.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+    <div class="navbar-content">
+        <div class="navbar-logo">
+            <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+        </div>
+
+        <button class="mobile-menu-btn" id="menu-toggle">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <div class="navbar-menu" id="navbar-menu">
+            <a href="index.html" class="navbar-link">Inicio</a>
+            <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+            <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+            <a href="sobre.html" class="navbar-link">Sobre</a>
+            <div class="nav-actions">
+                <div class="gtranslate_wrapper"></div>
+                <a href="index.html#contato" class="navbar-button">Contato</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <main class="dash-container">
+        <header class="dash-header text-center">
+            <div class="section-header-pill">INDÚSTRIA 4.0</div>
+            <h1 class="section-title" style="margin-bottom: 10px;">Monitoramento de Iluminação</h1>
+            <p class="dash-subtitle">Análise de consumo, KPIs de crescimento e agendamento de zonas.</p>
+        </header>
+
+        <div class="dash-master-grid">
+            <div class="dash-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon"><i class="bi bi-lightning-charge"></i></div>
+                    <div>
+                        <p class="kpi-label">Energia Diária</p>
+                        <p class="kpi-value">43.2 kWh</p>
+                    </div>
+                </div>
+                <div class="progress-bar thin"><div class="progress-fill gradient-blue" style="width: 75%;"></div></div>
+                <p class="kpi-desc">75% do orçamento diário</p>
+            </div>
+
+            <div class="dash-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon"><i class="bi bi-graph-up-arrow"></i></div>
+                    <div>
+                        <p class="kpi-label">DLI Hoje</p>
+                        <p class="kpi-value">14.8 mol/m²</p>
+                    </div>
+                </div>
+                <div class="progress-bar thin"><div class="progress-fill gradient-blue" style="width: 85%;"></div></div>
+                <p class="kpi-desc">85% da meta de DLI</p>
+            </div>
+
+            <div class="dash-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon"><i class="bi bi-clock-history"></i></div>
+                    <div>
+                        <p class="kpi-label">Horas de Luz</p>
+                        <p class="kpi-value">12.4 h</p>
+                    </div>
+                </div>
+                <div class="progress-bar thin"><div class="progress-fill gradient-blue" style="width: 69%;"></div></div>
+                <p class="kpi-desc">69% da meta de 18h</p>
+            </div>
+
+            <div class="dash-card item-full-mobile">
+                <h4 class="dash-card-title">Consumo de Energia (7 Dias)</h4>
+                <div class="chart-container">
+                    <canvas id="energyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="dash-card item-full-mobile">
+                <h4 class="dash-card-title">Acúmulo de DLI</h4>
+                <div class="chart-container">
+                    <canvas id="dliChart"></canvas>
+                </div>
+            </div>
+
+            <div class="dash-card item-wide">
+                <h4 class="dash-card-title">Linha do Tempo (24 Horas)</h4>
+                <div class="timeline-wrapper">
+                    <div class="timeline-row">
+                        <span class="timeline-label">Zona A</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill gradient-blue" style="left: 17%; right: 22%;"></div>
+                        </div>
+                        <span class="timeline-status active">LIG</span>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="timeline-label">Zona B</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill gradient-blue" style="left: 21%; right: 29%;"></div>
+                        </div>
+                        <span class="timeline-status active">LIG</span>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="timeline-label">Zona C</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill gradient-gray" style="left: 0%; right: 50%;"></div>
+                        </div>
+                        <span class="timeline-status">DESL</span>
+                    </div>
+                </div>
+                <div class="timeline-markers">
+                    <span>00:00</span><span>08:00</span><span>16:00</span><span>24:00</span>
+                </div>
+            </div>
+
+            <div class="dash-card">
+                <h4 class="dash-card-title text-center">Agendamento</h4>
+                <div class="form-group">
+                    <label>Ligar Luzes</label>
+                    <input type="time" value="04:00" class="dash-input">
+                </div>
+                <div class="form-group">
+                    <label>Desligar Luzes</label>
+                    <input type="time" value="22:00" class="dash-input">
+                </div>
+                <div class="form-group">
+                    <label>Amanhecer</label>
+                    <select class="dash-input">
+                        <option>15 min</option>
+                        <option selected>30 min</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <button class="header-toggle" style="display:none;"></button>
+    <a href="#" class="scroll-top" style="display:none;"></a>
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/cookies.js"></script>
+    <script src="js/tradutor.js"></script>
+    <script src="js/dash.js"></script>
+</body>
+</html>
