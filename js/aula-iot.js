@@ -150,13 +150,14 @@ function aplicarZoom() {
     }
 }
 
-/* --- FUNÇÃO PARA RENDERIZAR O PDF VIA PDF.JS --- */
+
+/* --- FUNÇÃO PARA RENDERIZAR O PDF VIA PDF.JS COM ALTA QUALIDADE --- */
 async function carregarE_RenderizarPdf(url) {
     const container = document.getElementById('pdfViewerContainer');
     
     if (pdfCarregadoAtual === url) return; 
     
-    container.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Convertendo PDF... (Isso garantirá o funcionamento no celular)</div>';
+    container.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Renderizando em alta qualidade...</div>';
     
     try {
         const pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
@@ -172,12 +173,21 @@ async function carregarE_RenderizarPdf(url) {
         // Loop pelas páginas desenhando os Canvas
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
             const page = await pdf.getPage(pageNum);
-            const viewport = page.getViewport({ scale: 1.5 });
+            
+            // ------------------------------------------------------------------
+            // MÁGICA DA QUALIDADE: escala de 1.5 para 3.0 (ou mais)
+            // Isso gera um supersampling, deixando textos e imagens super nítidos
+            // ------------------------------------------------------------------
+            const viewport = page.getViewport({ scale: 3.0 });
             
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
+            
+            // Tamanho interno do canvas recebe a resolução gigante
             canvas.height = viewport.height;
             canvas.width = viewport.width;
+            
+            // A classe CSS 'pdf-page-canvas' cuida de reduzir visualmente para caber na tela
             canvas.classList.add('pdf-page-canvas');
             
             container.appendChild(canvas);
@@ -191,9 +201,18 @@ async function carregarE_RenderizarPdf(url) {
         
         pdfCarregadoAtual = url;
         aplicarZoom(); 
+        
     } catch (error) {
-        console.error("Erro ao renderizar PDF:", error);
-        container.innerHTML = '<div style="color: #ff5e5e; padding: 40px; text-align: center;">Erro ao processar o PDF. Verifique se o caminho do arquivo está correto.</div>';
+        console.warn("PDF.js falhou (possível bloqueio local). Acionando iframe de fallback...", error);
+        
+        // PLANO B: Iframe
+        container.innerHTML = `
+            <div style="background-color: #f39c12; color: #fff; padding: 8px; font-size: 12px; text-align: center; width: 100%;">
+                Modo de Compatibilidade Ativado. (Para visualização de celular perfeita, hospede o site ou use o Live Server).
+            </div>
+            <iframe src="${url}#view=FitH" style="width: 100%; height: calc(100% - 30px); border: none;"></iframe>
+        `;
+        pdfCarregadoAtual = url;
     }
 }
 
