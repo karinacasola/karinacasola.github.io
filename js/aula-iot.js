@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LÓGICA DA PÁGINA DE AULAS E MODAL DE SLIDES (ATUALIZADO PARA PDF E LINKS)
+   LÓGICA DA PÁGINA DE AULAS, MODAL DE SLIDES E PDF.JS (MOZILLA)
    ========================================================================== */
 
 const courseData = {
@@ -17,10 +17,7 @@ const courseData = {
     1: {
         title: "Etapa 1: Arquitetura",
         desc: "Compreendendo a pilha tecnológica de 5 camadas e integração do pipeline.",
-        slides: [
-            "latex/aula0/1.jpg" 
-            
-        ],
+        slides: ["latex/aula0/1.jpg"],
         pdfFile: "latex/aula0/IoT_.pdf"
     },
     2: {
@@ -40,28 +37,39 @@ const courseData = {
 let currentSet = 0;
 let currentSlide = 0;
 let currentZoom = 1;
-let mostrandoPdf = false; // Controle de exibição (Imagem x PDF)
+let mostrandoPdf = false;
+let pdfCarregadoAtual = null; 
 
-function abrirApresentacao(id) {
+// Torna a função acessível globalmente para os cliques do HTML
+window.abrirApresentacao = function(id) {
+    const slideImage = document.getElementById('slideImage');
+    const pdfContainer = document.getElementById('pdfViewerContainer');
+    const slideModal = document.getElementById('slideModal');
+    
+    // Trava de segurança para não quebrar o código se o HTML estiver desatualizado
+    if (!slideImage || !pdfContainer || !slideModal) {
+        console.error("Erro: Elementos do modal não encontrados no HTML.");
+        return;
+    }
+
     currentSet = id;
     currentSlide = 0;
-    
-    // Reseta visualização para mostrar a capa sempre que abrir
     mostrandoPdf = false;
-    document.getElementById('slideImage').style.display = 'block';
-    document.getElementById('pdfViewer').style.display = 'none';
-    document.getElementById('presentationArea').classList.remove('hide-arrows');
+    
+    // Reseta visualização para modo imagem
+    slideImage.style.display = 'block';
+    pdfContainer.style.display = 'none';
+    
+    const presentationArea = document.getElementById('presentationArea');
+    if (presentationArea) presentationArea.classList.remove('hide-arrows');
     
     const btnToggle = document.getElementById('btnTogglePdf');
     if(btnToggle) btnToggle.classList.remove('active');
     
-    // Limpa o iframe para não misturar PDFs ou consumir memória
-    document.getElementById('pdfViewer').src = "";
-    
     document.getElementById('modalTitle').innerText = courseData[id].title;
     document.getElementById('modalDesc').innerText = courseData[id].desc;
 
-    // ----- LÓGICA DE ATUALIZAÇÃO DO LINK "PRATICAR AGORA" -----
+    // Lógica do botão Praticar
     const btnPraticar = document.getElementById('btn-praticar');
     if (btnPraticar) {
         switch(id) {
@@ -80,22 +88,21 @@ function abrirApresentacao(id) {
             case 0:
             default:
                 btnPraticar.href = '#'; 
-                // btnPraticar.style.display = 'none'; // Descomente esta linha se não quiser botão na capa geral
                 break;
         }
     }
-    // -----------------------------------------------------------
     
     atualizarImagem();
     
-    document.getElementById('slideModal').classList.add('active');
-    document.body.style.overflow = 'hidden'; // Trava o scroll da página ao fundo
-}
+    slideModal.classList.add('active');
+    document.body.style.overflow = 'hidden'; 
+};
 
 function atualizarImagem() {
     const img = document.getElementById('slideImage');
-    img.style.opacity = 0;
+    if (!img) return;
     
+    img.style.opacity = 0;
     resetarZoom();
     
     setTimeout(() => {
@@ -104,99 +111,143 @@ function atualizarImagem() {
     }, 200);
 }
 
-function mudarSlide(n) {
+window.mudarSlide = function(n) {
     const total = courseData[currentSet].slides.length;
     currentSlide = (currentSlide + n + total) % total;
     atualizarImagem();
-}
+};
 
 /* --- FUNÇÕES DE ZOOM --- */
-function alterarZoom(fator) {
+window.alterarZoom = function(fator) {
     currentZoom += fator;
-    
     if (currentZoom < 0.5) currentZoom = 0.5;
     if (currentZoom > 3) currentZoom = 3;
-    
     aplicarZoom();
-}
+};
 
-function resetarZoom() {
+window.resetarZoom = function() {
     currentZoom = 1;
     aplicarZoom();
-}
+};
 
 function aplicarZoom() {
-    const img = document.getElementById('slideImage');
-    img.style.transform = `scale(${currentZoom})`;
-    
-    if(currentZoom > 1) {
-        img.style.maxWidth = 'none';
-        img.style.maxHeight = 'none';
+    if (mostrandoPdf) {
+        const canvases = document.querySelectorAll('.pdf-page-canvas');
+        canvases.forEach(canvas => {
+            canvas.style.width = `${100 * currentZoom}%`;
+        });
     } else {
-        img.style.maxWidth = '100%';
-        img.style.maxHeight = '100%';
+        const img = document.getElementById('slideImage');
+        if (!img) return;
+        img.style.transform = `scale(${currentZoom})`;
+        if(currentZoom > 1) {
+            img.style.maxWidth = 'none';
+            img.style.maxHeight = 'none';
+        } else {
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '100%';
+        }
     }
 }
 
-/* --- FUNÇÃO PARA ALTERNAR CAPA / PDF --- */
-function togglePdfView() {
+/* --- FUNÇÃO PARA RENDERIZAR O PDF VIA PDF.JS --- */
+async function carregarE_RenderizarPdf(url) {
+    const container = document.getElementById('pdfViewerContainer');
+    
+    if (pdfCarregadoAtual === url) return; 
+    
+    container.innerHTML = '<div style="color: white; padding: 40px; text-align: center;">Convertendo PDF... (Isso garantirá o funcionamento no celular)</div>';
+    
+    try {
+        const pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
+        if (!pdfjsLib) throw new Error("A biblioteca PDF.js não foi carregada no HTML.");
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        
+        const loadingTask = pdfjsLib.getDocument(url);
+        const pdf = await loadingTask.promise;
+        
+        container.innerHTML = ''; 
+        
+        // Loop pelas páginas desenhando os Canvas
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            const page = await pdf.getPage(pageNum);
+            const viewport = page.getViewport({ scale: 1.5 });
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            canvas.classList.add('pdf-page-canvas');
+            
+            container.appendChild(canvas);
+            
+            const renderContext = {
+                canvasContext: ctx,
+                viewport: viewport
+            };
+            await page.render(renderContext).promise;
+        }
+        
+        pdfCarregadoAtual = url;
+        aplicarZoom(); 
+    } catch (error) {
+        console.error("Erro ao renderizar PDF:", error);
+        container.innerHTML = '<div style="color: #ff5e5e; padding: 40px; text-align: center;">Erro ao processar o PDF. Verifique se o caminho do arquivo está correto.</div>';
+    }
+}
+
+window.togglePdfView = function() {
     const img = document.getElementById('slideImage');
-    const pdfViewer = document.getElementById('pdfViewer');
+    const pdfContainer = document.getElementById('pdfViewerContainer');
     const btnToggle = document.getElementById('btnTogglePdf');
     const modalBody = document.getElementById('presentationArea');
     const currentData = courseData[currentSet];
     
     mostrandoPdf = !mostrandoPdf;
+    resetarZoom();
     
     if (mostrandoPdf) {
-        // Mostra o PDF
         img.style.display = 'none';
-        pdfViewer.style.display = 'block';
+        pdfContainer.style.display = 'block';
         btnToggle.classList.add('active');
-        modalBody.classList.add('hide-arrows'); // Esconde setas do slider de imagem
+        if (modalBody) modalBody.classList.add('hide-arrows'); 
         
-        // Carrega o PDF apenas na primeira vez, otimizando o carregamento
-        if (pdfViewer.getAttribute('src') !== currentData.pdfFile + "#view=FitH") {
-            pdfViewer.src = currentData.pdfFile + "#view=FitH"; 
-        }
+        carregarE_RenderizarPdf(currentData.pdfFile);
     } else {
-        // Mostra a Capa (Imagem)
         img.style.display = 'block';
-        pdfViewer.style.display = 'none';
+        pdfContainer.style.display = 'none';
         btnToggle.classList.remove('active');
-        modalBody.classList.remove('hide-arrows');
+        if (modalBody) modalBody.classList.remove('hide-arrows');
     }
-}
+};
 
-/* --- CONTROLE DE TELA CHEIA E FECHAR --- */
-function toggleFullScreen() {
+/* --- CONTROLES DA TELA E MODAL --- */
+window.toggleFullScreen = function() {
     const el = document.getElementById('presentationArea');
+    if (!el) return;
     if (!document.fullscreenElement) {
         if(el.requestFullscreen) el.requestFullscreen();
     } else {
         if(document.exitFullscreen) document.exitFullscreen();
     }
-}
+};
 
-function fecharApresentacao() {
-    document.getElementById('slideModal').classList.remove('active');
-    document.body.style.overflow = 'auto'; // Restaura o scroll
-    
-    if (document.fullscreenElement) {
-        document.exitFullscreen();
-    }
-}
+window.fecharApresentacao = function() {
+    const modal = document.getElementById('slideModal');
+    if (modal) modal.classList.remove('active');
+    document.body.style.overflow = 'auto'; 
+    if (document.fullscreenElement) document.exitFullscreen();
+};
 
-// Fechar modal ao clicar no fundo escuro
-document.getElementById('slideModal').addEventListener('click', function(event) {
-    if (event.target === this) {
-        fecharApresentacao();
-    }
+// Eventos de Fechamento
+document.getElementById('slideModal')?.addEventListener('click', function(event) {
+    if (event.target === this) fecharApresentacao();
 });
 
-// Suporte a teclado
 document.addEventListener('keydown', function(event) {
-    if (document.getElementById('slideModal').classList.contains('active')) {
+    const modal = document.getElementById('slideModal');
+    if (modal && modal.classList.contains('active')) {
         if (event.key === "Escape") fecharApresentacao();
         else if (event.key === "ArrowRight" && !mostrandoPdf) mudarSlide(1);
         else if (event.key === "ArrowLeft" && !mostrandoPdf) mudarSlide(-1);
@@ -204,9 +255,8 @@ document.addEventListener('keydown', function(event) {
 });
 
 /* ==========================================================================
-   ANIMAÇÃO DE PARTÍCULAS (BOLAS DE LUZ TEMA TECH AZUL)
+   ANIMAÇÃO DE PARTÍCULAS
    ========================================================================== */
-
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('particles-canvas');
     if (!canvas) return;
@@ -222,11 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     class Particle {
-        constructor() {
-            this.reset();
-            this.y = Math.random() * height; 
-        }
-        
+        constructor() { this.reset(); this.y = Math.random() * height; }
         reset() {
             this.x = Math.random() * width;
             this.y = height + Math.random() * 100;
@@ -236,18 +282,15 @@ document.addEventListener('DOMContentLoaded', () => {
             this.opacity = Math.random() * 0.6 + 0.1;
             this.drift = Math.random() * Math.PI * 2;
         }
-        
         update() {
             this.y -= this.speedY;
             this.drift += 0.02;
             this.x += Math.sin(this.drift) * 0.4 + this.speedX;
-
             if (this.y < -10 || this.x < -10 || this.x > width + 10) {
                 this.reset();
                 this.y = height + 10;
             }
         }
-        
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -262,19 +305,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function initParticles() {
         particles = [];
         const maxParticles = width < 768 ? 20 : 45; 
-        for (let i = 0; i < maxParticles; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
     }
 
     function animate() {
         ctx.clearRect(0, 0, width, height);
-        
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        
+        particles.forEach(p => { p.update(); p.draw(); });
         requestAnimationFrame(animate);
     }
 
