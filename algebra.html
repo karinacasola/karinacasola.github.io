@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django Pytest Escape Room - Karina Casola</title>
+    <title>Álgebra Linear na Tecnologia - Simulação</title>
 
     <link rel="icon" href="img/favicon.svg">
     
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/escape-style-py.css">
+    <link rel="stylesheet" href="css/algebra.css">
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -56,21 +56,21 @@
             <header class="game-header">
                 <div class="header-content">
                     <div class="logo-area">
-                        <div class="section-header-pill">PYTEST.ESCAPE</div>
-                        <h1 class="section-title">Validação <span class="glitch-text">Backend Django</span></h1>
+                        <div class="section-header-pill">MATH.SIMULATOR</div>
+                        <h1 class="section-title">Álgebra Linear na Tecnologia</h1>
                     </div>
                     
                     <div class="stats-area">
                         <div class="stat-item">
-                            <span class="label">Teste Unitário</span>
-                            <span class="value">{{ currentLevelIndex + 1 }}<small>/{{ levels.length }}</small></span>
+                            <span class="label">Desafio</span>
+                            <span class="value">{{ currentQuestionIndex + 1 }}<small>/{{ questions.length }}</small></span>
                         </div>
                         <div class="stat-item">
-                            <span class="label">Tentativas Restantes</span>
-                            <span class="value" :class="{'error-text': attempts <= 1}">{{ attempts }}<small>/3</small></span>
+                            <span class="label">Tentativas</span>
+                            <span class="value" :class="{'error-text': attempts >= 2}">{{ attempts }}<small>/3</small></span>
                         </div>
                         <div class="stat-item">
-                            <span class="label">Score (Acertos)</span>
+                            <span class="label">Acertos</span>
                             <span class="value highlight">{{ score }}</span>
                         </div>
                     </div>
@@ -84,17 +84,16 @@
             <div class="game-body">
                 
                 <div v-if="gameOver" class="end-screen">
-                    <i class="bi bi-shield-check trophy-icon"></i>
-                    <h2>Suite de Testes Finalizada!</h2>
-                    <p>Você processou todas as rotinas de TDD no ambiente Django.<br>
-                    <strong>Pontuação Final: {{ score }} / {{ levels.length }}</strong></p>
-                    
+                    <i class="bi bi-cpu trophy-icon"></i>
+                    <h2>Simulação Concluída!</h2>
+                    <p>Você processou os dados matriciais do sistema.<br>
+                    <strong>{{ score }} acertos</strong> de {{ questions.length }} desafios computacionais resolvidos.</p>
                     <div class="final-actions">
                         <button @click="saveResultPDF" class="btn-minimalist">
-                            <i class="bi bi-cloud-download"></i> Baixar Relatório (PDF)
+                            <i class="bi bi-cloud-download"></i> Baixar Relatório PDF
                         </button>
                         <button @click="resetGame" class="btn-minimalist">
-                            <i class="bi bi-arrow-counterclockwise"></i> Reiniciar Treinamento
+                            <i class="bi bi-arrow-counterclockwise"></i> Reiniciar Simulação
                         </button>
                     </div>
                 </div>
@@ -106,57 +105,54 @@
                             <div class="window-dots">
                                 <span></span><span></span><span></span>
                             </div>
-                            <span class="window-title">pytest_output.log</span>
+                            <span class="window-title">kernel_math.log</span>
                         </div>
                         <div class="terminal-body" ref="terminalBody">
                             <p v-for="(line, index) in logs" :key="index" :class="line.type">
-                                <span class="prompt" v-if="line.text && line.type !== 'log-header'">(venv) pytest></span> 
+                                <span class="prompt" v-if="line.text && line.type !== 'log-header'">math_sys></span> 
                                 <span v-html="line.text"></span>
                             </p>
                             <div class="typing-cursor" v-if="isTyping">█</div>
                         </div>
                     </div>
 
-                    <div class="ux-window editor" :class="{ 'locked': isTyping || levelComplete }">
+                    <div class="ux-window editor" :class="{ 'locked': isTyping }">
                         <div class="window-header">
-                            <span class="window-title">test_suite.py</span>
-                            <i class="bi bi-filetype-py" style="color: var(--text-secondary);"></i>
+                            <span class="window-title">processamento_vetorial.py</span>
+                            <i class="bi bi-calculator" style="color: var(--text-secondary);"></i>
                         </div>
                         
                         <div class="editor-body">
-                            <div style="margin-bottom: 15px;">
-                                <p class="comment"># {{ currentLevel.instruction }}</p>
+                            <div style="margin-bottom: 20px;">
+                                <p class="comment"># {{ currentQuestion.instruction }}</p>
                             </div>
                             
-                            <div class="code-block">
-                                <div v-for="(line, idx) in currentLevel.codeTemplate" :key="idx" class="code-line">
-                                    <span class="line-num">{{ idx + 1 }}</span>
-                                    <span v-html="formatCodeLine(line)"></span>
-                                </div>
+                            <div class="read-only-code">
+                                <p>{{ currentQuestion.text }}</p>
                             </div>
 
-                            <div class="options-grid">
-                                <button v-for="(option, index) in currentLevel.options" 
+                            <div class="options-grid" v-if="!showAnswer">
+                                <button v-for="(option, index) in currentQuestion.options" 
                                         :key="index" 
                                         @click="selectOption(option)"
                                         class="btn-minimalist ux-option-btn"
                                         :class="{ 
-                                            'selected': userSelection === option,
-                                            'correct': levelComplete && option === currentLevel.correctAnswer, 
-                                            'wrong': userSelection === option && feedbackType === 'error',
-                                            'warning': userSelection === option && feedbackType === 'warning'
-                                        }"
-                                        :disabled="levelComplete">
+                                            'wrong': userSelection === option && feedbackType === 'warning'
+                                        }">
                                     {{ option }}
                                 </button>
                             </div>
 
-                            <button class="run-code-btn" @click="runCode" :disabled="!userSelection || levelComplete || isTyping">
-                                <i class="bi bi-play-fill"></i> RODAR TESTE
-                            </button>
-
-                            <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                            <div v-if="feedbackMsg && !showAnswer" class="feedback-msg" :class="feedbackType">
                                 <span v-html="feedbackMsg"></span>
+                            </div>
+
+                            <div v-if="showAnswer" class="explanation-box" :class="feedbackType">
+                                <h4>{{ feedbackType === 'success' ? 'Correto! Resolução:' : 'Incorreto. Resolução:' }}</h4>
+                                <div class="explanation-content" v-html="currentQuestion.explanation"></div>
+                                <button @click="nextQuestion" class="btn-minimalist action-btn">
+                                    Avançar para o próximo desafio <i class="bi bi-arrow-right"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -182,14 +178,12 @@
         </main>
     </div>
 
-    <script src="js/script.js"></script>
-    
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     
-    <script src="js/escape-game-py.js"></script>
-    
+    <script src="js/algebra.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
