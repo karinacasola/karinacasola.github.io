@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treinamento UX: Avaliação Heurística de Nielsen</title>
+
+    <link rel="icon" href="img/favicon.svg">
+    
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ihc.css">
+    <link rel="stylesheet" href="css/heuristicas.css"> <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <img alt="Karina Casola Logo" width="100" src="img/logo.png"/>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="nav-actions">
+                    <a href="index.html#contato" class="navbar-button override-btn">Contato</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="app" v-cloak>
+        <main class="game-container-wrapper wide-wrapper">
+            
+            <header class="game-header">
+                <div class="header-content">
+                    <div class="logo-area">
+                        <div class="section-header-pill">UX.INSPECTOR</div>
+                        <h1 class="section-title">Detetive de Heurísticas</h1>
+                    </div>
+                    
+                    <div class="stats-area">
+                        <div class="stat-item">
+                            <span class="label">Página Web</span>
+                            <span class="value">{{ currentQuestionIndex + 1 }}<small>/{{ questions.length }}</small></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Chances</span>
+                            <span class="value" :class="{'error-text': attemptsLeft <= 2}">{{ attemptsLeft }}<small>/6</small></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Acertos</span>
+                            <span class="value highlight">{{ score }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" :style="{ width: progressPercentage + '%' }"></div>
+                </div>
+            </header>
+
+            <div class="game-body">
+                
+                <div v-if="gameOver" class="end-screen">
+                    <i class="bi bi-award-fill trophy-icon"></i>
+                    <h2>Auditoria Concluída!</h2>
+                    <p>Você inspecionou as 10 páginas da web e avaliou os problemas de usabilidade.<br>
+                    <strong>Acertos Totais: {{ score }} de 10</strong></p>
+                    <div class="final-actions">
+                        <button @click="resetGame" class="btn-minimalist">
+                            <i class="bi bi-arrow-counterclockwise"></i> Fazer Nova Auditoria
+                        </button>
+                    </div>
+                </div>
+
+                <div v-else class="ux-split-area">
+                    
+                    <div class="ux-window terminal">
+                        <div class="window-header">
+                            <div class="window-dots">
+                                <span style="background: #ff5f56;"></span>
+                                <span style="background: #ffbd2e;"></span>
+                                <span style="background: #27c93f;"></span>
+                            </div>
+                            <span class="window-title">navegador_simulado.exe</span>
+                        </div>
+                        <div class="browser-body">
+                            <div class="browser-address-bar">
+                                <i class="bi bi-lock-fill"></i> https://site-com-problema.com/pag-{{ currentQuestionIndex + 1 }}
+                            </div>
+                            
+                            <div class="mockup-content">
+                                <h3 class="mockup-title"><i class="bi bi-exclamation-triangle"></i> Cenário da Interface</h3>
+                                <p class="mockup-desc">{{ currentQuestion.description }}</p>
+                                
+                                <div class="mockup-visual-hint">
+                                    <i>"{{ currentQuestion.visualHint }}"</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ux-window editor">
+                        <div class="window-header">
+                            <span class="window-title">painel_auditoria.js</span>
+                            <i class="bi bi-bug-fill" style="color: var(--text-secondary);"></i>
+                        </div>
+                        
+                        <div class="editor-body">
+                            <div style="margin-bottom: 20px;">
+                                <p class="comment"># Qual das 10 Heurísticas de Nielsen está sendo violada nesta interface?</p>
+                            </div>
+
+                            <div class="options-grid scrollable-options">
+                                <button v-for="(option, index) in heuristics" 
+                                        :key="index" 
+                                        @click="selectOption(index)"
+                                        class="btn-minimalist ux-option-btn"
+                                        :class="{ 
+                                            'correct': showAnswer && index === currentQuestion.correctId, 
+                                            'wrong': (userSelections.includes(index) && index !== currentQuestion.correctId) || (showAnswer && index !== currentQuestion.correctId && userSelections.includes(index)),
+                                            'disabled': showAnswer
+                                        }"
+                                        :disabled="showAnswer || userSelections.includes(index)">
+                                    {{ option }}
+                                </button>
+                            </div>
+
+                            <div v-if="feedbackMsg" class="feedback-msg" :class="feedbackType">
+                                <div>
+                                    <strong v-if="feedbackType === 'success'"><i class="bi bi-check-circle"></i> Exato!</strong>
+                                    <strong v-if="feedbackType === 'error'"><i class="bi bi-x-circle"></i> Esgotado!</strong>
+                                    <strong v-if="feedbackType === 'warning'"><i class="bi bi-exclamation-circle"></i> Errado!</strong>
+                                    <br>
+                                    <span v-html="feedbackMsg"></span>
+                                </div>
+                            </div>
+
+                            <button v-if="showAnswer" @click="nextQuestion" class="btn-minimalist next-btn">
+                                Continuar Auditoria <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/heuristicas.js"></script>
+</body>
+</html>

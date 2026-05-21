@@ -1,0 +1,104 @@
+/* ==========================================================================
+   CSS ESPECÍFICO - TREINAMENTO DE HEURÍSTICAS
+   ========================================================================== */
+
+/* Estilização do Falso Navegador (Lado Esquerdo) */
+.browser-body {
+    background: var(--bg-dark, #050505);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.browser-address-bar {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 15px;
+    font-size: 12px;
+    color: var(--text-secondary, #aaa);
+    font-family: monospace;
+    border-bottom: 1px solid var(--border-color, #333);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mockup-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+.mockup-title {
+    color: var(--accent-blue, #3e8eff);
+    font-size: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mockup-desc {
+    color: var(--text-primary, #fff);
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed var(--border-color, #333);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.mockup-visual-hint {
+    color: var(--text-secondary, #aaa);
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    text-align: center;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    border-left: 3px solid #EF4444;
+}
+
+/* Ajustes para a lista de 10 opções (Lado Direito) */
+.scrollable-options {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.scrollable-options::-webkit-scrollbar { width: 6px; }
+.scrollable-options::-webkit-scrollbar-track { background: transparent; }
+.scrollable-options::-webkit-scrollbar-thumb { background: var(--border-color, #333); border-radius: 10px; }
+
+.ux-option-btn {
+    padding: 12px 15px !important;
+    font-size: 13px !important;
+    margin-bottom: 8px !important;
+}
+
+.ux-option-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Botão de Avançar */
+.next-btn {
+    margin-top: 20px;
+    background-color: var(--accent-blue, #3e8eff) !important;
+    color: #fff !important;
+    text-align: center;
+    border: none;
+    font-weight: bold;
+}
+
+.next-btn:hover {
+    background-color: #2962dd !important;
+    box-shadow: 0 5px 15px rgba(62, 142, 255, 0.3);
+}
+
+.feedback-msg {
+    text-align: left;
+    align-items: flex-start;
+}
