@@ -14,6 +14,14 @@
 </head>
 <body>
 
+    <!-- ESTRUTURA HTML NECESSÁRIA PARA O VLIBRAS -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
     <canvas id="particles-canvas" class="particles-canvas"></canvas>
 
     <nav class="navbar">
@@ -149,7 +157,23 @@
         </div>
     </div>
 
+    <footer class="site-footer" id="rodape">
+        <div class="footer-bottom">
+        <div class="footer-legal">
+            <a href="politica-privacidade.html">Privacidade</a>
+            <span class="footer-divider">•</span>
+            <a href="termos-uso.html">Termos de Uso</a>
+            <span class="footer-divider">•</span>
+            <a href="politica-cookies.html">Cookies</a>
+        </div>
+    </footer>   
+
     <script src="js/script.js"></script>
     <script src="js/aula-iot.js"></script>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
 </body>
 </html>
