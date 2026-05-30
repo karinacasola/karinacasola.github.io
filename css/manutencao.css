@@ -1,0 +1,54 @@
+/* ==========================================================================
+   CSS ESPECÍFICO - MANUTENÇÃO ESCAPE ROOM (Extensão do ihc.css)
+   Conceito DRY: Utiliza as classes do ihc.css alterando variáveis pontuais.
+   ========================================================================== */
+
+:root {
+    /* Troca o azul do IHC por um laranja técnico (Cyber/Engine theme) */
+    --accent-mnt: #F59E0B;
+}
+
+/* Modifica gradiente de fundo */
+body {
+    background-image: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.10), transparent 60%);
+}
+
+/* Sobrescritas para botões, pílulas, barras e cursores utilizarem a nova cor */
+.section-header-pill {
+    border-color: rgba(245, 158, 11, 0.3);
+    color: var(--accent-mnt);
+}
+
+.stat-item .value.highlight {
+    color: var(--accent-mnt);
+}
+
+.progress-bar {
+    background: var(--accent-mnt);
+}
+
+.ux-window:hover {
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.prompt {
+    color: var(--accent-mnt);
+}
+
+.typing-cursor {
+    color: var(--accent-mnt);
+}
+
+.ux-window.locked::after {
+    content: 'PROCESSANDO TICKET...';
+    color: var(--accent-mnt);
+}
+
+.trophy-icon {
+    color: var(--accent-mnt);
+}
+
+.ux-option-btn:hover:not(:disabled), .btn-minimalist:hover {
+    border-color: var(--accent-mnt);
+    background-color: rgba(245, 158, 11, 0.05) !important;
+}
