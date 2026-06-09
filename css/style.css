@@ -787,3 +787,33 @@ section {
         padding: 30px 25px;
     }
 }
+
+/* ==========================================================================
+   AJUSTES DA NAVBAR E ALINHAMENTO DAS AÇÕES
+   ========================================================================== */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Adiciona espaçamento uniforme entre os botões */
+}
+
+/* Garante que o botão de tema não tenha margens sobressalentes que quebrem o layout */
+.theme-toggle {
+    margin: 0; 
+}
+
+/* ==========================================================================
+   AJUSTE DE FUNDO DA HERO (REMOÇÃO DO AZUL) NO MODO CLARO
+   ========================================================================== */
+html.light-mode .hero {
+    /* Troca o rgba azul por um tom de cinza (preto com 5% de opacidade) */
+    background-image: radial-gradient(circle at 50% 0%, rgba(0, 0, 0, 0.05), transparent 50%);
+}
+
+/* Transforma a assinatura branca em preta apenas quando o modo claro estiver ativo */
+html.light-mode .navbar-logo img {
+    filter: brightness(0); /* Torna qualquer pixel visível em preto puro */
+    transition: filter 0.3s ease;
+}
+
+

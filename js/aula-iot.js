@@ -208,8 +208,7 @@ async function carregarE_RenderizarPdf(url) {
         // PLANO B: Iframe
         container.innerHTML = `
             <div style="background-color: #f39c12; color: #fff; padding: 8px; font-size: 12px; text-align: center; width: 100%;">
-                Modo de Compatibilidade Ativado. (Para visualização de celular perfeita, hospede o site ou use o Live Server).
-            </div>
+                //modo compatibilidade pdf            </div>
             <iframe src="${url}#view=FitH" style="width: 100%; height: calc(100% - 30px); border: none;"></iframe>
         `;
         pdfCarregadoAtual = url;

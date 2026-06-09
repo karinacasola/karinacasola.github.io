@@ -1,0 +1,116 @@
+/* ==========================================================================
+   TEMA CLARO (LIGHT MODE OVERRIDES)
+   ========================================================================== */
+
+/* Quando a classe light-mode estiver no <html>, essas variáveis sobrescrevem as globais */
+html.light-mode {
+    --bg-dark: #FFFFFF;      /* O fundo principal passa a ser branco */
+    --text-primary: #111111; /* O texto principal passa a ser quase preto */
+    --text-secondary: #555555; /* O texto secundário ganha um tom de cinza escuro */
+    --card-bg: #F5F5F5;      /* Os cards ganham um fundo levemente cinza */
+    --border-color: rgba(0, 0, 0, 0.15); /* Bordas escuras e translúcidas */
+    --modal-overlay: rgba(255, 255, 255, 0.95); /* Fundo do modal claro */
+}
+
+/* ==========================================================================
+   BOTÃO DE TOGGLE MONOCROMÁTICO
+   ========================================================================== */
+
+/* ==========================================================================
+   BOTÃO DE TEMA MINIMALISTA (APENAS LUA)
+   ========================================================================== */
+
+/* Estilo padrão (Modo Escuro Ativo) */
+.theme-toggle {
+    background: transparent;
+    /* Borda branca visível indicando que o modo escuro está "ligado" */
+    border: 1px solid rgba(255, 255, 255, 0.6); 
+    color: var(--text-primary);
+    font-size: 16px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.theme-toggle:hover {
+    border-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Estilo no Modo Claro (Modo Escuro Desligado) */
+html.light-mode .theme-toggle {
+    /* Remove a borda marcante, deixando o botão "desmarcado" */
+    border-color: transparent; 
+    color: #000000; /* Lua fica preta */
+}
+
+html.light-mode .theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    /* Borda muito sutil aparece apenas no hover para indicar interatividade */
+    border-color: rgba(0, 0, 0, 0.15); 
+}
+.theme-toggle:hover {
+    background-color: rgba(128, 128, 128, 0.15);
+    border-color: #333;
+    color: #000;
+}
+
+/* Ajuste de contraste rigoroso quando o modo claro está ativo */
+html.light-mode .theme-toggle {
+    color: #000;
+    border-color: #999;
+}
+
+html.light-mode .theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+/* ==========================================================================
+   AJUSTE DO FUNDO DO MENU MOBILE NO MODO CLARO
+   ========================================================================== */
+@media (max-width: 768px) {
+    html.light-mode .navbar-menu {
+        /* Muda o fundo escuro fixo para um fundo claro levemente translúcido */
+        background: rgba(250, 250, 250, 0.98); 
+        border-color: rgba(0, 0, 0, 0.15);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1); /* Deixa a sombra mais suave */
+    }
+
+    html.light-mode .navbar {
+        /* Garante que a barra principal no topo também fique com fundo claro no mobile */
+        background: rgba(255, 255, 255, 0.95);
+        border-color: rgba(0, 0, 0, 0.15);
+    }
+}
+
+/* ==========================================================================
+   AJUSTE DA BARRA DE NAVEGAÇÃO PRINCIPAL NO MODO CLARO
+   ========================================================================== */
+html.light-mode .navbar {
+    /* Fundo branco translúcido no lugar do cinza escuro */
+    background: rgba(255, 255, 255, 0.85); 
+    
+    /* Mantém o desfoque bonito de fundo (glassmorphism) */
+    backdrop-filter: blur(10px); 
+    
+    /* Borda suave para destacar do resto do fundo */
+    border-color: rgba(0, 0, 0, 0.15); 
+}
+
+/* Garante que os links fiquem com um cinza escuro elegante e preto no hover */
+html.light-mode .navbar-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+html.light-mode .navbar-link:hover {
+    color: var(--text-primary);
+}
+
