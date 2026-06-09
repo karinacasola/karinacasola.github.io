@@ -36,7 +36,7 @@ createApp({
                 id: 2,
                 instruction: "O papel da escuta empática.",
                 scenario: "Durante uma entrevista de campo para um projeto social, o pesquisador foca não apenas no que o entrevistado diz abertamente, mas também no que ele hesita em dizer.",
-                text: "O que caracteriza a escuta empática segundo o texto base?",
+                text: "O que caracteriza a escuta empática?",
                 options: [
                     "É a mera recepção passiva de estímulos sonoros do ambiente.",
                     "É um processo ativo de descodificação para compreender necessidades não verbalizadas.",
@@ -114,7 +114,7 @@ createApp({
                 id: 8,
                 instruction: "Aplicação prática da escuta empática na Saúde.",
                 scenario: "A médica percebe que uma mãe frequentemente não leva o filho às consultas de acompanhamento nutricional agendadas pelo sistema público.",
-                text: "Ao aplicar a escuta empática (Tabela 1), o que o profissional de saúde deve buscar compreender em vez de julgar?",
+                text: "Ao aplicar a escuta empática, o que o profissional de saúde deve buscar compreender em vez de julgar?",
                 options: [
                     "Se a falta advém do medo da estigmatização ou da simples falta de transporte.",
                     "Se a mãe possui conhecimentos avançados de programação para usar o app.",
@@ -179,7 +179,7 @@ createApp({
                 id: 13,
                 instruction: "A base oculta do iceberg.",
                 scenario: "Um beneficiário recusa agressivamente a ajuda de um programa de capacitação. A 'ponta visível' do iceberg é a recusa vocal e a irritação.",
-                text: "Segundo o texto, o que a base submersa desse iceberg frequentemente abriga e que precisa ser escutado?",
+                text: "O que a base submersa desse iceberg frequentemente abriga e que precisa ser escutado?",
                 options: [
                     "Apenas a documentação técnica preenchida incorretamente.",
                     "As métricas estatísticas de retorno sobre investimento (ROI).",
@@ -231,7 +231,7 @@ createApp({
                 id: 17,
                 instruction: "Escuta Empática Administrativa.",
                 scenario: "Durante uma intervenção humanitária prolongada e estressante, médicos e enfermeiros começam a cometer pequenos erros devido à privação de sono e sobrecarga emocional.",
-                text: "Segundo a matriz de ações (Tabela 1), qual é a aplicação prática da escuta empática para o time de 'Administração' neste cenário crítico?",
+                text: "Segundo a matriz de ações, qual é a aplicação prática da escuta empática para o time de 'Administração' neste cenário crítico?",
                 options: [
                     "Punir as falhas com cortes de salário para manter o rigor técnico.",
                     "Identificar proativamente sinais de exaustão (burnout) nos profissionais da linha de frente.",
