@@ -236,7 +236,7 @@ body {
     border: 1px solid var(--border-color, #333);
     background-color: transparent;
 }
-.feedback-msg.success { color: #10B981; border-color: rgba(16, 185, 129, 0.3); }
+.feedback-msg.success { color: #8ee5f2; border-color: rgba(16, 185, 129, 0.3); }
 .feedback-msg.error { color: #EF4444; border-color: rgba(239, 68, 68, 0.3); }
 .feedback-msg.warning { color: #d9a05b; border-color: rgba(217, 160, 91, 0.3); }
 
