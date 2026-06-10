@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CSS ESPECÍFICO - IHC ESCAPE ROOM (Identidade Visual do Blog)
+   CSS ESPECÍFICO
    ========================================================================== */
 
 [v-cloak] { display: none; }
@@ -241,7 +241,7 @@ body {
 .feedback-msg.warning { color: #d9a05b; border-color: rgba(217, 160, 91, 0.3); }
 
 .ux-window.locked::after {
-    content: 'ANALISANDO ...';
+    content: 'ANALISANDO ERGONOMIA...';
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(10, 10, 10, 0.6);
     display: flex; justify-content: center; align-items: center;
