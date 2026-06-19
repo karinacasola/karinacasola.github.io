@@ -817,3 +817,25 @@ html.light-mode .navbar-logo img {
 }
 
 
+/* estilos.css */
+
+/* 1. O conteúdo da aplicação nasce completamente invisível */
+#conteudo-aplicacao {
+    display: none; 
+}
+
+/* 2. O estilo do ecrã de aviso para quem desligou o JS */
+.aviso-js {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 50px;
+    background-color: #f8d7da;
+    color: #721c24;
+    height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#minha-aplicacao {
+            display: none; 
+        }
