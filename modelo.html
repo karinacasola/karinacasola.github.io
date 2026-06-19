@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelagem Conceitual</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modelo.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.12.0/brython.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.12.0/brython_stdlib.min.js"></script>
+</head>
+<body onload="brython()">
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <img alt="Karina Casola Logo" width="100" src="img/logo.png" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMzAiPjx0ZXh0IHk9IjIwIiBmaWxsPSIjRTAwIj5MT0dPPC90ZXh0Pjwvc3ZnPg=='"/>
+            </div>
+
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="index.html" class="navbar-link">Inicio</a>
+                <a href="index.html#ia-programacao" class="navbar-link">Reflexões</a>
+                <a href="index.html#articles" class="navbar-link">Artigos e Tutoriais</a>
+                <a href="sobre.html" class="navbar-link">Sobre</a>
+                <div class="gtranslate_wrapper"></div>
+                <a href="index.html#contato" class="navbar-button">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="workspace-wrapper">
+        
+        <header class="tool-header">
+            <div class="section-header-pill">Modelagem Conceitual</div>
+            <h1 class="tool-title">br<span>ER</span></h1>
+        </header>
+
+        <main id="der-app" class="workspace" v-cloak>
+            
+            <div class="toolbar">
+                <div class="tool-group">
+                    <button class="tool-btn" @click="undo" :disabled="!canUndo" title="Desfazer">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </button>
+                    <button class="tool-btn" @click="redo" :disabled="!canRedo" title="Refazer">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                </div>
+
+                <div class="tool-group zoom-controls">
+                    <button class="tool-btn zoom-btn" @click="zoomOut" title="Reduzir Zoom"><i class="bi bi-zoom-out"></i></button>
+                    <span class="zoom-level">{{ Math.round(zoom * 100) }}%</span>
+                    <button class="tool-btn zoom-btn" @click="zoomIn" title="Aumentar Zoom"><i class="bi bi-zoom-in"></i></button>
+                    <button class="tool-btn" @click="resetZoom" title="Tamanho Real"><i class="bi bi-aspect-ratio"></i></button>
+                    
+                    <div style="width: 1px; height: 18px; background-color: var(--border-color); margin: 0 5px;"></div>
+                    <button class="tool-btn zoom-btn" @click="generateSQL" title="Gerar SQL (DDL) do Modelo">
+                        <i class="bi bi-database" style="color: var(--accent-blue);"></i>
+                    </button>
+                </div>
+
+                <div class="tool-group actions-group">
+                    <button class="tool-btn" @click="clearCache" title="Apagar Sessão Salva">
+                        <i class="bi bi-trash"></i> <span class="btn-text">Limpar Cache</span>
+                    </button>
+
+                    <button class="tool-btn" @click="triggerFileInput" title="Importar JSON">
+                        <i class="bi bi-upload"></i> <span class="btn-text">Importar</span>
+                    </button>
+                    <input type="file" ref="fileInput" @change="importJSON" accept=".json" style="display: none;" />
+                    
+                    <button class="tool-btn" @click="exportJSON" title="Exportar JSON">
+                        <i class="bi bi-download"></i> <span class="btn-text">Exportar</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="editor-layout">
+                <aside class="sidebar tools-panel">
+                    <div class="panel-header">Elementos</div>
+                    <div class="panel-content palette">
+                        <div class="palette-item" @click="addElement('entity')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="40"><rect x="2" y="2" width="76" height="36" fill="transparent" stroke="currentColor" stroke-width="2"/><text x="40" y="24" font-size="12" text-anchor="middle" fill="currentColor">Entity</text></svg>
+                        </div>
+                        <div class="palette-item" @click="addElement('relationship')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="40"><polygon points="40,2 78,20 40,38 2,20" fill="transparent" stroke="currentColor" stroke-width="2"/><text x="40" y="24" font-size="12" text-anchor="middle" fill="currentColor">Rel</text></svg>
+                        </div>
+                        <div class="palette-item" @click="addElement('auto')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="40"><rect x="2" y="2" width="76" height="36" fill="transparent" stroke="currentColor" stroke-width="2"/><polygon points="40,2 78,20 40,38 2,20" fill="transparent" stroke="currentColor" stroke-width="2"/><text x="40" y="24" font-size="12" text-anchor="middle" fill="currentColor">Auto</text></svg>
+                        </div>
+                        <div class="palette-item" @click="addElement('attribute', false)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50"><text x="30" y="15" font-size="12" text-anchor="middle" fill="currentColor">Atributo</text><circle cx="30" cy="35" r="8" fill="transparent" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                        <div class="palette-item" @click="addElement('attribute', true)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50"><text x="30" y="15" font-size="12" text-anchor="middle" fill="currentColor">Chave</text><circle cx="30" cy="35" r="8" fill="currentColor"/></svg>
+                        </div>
+                        <div class="palette-item" @click="addElement('composite_attribute')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50"><circle cx="30" cy="15" r="6" fill="transparent" stroke="currentColor" stroke-width="2"/><circle cx="15" cy="35" r="6" fill="transparent" stroke="currentColor" stroke-width="2"/><circle cx="45" cy="35" r="6" fill="transparent" stroke="currentColor" stroke-width="2"/><line x1="26" y1="19" x2="18" y2="30" stroke="currentColor" stroke-width="2"/><line x1="34" y1="19" x2="42" y2="30" stroke="currentColor" stroke-width="2"/></svg>
+                            <span style="margin-top: 5px; font-size: 11px;">Composto</span>
+                        </div>
+                        <div class="palette-item" @click="addElement('generalization')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="40"><polygon points="30,2 50,30 10,30" fill="transparent" stroke="currentColor" stroke-width="2"/></svg>
+                            <span style="margin-top: 5px; font-size: 11px;">Generalização</span>
+                        </div>
+                        <div class="palette-item" @click="addElement('note')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="30"><rect x="2" y="2" width="76" height="26" fill="#d3d3d3" stroke="none"/><text x="40" y="19" font-size="12" text-anchor="middle" fill="#111">Nota</text></svg>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-header" style="border-top: 1px solid var(--border-color); margin-top: auto;">Nuvem</div>
+                    <div style="padding: 15px;">
+                        <button class="drive-btn" @click="authAndSaveToDrive" title="Salvar Backup no Google Drive">
+                            <i class="bi bi-google"></i> Salvar no Drive
+                        </button>
+                    </div>
+                </aside>
+
+                <section class="canvas-container" @click="clearSelection">
+                    <svg class="der-canvas" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                        <g :transform="`scale(${zoom})`">
+                            <g v-for="gen in model.generalizations" :key="'gen-'+gen.id">
+                                <line v-if="getEntity(gen.superclass)" :x1="gen.x + 25" :y1="gen.y" :x2="getEntity(gen.superclass).x + 50" :y2="getEntity(gen.superclass).y + 25" stroke="var(--accent-blue)" stroke-width="1.5" />
+                                <line v-for="subId in gen.subclasses" :key="'sub-'+subId" v-if="getEntity(subId)" :x1="gen.x + 25" :y1="gen.y + 40" :x2="getEntity(subId).x + 50" :y2="getEntity(subId).y + 25" stroke="var(--accent-blue)" stroke-width="1.5" />
+                            </g>
+                            <g v-for="attr in model.attributes" :key="'attr-ent-line-'+attr.id">
+                                <line v-if="getEntity(attr.entityId)" :x1="attr.x" :y1="attr.y" :x2="getEntity(attr.entityId).x + 50" :y2="getEntity(attr.entityId).y + 25" stroke="var(--text-secondary)" stroke-width="1.5" stroke-dasharray="4,2"/>
+                            </g>
+                            <g v-for="attr in model.attributes" :key="'attr-comp-line-'+attr.id">
+                                <line v-if="attr.parentAttributeId && getAttribute(attr.parentAttributeId)" :x1="attr.x" :y1="attr.y" :x2="getAttribute(attr.parentAttributeId).x" :y2="getAttribute(attr.parentAttributeId).y" stroke="var(--text-secondary)" stroke-width="1.5" stroke-dasharray="4,2"/>
+                            </g>
+                            <g v-for="rel in model.relationships" :key="'line-'+rel.id">
+                                <g v-if="getEntity(rel.from)">
+                                    <line :x1="getEntity(rel.from).x + (rel.from === rel.to ? 20 : 50)" :y1="getEntity(rel.from).y + 25" :x2="rel.x + 50" :y2="rel.y + 25" stroke="var(--accent-blue)" stroke-width="2" />
+                                    <text :x="(getEntity(rel.from).x + (rel.from === rel.to ? 20 : 50) + rel.x + 50)/2" :y="(getEntity(rel.from).y + 25 + rel.y + 25)/2 - 10" fill="var(--text-secondary)" font-size="12" text-anchor="middle">{{ rel.cardinalityFrom }}</text>
+                                </g>
+                                <g v-if="getEntity(rel.to)">
+                                    <line :x1="rel.x + 50" :y1="rel.y + 25" :x2="getEntity(rel.to).x + (rel.from === rel.to ? 80 : 50)" :y2="getEntity(rel.to).y + 25" stroke="var(--accent-blue)" stroke-width="2" />
+                                    <text :x="(rel.x + 50 + getEntity(rel.to).x + (rel.from === rel.to ? 80 : 50))/2" :y="(rel.y + 25 + getEntity(rel.to).y + 25)/2 - 10" fill="var(--text-secondary)" font-size="12" text-anchor="middle">{{ rel.cardinalityTo }}</text>
+                                </g>
+                            </g>
+
+                            <g v-for="rel in model.relationships" :key="rel.id" 
+                               :transform="`translate(${rel.x}, ${rel.y})`" 
+                               @mousedown.stop="startDrag(rel, 'relationship', $event)"
+                               @touchstart.stop.prevent="startDrag(rel, 'relationship', $event)"
+                               @click.stop="selectItem(rel, 'relationship')" class="draggable">
+                                <rect v-if="rel.isAuto" x="0" y="0" width="100" height="50" :fill="selectedItem === rel ? 'rgba(62, 142, 255, 0.1)' : 'var(--card-bg)'" :stroke="selectedItem === rel ? 'var(--accent-blue)' : 'var(--text-primary)'" stroke-width="2"/>
+                                <polygon points="50,0 100,25 50,50 0,25" :fill="selectedItem === rel && !rel.isAuto ? 'rgba(62, 142, 255, 0.2)' : (rel.isAuto ? 'transparent' : 'var(--bg-dark)')" :stroke="selectedItem === rel ? 'var(--accent-blue)' : 'var(--text-primary)'" stroke-width="2"/>
+                                <text x="50" y="30" fill="var(--text-primary)" text-anchor="middle" font-size="14" font-weight="500">{{ rel.name }}</text>
+                            </g>
+
+                            <g v-for="ent in model.entities" :key="ent.id"
+                               :transform="`translate(${ent.x}, ${ent.y})`" 
+                               @mousedown.stop="startDrag(ent, 'entity', $event)"
+                               @touchstart.stop.prevent="startDrag(ent, 'entity', $event)"
+                               @click.stop="selectItem(ent, 'entity')" class="draggable">
+                                <rect width="100" height="50" rx="2" :fill="selectedItem === ent ? 'rgba(62, 142, 255, 0.2)' : 'var(--card-bg)'" :stroke="selectedItem === ent ? 'var(--accent-blue)' : 'var(--text-primary)'" stroke-width="2"/>
+                                <text x="50" y="30" fill="var(--text-primary)" text-anchor="middle" font-size="14" font-weight="700">{{ ent.name }}</text>
+                            </g>
+
+                            <g v-for="gen in model.generalizations" :key="gen.id"
+                               :transform="`translate(${gen.x}, ${gen.y})`" 
+                               @mousedown.stop="startDrag(gen, 'generalization', $event)"
+                               @touchstart.stop.prevent="startDrag(gen, 'generalization', $event)"
+                               @click.stop="selectItem(gen, 'generalization')" class="draggable">
+                                <polygon points="25,0 50,40 0,40" :fill="selectedItem === gen ? 'rgba(62, 142, 255, 0.2)' : 'var(--card-bg)'" :stroke="selectedItem === gen ? 'var(--accent-blue)' : 'var(--text-primary)'" stroke-width="2"/>
+                            </g>
+
+                            <g v-for="attr in model.attributes" :key="attr.id"
+                               :transform="`translate(${attr.x}, ${attr.y})`" 
+                               @mousedown.stop="startDrag(attr, 'attribute', $event)"
+                               @touchstart.stop.prevent="startDrag(attr, 'attribute', $event)"
+                               @click.stop="selectItem(attr, 'attribute')" class="draggable">
+                                <circle cx="0" cy="0" r="10" :fill="attr.isPrimary ? 'var(--text-primary)' : 'var(--bg-dark)'" :stroke="selectedItem === attr ? 'var(--accent-blue)' : 'var(--text-primary)'" stroke-width="2"/>
+                                <text x="0" y="-18" fill="var(--text-primary)" text-anchor="middle" font-size="13">{{ attr.name }}</text>
+                            </g>
+
+                            <g v-for="note in model.notes" :key="note.id"
+                               :transform="`translate(${note.x}, ${note.y})`" 
+                               @mousedown.stop="startDrag(note, 'note', $event)"
+                               @touchstart.stop.prevent="startDrag(note, 'note', $event)"
+                               @click.stop="selectItem(note, 'note')" class="draggable">
+                                <rect width="140" height="80" fill="#d3d3d3" :stroke="selectedItem === note ? 'var(--accent-blue)' : 'none'" stroke-width="2"/>
+                                <foreignObject x="5" y="5" width="130" height="70">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="font-size:12px; color:#111; overflow:hidden; text-align:left;">{{ note.text }}</div>
+                                </foreignObject>
+                            </g>
+                        </g>
+                    </svg>
+                </section>
+
+                <aside class="sidebar properties-panel">
+                    <div class="panel-header">Propriedades</div>
+                    <div class="panel-content" v-if="selectedItem">
+                        
+                        <div v-if="selectedType === 'entity'">
+                            <div class="form-group"><label>Nome da Entidade</label><input type="text" v-model="selectedItem.name" @change="saveState"></div>
+                        </div>
+
+                        <div v-if="selectedType === 'attribute'">
+                            <div class="form-group"><label>Nome do Atributo</label><input type="text" v-model="selectedItem.name" @change="saveState"></div>
+                            <div class="form-group"><label class="checkbox-label"><input type="checkbox" v-model="selectedItem.isPrimary" @change="saveState"> Chave Primária</label></div>
+                            <div class="form-group">
+                                <label>Ligar à Entidade</label>
+                                <select v-model="selectedItem.entityId" @change="saveState">
+                                    <option :value="null">Nenhuma</option>
+                                    <option v-for="ent in model.entities" :value="ent.id">{{ ent.name }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Ligar a Atributo (Composto)</label>
+                                <select v-model="selectedItem.parentAttributeId" @change="saveState">
+                                    <option :value="null">Nenhum</option>
+                                    <option v-for="attr in model.attributes" :value="attr.id" v-show="attr.id !== selectedItem.id">{{ attr.name }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div v-if="selectedType === 'relationship'">
+                            <div class="form-group"><label>Nome</label><input type="text" v-model="selectedItem.name" @change="saveState"></div>
+                            <div class="form-group">
+                                <label>Origem (From)</label><select v-model="selectedItem.from" @change="saveState"><option :value="null">Selecione...</option><option v-for="ent in model.entities" :value="ent.id">{{ ent.name }}</option></select>
+                                <select v-model="selectedItem.cardinalityFrom" @change="saveState" class="mt-2"><option value="0,1">0,1</option><option value="1,1">1,1</option><option value="0,n">0,n</option><option value="1,n">1,n</option></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Destino (To)</label><select v-model="selectedItem.to" @change="saveState"><option :value="null">Selecione...</option><option v-for="ent in model.entities" :value="ent.id">{{ ent.name }}</option></select>
+                                <select v-model="selectedItem.cardinalityTo" @change="saveState" class="mt-2"><option value="0,1">0,1</option><option value="1,1">1,1</option><option value="0,n">0,n</option><option value="1,n">1,n</option></select>
+                            </div>
+                        </div>
+
+                        <div v-if="selectedType === 'generalization'">
+                            <div class="form-group"><label>Superclasse</label><select v-model="selectedItem.superclass" @change="saveState"><option :value="null">Selecione...</option><option v-for="ent in model.entities" :value="ent.id">{{ ent.name }}</option></select></div>
+                            <div class="form-group"><label>Subclasses</label><select multiple v-model="selectedItem.subclasses" @change="saveState" style="height: 100px;"><option v-for="ent in model.entities" :value="ent.id">{{ ent.name }}</option></select></div>
+                        </div>
+
+                        <div v-if="selectedType === 'note'">
+                            <div class="form-group"><label>Texto da Nota</label><textarea v-model="selectedItem.text" @change="saveState" rows="5"></textarea></div>
+                        </div>
+                        <hr class="panel-divider">
+                        <button class="remove-btn" @click="removeSelected"><i class="bi bi-trash"></i> Remover Elemento</button>
+                    </div>
+                    <div class="panel-content empty-state" v-else>
+                        <i class="bi bi-cursor"></i>
+                        <p>Selecione um elemento para editar.</p>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navbarMenu = document.getElementById('navbar-menu');
+            if (menuToggle && navbarMenu) {
+                menuToggle.addEventListener('click', () => {
+                    navbarMenu.classList.toggle('active');
+                    const icon = menuToggle.querySelector('i');
+                    if (navbarMenu.classList.contains('active')) {
+                        icon.classList.replace('bi-list', 'bi-x-lg');
+                    } else {
+                        icon.classList.replace('bi-x-lg', 'bi-list');
+                    }
+                });
+            }
+        });
+    </script>
+    
+    <script src="js/modelo.js"></script>
+
+    <script type="text/python" src="js/db-modelo.py"></script>
+
+</body>
+</html>
