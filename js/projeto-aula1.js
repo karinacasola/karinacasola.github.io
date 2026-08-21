@@ -17,397 +17,397 @@ createApp({
         
         const maxAttempts = 3;
 
-        // --- Banco de Questões (30 Questões - Eng. de Software e Gestão) ---
+        // --- Banco de Questões (30 Questões - Engenharia de Requisitos e Análise) ---
         const questions = ref([
             {
                 id: 1,
-                instruction: "O Paradoxo da IA e Arquitetura",
-                scenario: "Uma startup demitiu seus engenheiros seniores por acreditarem que uma IA generativa faria o trabalho mais rápido. Após 6 meses, o sistema travou ao atingir 1 milhão de usuários devido a gargalos no banco de dados.",
-                text: "Com base no material, por que a IA falhou em sustentar esse crescimento?",
+                instruction: "Definição de Análise",
+                scenario: "Um novo colaborador questiona o propósito da fase inicial do projeto perante a complexidade das regras de negócio apresentadas.",
+                text: "Qual a definição correta do ato de análise de sistemas nesse contexto?",
                 options: [
-                    "A IA apenas gera código, mas não sabe estruturar um sistema inteiro para escalar (Arquitetura).",
-                    "A IA não foi treinada nas linguagens corretas de infraestrutura em nuvem.",
-                    "Faltou utilizar o padrão MVC, que a IA é incapaz de escrever.",
-                    "A empresa deveria ter utilizado metodologias em cascata para prever o limite de usuários."
+                    "O ato de separar o todo em partes para entendê-lo melhor.",
+                    "O processo de unificar módulos independentes em uma arquitetura coesa.",
+                    "A execução de testes de estresse para validar a resiliência estrutural.",
+                    "O mapeamento exclusivo das restrições de hardware e infraestrutura."
                 ],
-                answer: "A IA apenas gera código, mas não sabe estruturar um sistema inteiro para escalar (Arquitetura)."
+                answer: "O ato de separar o todo em partes para entendê-lo melhor."
             },
             {
                 id: 2,
-                instruction: "Gestão da Ambiguidade",
-                scenario: "O cliente solicita um 'sistema moderno e rápido'. O desenvolvedor júnior vai direto ao ChatGPT e gera um e-commerce em 3D, mas o cliente na verdade queria um formulário simples e minimalista.",
-                text: "Qual competência do Engenheiro de Software foi negligenciada nessa situação?",
+                instruction: "O Papel do Analista",
+                scenario: "A equipe técnica tem dificuldades para compreender os jargões operacionais e as restrições que o cliente descreve durante as reuniões.",
+                text: "Qual é o principal papel do analista de sistemas nessa situação?",
                 options: [
-                    "A gestão da ambiguidade: a capacidade de entrevistar o cliente e extrair as reais regras de negócio.",
-                    "A prototipação de ciclos de vida clássicos em espiral.",
-                    "A gerência de configuração (Git) para versionar o código 3D.",
-                    "O uso adequado de estruturas de repetição no código gerado."
+                    "Traduzir as dores do mundo real para uma linguagem que a equipe técnica consiga transformar em software.",
+                    "Garantir que a arquitetura do banco de dados relacional esteja normalizada para receber as regras.",
+                    "Aplicar metodologias ágeis estritamente para o gerenciamento do cronograma da equipe.",
+                    "Definir os padrões de projeto arquiteturais que serão utilizados na codificação do sistema."
                 ],
-                answer: "A gestão da ambiguidade: a capacidade de entrevistar o cliente e extrair as reais regras de negócio."
+                answer: "Traduzir as dores do mundo real para uma linguagem que a equipe técnica consiga transformar em software."
             },
             {
                 id: 3,
-                instruction: "Manutenibilidade e Teste do Tempo",
-                scenario: "Você herda um código gerado 100% por inteligência artificial. Ele funciona, mas é um 'macarrão' ilegível de variáveis sem sentido.",
-                text: "Qual a responsabilidade primária da engenharia de software nesse contexto?",
+                instruction: "Conceito de Requisito",
+                scenario: "Durante o planejamento, estabelece-se uma condição formal ou capacidade que o sistema deve obrigatoriamente alcançar para resolver o problema do usuário.",
+                text: "Na engenharia de software, essa ponte que conecta as necessidades de negócio à tecnologia é chamada de:",
                 options: [
-                    "Garantir que o software seja manutenível e sobreviva ao teste do tempo.",
-                    "Apagar tudo e reescrever manualmente usando apenas Orientação a Objetos.",
-                    "Exigir que o cliente reduza o escopo para diminuir o custo de leitura.",
-                    "Aplicar metodologias ágeis (Scrum) para acelerar a leitura do código bagunçado."
+                    "Requisito.",
+                    "Padrão Arquitetural.",
+                    "Regra de Transição.",
+                    "Métrica de Desempenho."
                 ],
-                answer: "Garantir que o software seja manutenível e sobreviva ao teste do tempo."
+                answer: "Requisito."
             },
             {
                 id: 4,
-                instruction: "O Novo Papel do Engenheiro",
-                scenario: "Durante uma entrevista de emprego, o recrutador pergunta como você se vê no futuro, dado que ferramentas automatizadas já escrevem a maior parte do código fonte.",
-                text: "Segundo a ementa da disciplina, qual deve ser a postura de um engenheiro hoje?",
+                instruction: "Requisitos Funcionais",
+                scenario: "O documento de especificação detalha expressamente: 'O sistema deve permitir o cadastro e a inativação de novos clientes'.",
+                text: "Essa afirmação refere-se diretamente a O QUE o sistema faz. Trata-se de um exemplo de:",
                 options: [
-                    "Atuar como orquestrador de soluções, focando no 'o que' e 'por que', enquanto a IA cuida do 'como codificar'.",
-                    "Focar puramente na digitação rápida de linguagens de baixo nível para competir com a máquina.",
-                    "Atuar exclusivamente no planejamento de custos, abandonando a área técnica de código.",
-                    "Migrar para a área de testes, já que a arquitetura será totalmente automatizada."
+                    "Requisito Funcional.",
+                    "Requisito Não Funcional.",
+                    "Critério de Escalabilidade.",
+                    "Regra de Negócio Implícita."
                 ],
-                answer: "Atuar como orquestrador de soluções, focando no 'o que' e 'por que', enquanto a IA cuida do 'como codificar'."
+                answer: "Requisito Funcional."
             },
             {
                 id: 5,
-                instruction: "O Fator Humano: Ética",
-                scenario: "Faltam 3 dias para a entrega do projeto e a equipe percebe que o sistema de pagamentos está com falhas graves de segurança. O gerente sugere esconder isso do cliente para cumprir o prazo e o orçamento.",
-                text: "Qual pilar de atitude profissional está sendo gravemente violado?",
+                instruction: "Requisitos Não Funcionais",
+                scenario: "A diretoria estipula uma restrição técnica rigorosa: 'O sistema deve carregar a página inicial e processar o login em menos de 2 segundos'.",
+                text: "Esta restrição foca em COMO o sistema opera e na sua qualidade. Trata-se de um:",
                 options: [
-                    "Responsabilidade e Ética (entrega honesta sobre o prazo e limitações reais).",
-                    "Empatia (entender a dor do usuário final).",
-                    "Colaboração (trabalho em equipe interdisciplinar).",
-                    "Controle (uso adequado do versionamento Git)."
+                    "Requisito Não Funcional.",
+                    "Requisito Funcional.",
+                    "Diagrama de Atividades.",
+                    "Caso de Uso de Exceção."
                 ],
-                answer: "Responsabilidade e Ética (entrega honesta sobre o prazo e limitações reais)."
+                answer: "Requisito Não Funcional."
             },
             {
                 id: 6,
-                instruction: "O Fator Humano: Empatia",
-                scenario: "Sua equipe desenvolveu um sistema incrível de reconhecimento facial com 5 etapas de verificação. Porém, o público-alvo são idosos em áreas rurais que precisam de simplicidade e têm pouca internet.",
-                text: "O que faltou para a equipe projetar aquilo que o usuário realmente precisava?",
+                instruction: "Categorias Não Funcionais: Segurança",
+                scenario: "Uma auditoria exige que todos os dados de cartões de crédito sejam criptografados ponta a ponta e que as sessões expirem após 5 minutos de inatividade.",
+                text: "Essa solicitação enquadra-se em qual categoria de requisito não funcional?",
                 options: [
-                    "Empatia para entender a dor e o contexto do usuário final.",
-                    "Modelagem adequada usando diagramas de Sequência (UML).",
-                    "Um orçamento (custo) maior para pagar por mais funcionalidades.",
-                    "Monitoramento e controle mais rígido na fase de iniciação."
+                    "Segurança.",
+                    "Disponibilidade.",
+                    "Integridade Referencial.",
+                    "Confiabilidade de Rede."
                 ],
-                answer: "Empatia para entender a dor e o contexto do usuário final."
+                answer: "Segurança."
             },
             {
                 id: 7,
-                instruction: "Estratégias de Estudo em Equipe",
-                scenario: "Em um trabalho da faculdade, sua equipe dividiu o trabalho assim: 'Você faz a introdução e eu a conclusão', e uniram tudo no final num arquivo de Word.",
-                text: "Qual estratégia prática recomendada na disciplina foi ignorada e resolveria a 'dor' de colaborar juntos no mesmo documento?",
+                instruction: "Documentação: O QUÊ vs COMO",
+                scenario: "Ao redigir o documento de requisitos, um analista começa a detalhar a estrutura de tabelas, chaves estrangeiras e a linguagem de programação que será usada.",
+                text: "Por que essa abordagem é considerada uma má prática na fase de especificação de requisitos de software?",
                 options: [
-                    "O uso de gerência de configuração e ferramentas como o Git para criar colaboração real.",
-                    "A aplicação de perguntas críticas do 'por que' e não apenas do 'como'.",
-                    "A mudança de um ciclo de vida em Cascata para um Prototipação Rápida.",
-                    "O desenvolvimento exclusivo focado no padrão MVC de arquitetura."
+                    "O documento deve definir O QUE o sistema deve fazer, e não COMO deve fazê-lo tecnicamente.",
+                    "As tabelas e diagramas lógicos só devem ser criados após a fase completa de testes unitários.",
+                    "A documentação de requisitos foca inteiramente na experiência visual do usuário final.",
+                    "Detalhar restrições de banco de dados é papel exclusivo da elicitação etnográfica."
                 ],
-                answer: "O uso de gerência de configuração e ferramentas como o Git para criar colaboração real."
+                answer: "O documento deve definir O QUE o sistema deve fazer, e não COMO deve fazê-lo tecnicamente."
             },
             {
                 id: 8,
-                instruction: "Aplicando Teoria na Prática",
-                scenario: "Um aluno decorou todas as formas geométricas dos diagramas UML, mas não sabe como resolver o problema do fluxo de adoção de animais em um aplicativo novo.",
-                text: "De acordo com as diretrizes da disciplina, como os conceitos teóricos devem ser abordados para fazerem sentido?",
+                instruction: "Fase de Elicitação",
+                scenario: "A equipe inicia uma série de interações com os clientes para extrair informações, fazer perguntas estruturadas e trazer necessidades ocultas à tona.",
+                text: "Qual o nome técnico dessa primeira fase do ciclo de engenharia de requisitos?",
                 options: [
-                    "Devem ser aplicados em problemas e projetos reais, pois a teoria só faz sentido quando resolve algo concreto.",
-                    "Devem ser programados primeiramente pela IA para validar as formas geométricas.",
-                    "Devem ser testados apenas na fase final de Encerramento do projeto.",
-                    "Devem focar no 'como' memorizar os padrões ao invés de buscar a resolução."
+                    "Elicitação.",
+                    "Especificação Contínua.",
+                    "Validação Lógica.",
+                    "Análise Estrutural."
                 ],
-                answer: "Devem ser aplicados em problemas e projetos reais, pois a teoria só faz sentido quando resolve algo concreto."
+                answer: "Elicitação."
             },
             {
                 id: 9,
-                instruction: "Processos de Desenvolvimento",
-                scenario: "O cliente exige que o software siga um fluxo linear onde o teste só acontece no final, enquanto você defende entregas iterativas menores.",
-                text: "Esse conflito de ideias refere-se à diferença estrutural entre quais metodologias?",
+                instruction: "Técnica: Entrevistas",
+                scenario: "Para um processo crítico, o analista precisa explorar problemas complexos profundamente e construir um relacionamento de confiança com o gestor do setor.",
+                text: "Qual é a técnica clássica de levantamento mais adequada para esse nível de aprofundamento?",
                 options: [
-                    "Ciclos de vida clássicos (Cascata) versus Metodologias Ágeis (Scrum, XP).",
-                    "Arquitetura Monolítica versus Arquitetura de Microsserviços.",
-                    "Manutenção Preventiva versus Manutenção Perfectiva.",
-                    "Diagrama de Classes versus Diagrama de Sequência."
+                    "Entrevistas.",
+                    "Sessões de Brainstorming Anônimo.",
+                    "Análise de Documentação Legada.",
+                    "Prototipação de Alta Fidelidade."
                 ],
-                answer: "Ciclos de vida clássicos (Cascata) versus Metodologias Ágeis (Scrum, XP)."
+                answer: "Entrevistas."
             },
             {
                 id: 10,
-                instruction: "Análise e Especificação",
-                scenario: "O documento do projeto diz: 'O sistema deve ser rápido'. Um mês depois, a equipe e o cliente brigam sobre o que significa 'rápido'.",
-                text: "Qual prática do Módulo 2 evitaria essa confusão e alinharia expectativas com os stakeholders?",
+                instruction: "Técnica: Observação e Etnografia",
+                scenario: "Os clientes afirmam que o processo de triagem é simples, mas ao passar um turno inteiro no chão de fábrica, o analista descobre interações não documentadas e essenciais.",
+                text: "Qual técnica revelou essas necessidades implícitas através do acompanhamento do ambiente natural?",
                 options: [
-                    "Levantar, classificar e validar corretamente os requisitos não funcionais.",
-                    "Utilizar herança e encapsulamento na programação.",
-                    "Aplicar exclusivamente manutenção corretiva e adaptativa.",
-                    "Criar diagramas de casos de uso após a entrega em produção."
+                    "Observação e Etnografia.",
+                    "Engenharia Reversa.",
+                    "Workshops Colaborativos.",
+                    "Análise do Discurso."
                 ],
-                answer: "Levantar, classificar e validar corretamente os requisitos não funcionais."
+                answer: "Observação e Etnografia."
             },
             {
                 id: 11,
-                instruction: "Arquitetura e Sustentação",
-                scenario: "Uma empresa de streaming precisa garantir que falhas no serviço de pagamento não derrubem o serviço de assistir a filmes.",
-                text: "Esse tipo de separação para criar sistemas escaláveis e fáceis de manter é foco de qual área de estudo?",
+                instruction: "Técnica: Workshops e JAD",
+                scenario: "Os departamentos de Vendas e Financeiro divergem fortemente sobre o fluxo de aprovação de crédito, gerando atrasos no levantamento.",
+                text: "Para alinhar expectativas colaborativamente e resolver conflitos de forma estruturada, a melhor técnica a ser aplicada é:",
                 options: [
-                    "Projeto e Arquitetura de Software (Padrões como Camadas, Microsserviços).",
-                    "Ciclo Clássico em Espiral e Prototipação.",
-                    "Elaboração de requisitos voltados apenas a usuários finais.",
-                    "Gerência da Configuração Local em Git."
+                    "Workshops e JAD (Joint Application Design).",
+                    "Análise de Relatórios Individuais.",
+                    "Entrevistas Não-Estruturadas Separadas.",
+                    "Questionários com Perguntas Fechadas."
                 ],
-                answer: "Projeto e Arquitetura de Software (Padrões como Camadas, Microsserviços)."
+                answer: "Workshops e JAD (Joint Application Design)."
             },
             {
                 id: 12,
-                instruction: "O Pós-Lançamento",
-                scenario: "O aplicativo foi lançado e está no ar. A equipe de gestão logo afirma: 'Acabou, nosso trabalho aqui está feito, vamos para outro'.",
-                text: "Por que essa visão está incorreta do ponto de vista do ciclo de vida do software?",
+                instruction: "Técnica: Questionários",
+                scenario: "O sistema será utilizado por 5.000 funcionários espalhados por filiais em 15 estados diferentes, e é necessário identificar um padrão quantitativo sobre o uso do módulo atual.",
+                text: "Qual técnica oferece amplo alcance geográfico e viabilidade estatística com baixo custo de deslocamento?",
                 options: [
-                    "Porque o software não morre no lançamento; ele exige estratégias de evolução e manutenções corretivas/adaptativas.",
-                    "Porque não se pode iniciar outro projeto sem antes apagar os repositórios Git antigos.",
-                    "Porque o prazo só é validado quando a inteligência artificial audita o código final.",
-                    "Porque o cliente sempre reduzirá o custo (orçamento) após o lançamento."
+                    "Questionários.",
+                    "Sessões JAD Globais.",
+                    "Observação Etnográfica Participante.",
+                    "Prototipagem Iterativa."
                 ],
-                answer: "Porque o software não morre no lançamento; ele exige estratégias de evolução e manutenções corretivas/adaptativas."
+                answer: "Questionários."
             },
             {
                 id: 13,
-                instruction: "Documentação e Práticas Colaborativas",
-                scenario: "O principal arquiteto da equipe ganhou na loteria e sumiu. Ninguém mais sabe como atualizar os manuais e integrar serviços.",
-                text: "O que faltou na equipe para manter todos 'na mesma página'?",
+                instruction: "Prototipagem Rápida",
+                scenario: "A equipe técnica quer alinhar o fluxo básico de navegação de um novo aplicativo com os stakeholders em poucas horas, evitando custos de codificação prematura.",
+                text: "Qual abordagem foca na validação ágil de conceitos usando esboços simples e rascunhos?",
                 options: [
-                    "A elaboração rigorosa de documentação técnica e especificações compartilhadas.",
-                    "O uso de metodologias cascata para impedir que funcionários saiam da empresa.",
-                    "O encapsulamento de todos os requisitos funcionais no banco de dados.",
-                    "A garantia da empatia na construção do produto final."
+                    "Prototipagem de Baixa Fidelidade.",
+                    "Modelagem de Casos de Uso Avançada.",
+                    "Prototipagem de Alta Fidelidade.",
+                    "Engenharia Reversa Visual."
                 ],
-                answer: "A elaboração rigorosa de documentação técnica e especificações compartilhadas."
+                answer: "Prototipagem de Baixa Fidelidade."
             },
             {
                 id: 14,
-                instruction: "Definição de Projeto vs Rotina",
-                scenario: "O setor de TI executa scripts de backup às 2h da manhã todos os dias, ininterruptamente, há 3 anos.",
-                text: "Por que essa atividade NÃO é classificada como um projeto de software segundo os conceitos formais?",
+                instruction: "Análise do Discurso",
+                scenario: "Em uma corporação tradicional, o analista examina as comunicações internas, e-mails e reuniões gravadas para desvendar relações de poder e suposições culturais que afetam o fluxo do sistema.",
+                text: "Essa técnica qualitativa, que busca requisitos implícitos nas entrelinhas da comunicação, é chamada de:",
                 options: [
-                    "Porque é uma rotina diária e contínua, enquanto projetos são esforços temporários com início, meio e fim.",
-                    "Porque os scripts são automatizados e não requerem gerência de configuração.",
-                    "Porque não impacta diretamente a escalabilidade do sistema em nuvem.",
-                    "Porque gerenciar backups não possui restrições de custo e tempo."
+                    "Análise do Discurso.",
+                    "Avaliação Heurística.",
+                    "Inspeção de Código-Fonte.",
+                    "Sondagem Etnográfica Direta."
                 ],
-                answer: "Porque é uma rotina diária e contínua, enquanto projetos são esforços temporários com início, meio e fim."
+                answer: "Análise do Discurso."
             },
             {
                 id: 15,
-                instruction: "A Ordem a partir do Caos",
-                scenario: "Um grupo de 5 excelentes programadores decide fazer um app do zero sentando e digitando o código na mesma hora, sem regras.",
-                text: "Qual é a principal consequência esperada dessa falta de gerenciamento de projetos?",
+                instruction: "Engenharia Reversa e Documentação",
+                scenario: "Uma instituição bancária precisa modernizar um sistema mainframe construído há 20 anos. Os manuais estão desatualizados e os desenvolvedores originais já se aposentaram.",
+                text: "Quais técnicas são indispensáveis para mapear as regras de negócio embutidas na solução atual?",
                 options: [
-                    "Receita perfeita para o fracasso devido à falta de previsibilidade, alinhamento e otimização de recursos.",
-                    "Um desenvolvimento muito mais ágil, pois elimina o trabalho com burocracia de arquitetura.",
-                    "A criação espontânea de um código livre de gargalos estruturais.",
-                    "A minimização drástica dos custos, uma vez que não há gerentes cobrando horas."
+                    "Análise de Documentação Legada e Engenharia Reversa.",
+                    "Entrevistas Estruturadas com Novos Usuários.",
+                    "Prototipagem Visual e Design Thinking.",
+                    "Workshops JAD para Inovação Estratégica."
                 ],
-                answer: "Receita perfeita para o fracasso devido à falta de previsibilidade, alinhamento e otimização de recursos."
+                answer: "Análise de Documentação Legada e Engenharia Reversa."
             },
             {
                 id: 16,
-                instruction: "Antecipação e Gerenciamento",
-                scenario: "O e-commerce da empresa crashou na Black Friday porque os servidores não aguentaram o volume massivo, paralisando as vendas.",
-                text: "Qual finalidade específica do gerenciamento deveria ter prevenido esse desastre?",
+                instruction: "Identificação de Stakeholders",
+                scenario: "Um sistema foi aprovado pelos diretores por ser gerencialmente excelente, mas foi rejeitado na implantação porque os operadores de caixa acharam a interface lenta e confusa.",
+                text: "Esse fracasso ocorreu pois o levantamento ignorou parte de qual grupo fundamental?",
                 options: [
-                    "A gestão de riscos, que serve para antecipar problemas antes que afundem o trabalho.",
-                    "A previsibilidade focada estritamente em cronogramas de entrega.",
-                    "A garantia da qualidade baseada apenas em interfaces responsivas e amigáveis.",
-                    "O controle unificado do código via Git."
+                    "Stakeholders (Usuários finais, gestores, equipe técnica, patrocinadores).",
+                    "Key-Sponsors (Apenas os financiadores executivos do projeto).",
+                    "Product Owners (O comitê técnico de arquitetura).",
+                    "Atores de Integração de Sistemas."
                 ],
-                answer: "A gestão de riscos, que serve para antecipar problemas antes que afundem o trabalho."
+                answer: "Stakeholders (Usuários finais, gestores, equipe técnica, patrocinadores)."
             },
             {
                 id: 17,
-                instruction: "Fase de Iniciação",
-                scenario: "Um cliente teve uma ideia para um app de delivery de drones, mas a equipe não sabe se é legalmente possível ou financeiramente viável construir isso hoje.",
-                text: "Em qual fase do ciclo de vida essa viabilidade deve ser discutida antes de qualquer orçamento ser fechado?",
+                instruction: "Diagrama de Casos de Uso",
+                scenario: "No início da modelagem, é preciso criar um documento visual que ilustre claramente quais tipos de usuários interagem com o sistema e quais as funcionalidades macro disponíveis para eles.",
+                text: "Qual modelo UML é o mais indicado para representar essas interações estruturais de alto nível?",
                 options: [
-                    "Na Iniciação, onde o projeto nasce e o objetivo principal é validado.",
-                    "No Monitoramento e Controle, ao checar se a ideia gerou bugs.",
-                    "No Encerramento, após verificar se o cliente aprovou o protótipo funcional.",
-                    "Na Execução, enquanto a equipe tenta programar a rota do drone."
+                    "Diagrama de Casos de Uso.",
+                    "Diagrama de Classes.",
+                    "Diagrama de Componentes.",
+                    "Diagrama de Entidade-Relacionamento."
                 ],
-                answer: "Na Iniciação, onde o projeto nasce e o objetivo principal é validado."
+                answer: "Diagrama de Casos de Uso."
             },
             {
                 id: 18,
-                instruction: "Fase de Planejamento",
-                scenario: "A equipe já sabe o que vai construir. Agora eles estão decidindo que usarão Python, estipularam 4 meses de prazo e definiram quem fará cada módulo.",
-                text: "Essa definição de cronograma, tecnologias e responsabilidades ocorre em qual fase?",
+                instruction: "Modelo Conceitual",
+                scenario: "A equipe de dados precisa de uma representação que mostre as principais entidades do domínio do problema (ex: Cliente, Conta, Transação) e como elas se relacionam logicamente.",
+                text: "Qual artefato de modelagem atende primordialmente a essa necessidade estrutural abstrata?",
                 options: [
-                    "Planejamento.",
-                    "Monitoramento e Controle.",
-                    "Execução.",
-                    "Iniciação."
+                    "Modelo Conceitual (Diagrama de Classes).",
+                    "Diagrama de Sequência.",
+                    "Diagrama de Transição de Estados.",
+                    "Modelo de Implantação."
                 ],
-                answer: "Planejamento."
+                answer: "Modelo Conceitual (Diagrama de Classes)."
             },
             {
                 id: 19,
-                instruction: "Fase de Execução",
-                scenario: "Os diagramas UML estão aprovados, o cronograma está fechado. Hoje os programadores abriram suas IDEs e começaram a digitar as primeiras classes.",
-                text: "Qual é o nome técnico da etapa onde a equipe, literalmente, coloca a 'mão na massa'?",
+                instruction: "A Fase de Validação",
+                scenario: "Após a modelagem e antes de passar a demanda aos programadores, a equipe de análise realiza uma revisão com o cliente para responder à pergunta: 'Estamos de fato resolvendo o problema correto?'.",
+                text: "Esse momento crucial de confirmação e alinhamento de qualidade pertence a qual fase?",
                 options: [
-                    "Execução.",
-                    "Iniciação e Planejamento Híbrido.",
-                    "Gerência de Configuração Final.",
-                    "Monitoramento Iterativo."
+                    "Validação.",
+                    "Elicitação Sequencial.",
+                    "Especificação Técnica.",
+                    "Desenvolvimento Lógico."
                 ],
-                answer: "Execução."
+                answer: "Validação."
             },
             {
                 id: 20,
-                instruction: "O Sentinela Constante",
-                scenario: "Apesar do planejamento ter sido perfeito, o gerente verifica diariamente se o dinheiro gasto condiz com o orçamento e se as entregas estão no prazo.",
-                text: "Qual fase do projeto abraça as demais por estar sempre checando e ajustando a rota?",
+                instruction: "A Fase de Especificação",
+                scenario: "Com as informações coletadas, refinadas e validadas, o analista consolida tudo em um artefato formal que servirá como contrato técnico para os desenvolvedores.",
+                text: "A fase de gerar a declaração oficial e detalhada do que é demandado do sistema é a:",
                 options: [
-                    "Monitoramento e Controle.",
-                    "Encerramento de Iterações.",
-                    "Iniciação Perpétua.",
-                    "A Etapa de Planejamento Restrito."
+                    "Especificação.",
+                    "Arquitetura de Integração.",
+                    "Elicitação Documental.",
+                    "Sintetização de Dados."
                 ],
-                answer: "Monitoramento e Controle."
+                answer: "Especificação."
             },
             {
                 id: 21,
-                instruction: "O Balanço Final",
-                scenario: "O aplicativo de RH foi implantado na empresa, o cliente adorou e assinou o termo de aceitação. A equipe foi desmobilizada logo em seguida.",
-                text: "O que a equipe negligenciou fazer, segundo a teoria sobre a Fase de Encerramento?",
+                instruction: "O Custo do Erro de Requisito",
+                scenario: "Um erro fundamental na regra de cálculo de frete só foi descoberto pela equipe de homologação faltando uma semana para o lançamento oficial do e-commerce.",
+                text: "Comparado a ter descoberto o erro na fase de requisitos, como se comporta o impacto financeiro e de esforço?",
                 options: [
-                    "Esqueceram de fazer um balanço geral e coletar as lições aprendidas (o que deu certo ou errado).",
-                    "Esqueceram de reiniciar o planejamento para criar uma rotina contínua.",
-                    "Falharam em aplicar uma manutenção adaptativa imediata no cliente.",
-                    "Não aumentaram o escopo para aproveitar o resto do dinheiro."
+                    "O erro será muito mais caro, pois exigirá retrabalho em arquitetura, lógica já implementada e refatoração de testes.",
+                    "O erro terá custo equivalente, pois a metodologia ágil absorve alterações tardias sem impacto no cronograma.",
+                    "O impacto financeiro é menor, visto que as interfaces já estão concluídas e precisam de poucos ajustes.",
+                    "O custo recai inteiramente sobre o cliente, anulando o impacto para o time de projeto."
                 ],
-                answer: "Esqueceram de fazer um balanço geral e coletar as lições aprendidas (o que deu certo ou errado)."
+                answer: "O erro será muito mais caro, pois exigirá retrabalho em arquitetura, lógica já implementada e refatoração de testes."
             },
             {
                 id: 22,
-                instruction: "O Triângulo de Ferro: Aumentando Escopo",
-                scenario: "Você concordou em entregar um app de fotos com 5 telas em 2 meses, por 10 mil reais. Faltando 1 mês, o cliente exige colocar edição de vídeos no app (5 novas telas).",
-                text: "Segundo a restrição tripla, o que obrigatoriamente acontecerá se você aceitar isso?",
+                instruction: "Ambiguidade na Análise",
+                scenario: "A requisição oficial dizia apenas: 'O sistema de relatórios deve ser rápido'. O desenvolvedor entregou relatórios em 5 segundos, mas o cliente esperava tempo real (milissegundos).",
+                text: "Esse conflito, categorizado como um dos principais erros em análise, ocorreu devido a:",
                 options: [
-                    "O prazo (Tempo) deverá aumentar e/ou o Custo vai subir.",
-                    "A qualidade do código final deverá ser reduzida a zero.",
-                    "O planejamento será apagado e a fase de iniciação ocorrerá sem custos.",
-                    "Nada mudará, apenas o esforço da máquina será redistribuído pela IA."
+                    "Requisitos ambíguos.",
+                    "Falta de diagramação física do banco.",
+                    "Ignorar a fase de prototipagem visual.",
+                    "Uso excessivo de validações etnográficas."
                 ],
-                answer: "O prazo (Tempo) deverá aumentar e/ou o Custo vai subir."
+                answer: "Requisitos ambíguos."
             },
             {
                 id: 23,
-                instruction: "O Triângulo de Ferro: Reduzindo Tempo",
-                scenario: "Sua diretoria avisa que o concorrente vai lançar o mesmo sistema que vocês estão criando amanhã, exigindo que o seu projeto saia 1 mês mais cedo do que o planejado.",
-                text: "Para cumprir esse prazo menor, quais são as ações de sacrifício viáveis no triângulo?",
+                instruction: "Importância da Boa Análise",
+                scenario: "A diretoria argumenta que a fase de análise consome muito tempo e sugere pular direto para a codificação para entregar o produto mais cedo.",
+                text: "Por que uma análise sólida é defendida como vital e redutora de custos globais do projeto?",
                 options: [
-                    "Reduzir o Escopo (cortar funcionalidades) ou aumentar o Custo (contratar mais pessoas/hora extra).",
-                    "Entregar o dobro de escopo para compensar a correria da diretoria.",
-                    "Desistir da manutenção corretiva garantindo que os clientes encontrem os bugs.",
-                    "Reduzir drasticamente o custo para forçar a agilidade dos programadores."
+                    "Porque ela reduz o retrabalho, evita conflitos de escopo posteriores e aumenta a qualidade final do sistema alinhado ao negócio.",
+                    "Porque é a única maneira de gerar a documentação legal que isenta a equipe de falhas de performance.",
+                    "Porque a modelagem UML substitui completamente a necessidade de testes de garantia de qualidade posteriores.",
+                    "Para garantir que analistas tenham métricas exatas para cobrar aditivos contratuais ao menor desvio."
                 ],
-                answer: "Reduzir o Escopo (cortar funcionalidades) ou aumentar o Custo (contratar mais pessoas/hora extra)."
+                answer: "Porque ela reduz o retrabalho, evita conflitos de escopo posteriores e aumenta a qualidade final do sistema alinhado ao negócio."
             },
             {
                 id: 24,
-                instruction: "O Triângulo de Ferro: Corte de Verba",
-                scenario: "A crise global bateu na porta e a verba do projeto que você gerencia foi cortada exatamente pela metade. O prazo não pode mudar de forma alguma.",
-                text: "Para salvar o projeto dentro dessas restrições, o que será inevitável?",
+                instruction: "Combinar Técnicas",
+                scenario: "Um analista utilizou apenas questionários eletrônicos para levantar um sistema hospitalar crítico, resultando em um fluxo que ignorava a dinâmica presencial de emergências.",
+                text: "Para mitigar esse risco e garantir uma visão 360º do processo, a melhor prática recomendada é:",
                 options: [
-                    "Entregar um sistema mais simples com funcionalidades reduzidas (Menos Escopo).",
-                    "Aumentar o escopo para atrair mais clientes pagantes.",
-                    "Pedir para a IA generativa cobrir 100% da verba extra com servidores grátis.",
-                    "Pular a fase de execução e ir direto para o encerramento do produto."
+                    "Combinar múltiplas técnicas de levantamento (ex: Questionários + Observação in loco).",
+                    "Focar exclusivamente na análise de manuais médicos legados.",
+                    "Adotar um JAD virtual isolado apenas com os diretores do hospital.",
+                    "Substituir o analista por um engenheiro de infraestrutura."
                 ],
-                answer: "Entregar um sistema mais simples com funcionalidades reduzidas (Menos Escopo)."
+                answer: "Combinar múltiplas técnicas de levantamento (ex: Questionários + Observação in loco)."
             },
             {
                 id: 25,
-                instruction: "Qualidade vs Refinamento Técnico",
-                scenario: "Um sistema de cadastro de senhas é desenvolvido com a arquitetura mais moderna e cara do mercado, sem nenhum erro no servidor.",
-                text: "Contudo, nenhum usuário consegue cadastrar a senha por conta de uma regra visual complexa. A qualidade falhou em qual preceito?",
+                instruction: "Necessidades Informacionais",
+                scenario: "Durante o desenvolvimento de um painel de Business Intelligence (BI), o foco do levantamento recai intensamente sobre questões como: 'Para qual finalidade esse dado é crítico?' e 'Quais relatórios são vitais?'.",
+                text: "Esse estágio direcionado da análise é caracterizado pelo estudo minucioso das:",
                 options: [
-                    "Na adequação ao uso, já que o cliente não consegue atingir o objetivo dele sem frustração.",
-                    "No planejamento rigoroso do ciclo de vida em Cascata.",
-                    "No triângulo de ferro, já que o escopo ultrapassou o orçamento previsto.",
-                    "No fornecimento de manutenção Perfectiva de forma passiva."
+                    "Necessidades informacionais dos perfis de usuário.",
+                    "Restrições estruturais de integridade referencial.",
+                    "Capacidades de balanceamento de carga do servidor.",
+                    "Regras de usabilidade para acessibilidade móvel."
                 ],
-                answer: "Na adequação ao uso, já que o cliente não consegue atingir o objetivo dele sem frustração."
+                answer: "Necessidades informacionais dos perfis de usuário."
             },
             {
                 id: 26,
-                instruction: "A Falácia dos Requisitos",
-                scenario: "Sua equipe construiu uma rede social perfeita. Mas o contrato dizia claramente que o cliente queria um sistema de estoque.",
-                text: "Sendo extremo, o código é de altíssima qualidade técnica, mas falha absurdamente em qual aspecto de Qualidade do Software?",
+                instruction: "Resolução de Conflitos e Priorização",
+                scenario: "O departamento de Marketing solicita recursos avançados de IA, mas o orçamento estipulado pela Diretoria cobre apenas o CRUD (cadastros básicos) inicial.",
+                text: "Nesse cenário, após a coleta de demandas irrealistas, qual etapa do processo o analista deve conduzir rigidamente?",
                 options: [
-                    "O atendimento aos requisitos (fazer o que o escopo determinou).",
-                    "A falta de aplicação de testes automáticos antes de subir em nuvem.",
-                    "O corte severo nos custos durante a prototipação.",
-                    "O uso de uma metodologia ágil em vez de tradicional."
+                    "A resolução de conflitos e a priorização sistemática dos requisitos.",
+                    "O desenvolvimento de um protótipo de alta fidelidade englobando a IA.",
+                    "A inserção das funcionalidades de IA como requisitos não funcionais de segurança.",
+                    "O abandono da especificação formal a favor de um ciclo espiral sem orçamento."
                 ],
-                answer: "O atendimento aos requisitos (fazer o que o escopo determinou)."
+                answer: "A resolução de conflitos e a priorização sistemática dos requisitos."
             },
             {
                 id: 27,
-                instruction: "A Linha do Tempo da Qualidade",
-                scenario: "O arquiteto da empresa estipula que a equipe vai passar 6 meses escrevendo código cru, e só vão testar a qualidade na última semana do mês 6.",
-                text: "De acordo com os preceitos de qualidade de projetos, qual o erro gravíssimo dessa abordagem?",
+                instruction: "Categorias Não Funcionais: Integrabilidade",
+                scenario: "O escopo define que a nova solução SaaS de Recursos Humanos deve trocar dados em tempo real com o ERP SAP atual da companhia através de APIs RESTful.",
+                text: "Sob qual categoria essencial de requisitos não funcionais essa exigência é formalizada?",
                 options: [
-                    "A qualidade não é injetada no final; ela deve ser monitorada desde a primeira linha de código (testes contínuos).",
-                    "O custo da última semana será reduzido pelas metodologias tradicionais.",
-                    "O erro é gastar só uma semana testando; o ideal seria não testar para economizar prazo.",
-                    "Só será possível testar usando Git, que só pode ser usado na última etapa."
+                    "Integrabilidade (interoperabilidade e métodos de integração).",
+                    "Desempenho e latência de processamento.",
+                    "Portabilidade e adaptação de infraestrutura.",
+                    "Confidencialidade de dados persistentes."
                 ],
-                answer: "A qualidade não é injetada no final; ela deve ser monitorada desde a primeira linha de código (testes contínuos)."
+                answer: "Integrabilidade (interoperabilidade e métodos de integração)."
             },
             {
                 id: 28,
-                instruction: "O Alinhamento Estratégico",
-                scenario: "Um gestor percebe que os desenvolvedores estão criando ferramentas que o cliente final nunca pediu, apenas porque acharam 'divertido de programar'.",
-                text: "Esse comportamento desvia de qual princípio essencial da gestão de projetos?",
+                instruction: "Erro Grave de Omissão",
+                scenario: "O documento de requisitos foi redigido internamente pela equipe de TI com base em suposições e enviado diretamente aos programadores, sem uma reunião final de aceite.",
+                text: "Qual dos principais erros críticos em análise de sistemas ocorreu de forma evidente nessa abordagem?",
                 options: [
-                    "Do Alinhamento, que visa garantir que a equipe construa exatamente aquilo de que o cliente necessita.",
-                    "Do Encerramento, que permite aos programadores testarem conceitos livres.",
-                    "Da Execução controlada pelas metodologias em Espiral Clássica.",
-                    "Do Triângulo de Ferro focando no aumento indiscriminado da restrição temporal."
+                    "Falta de validação técnica e comercial em conjunto com os stakeholders.",
+                    "Omissão da etapa de elicitação etnográfica sistêmica.",
+                    "Ausência de diagramação lógica rigorosa baseada em UML.",
+                    "Inclusão de requisitos ambíguos na etapa de arquitetura de rede."
                 ],
-                answer: "Do Alinhamento, que visa garantir que a equipe construa exatamente aquilo de que o cliente necessita."
+                answer: "Falta de validação técnica e comercial em conjunto com os stakeholders."
             },
             {
                 id: 29,
-                instruction: "Desperdício e Otimização",
-                scenario: "A equipe de design e desenvolvimento fica 2 meses parada esperando aprovações do cliente para começar a programar, encarecendo o orçamento.",
-                text: "A falta de acompanhamento afetou negativamente qual finalidade de gestão?",
+                instruction: "Iteração de Requisitos",
+                scenario: "No meio do ciclo de desenvolvimento, uma nova regulação federal obriga o sistema a emitir um comprovante tributário que não havia sido mapeado no início do ano.",
+                text: "Como a Engenharia de Requisitos contemporânea orienta a equipe a lidar com essa nova informação?",
                 options: [
-                    "A otimização de recursos (desperdício de tempo e dinheiro da empresa e equipe técnica).",
-                    "A validação arquitetural das estruturas MVC e orientadas a objetos.",
-                    "A previsão de manutenções corretivas em hardware.",
-                    "A construção dos manuais de uso para os testadores de usabilidade."
+                    "Manter o processo iterativo e revisitar os requisitos continuamente conforme novas restrições surgem.",
+                    "Congelar o documento original e forçar o cliente a assinar um contrato para um projeto secundário isolado.",
+                    "Implementar a mudança diretamente no código sem sobrecarregar a documentação formal de especificação.",
+                    "Aguardar o ciclo de manutenção perfectiva pós-lançamento para adequação tributária."
                 ],
-                answer: "A otimização de recursos (desperdício de tempo e dinheiro da empresa e equipe técnica)."
+                answer: "Manter o processo iterativo e revisitar os requisitos continuamente conforme novas restrições surgem."
             },
             {
                 id: 30,
-                instruction: "A Sinergia e a Ferramenta",
-                scenario: "Após concluir a disciplina, um aluno resume seu aprendizado dizendo: 'Descobri que a inteligência artificial não vai roubar meu emprego, ela vai ser meu martelo elétrico'.",
-                text: "Dentro da analogia de construção civil apresentada, o que representa a Engenharia de Software nessa sinergia?",
+                instruction: "Protótipos de Alta Fidelidade",
+                scenario: "O comitê executivo quer testar a usabilidade real e aprovar o design exato das cores e tipografia da interface antes de liberar a verba para a equipe backend.",
+                text: "Para fornecer essa validação visual interativa e próxima do sistema final, a equipe deve utilizar:",
                 options: [
-                    "Representa a planta da casa e o gerenciamento seguro da obra.",
-                    "Representa o prego a ser batido pelas novas versões gerativas.",
-                    "Representa o chão de terra vazio antes do contrato de iniciação.",
-                    "Representa a burocracia desnecessária que impede a obra de começar."
+                    "Prototipagem de Alta Fidelidade.",
+                    "Modelagem de Wireframes Conceituais.",
+                    "Diagramas de Fluxo de Dados (DFD).",
+                    "Sessões de Entrevistas Estruturadas sobre Design."
                 ],
-                answer: "Representa a planta da casa e o gerenciamento seguro da obra."
+                answer: "Prototipagem de Alta Fidelidade."
             }
         ]);
 
@@ -449,7 +449,7 @@ createApp({
 
         const loadQuestion = async () => {
             isTyping.value = true;
-            await typeWriter(`Carregando Desafio de Gestão e Engenharia ${currentQuestion.value.id}...`, "log-info");
+            await typeWriter(`Carregando Desafio de Engenharia de Requisitos ${currentQuestion.value.id}...`, "log-info");
             await typeWriter(currentQuestion.value.scenario, "log-default");
             isTyping.value = false;
         };
@@ -480,8 +480,8 @@ createApp({
             if (option === currentQuestion.value.answer) {
                 score.value++;
                 feedbackType.value = "success";
-                feedbackMsg.value = "<i class='bi bi-check-lg'></i> Resposta Correta! Raciocínio de gestão validado com sucesso.";
-                addLog("Sucesso: Decisão gerencial precisa.", "log-success");
+                feedbackMsg.value = "<i class='bi bi-check-lg'></i> Resposta Correta! Raciocínio analítico validado com sucesso.";
+                addLog("Sucesso: Decisão analítica precisa.", "log-success");
                 showAnswer.value = true;
                 setTimeout(nextQuestion, 2500);
             } else {
@@ -489,13 +489,13 @@ createApp({
                 if (attempts.value >= maxAttempts) {
                     feedbackType.value = "error";
                     feedbackMsg.value = `<i class='bi bi-x-circle-fill'></i> Tentativas esgotadas. A resposta correta era: <strong>${currentQuestion.value.answer}</strong>`;
-                    addLog("Falha Crítica: Abordagem incorreta para o ciclo de vida.", "log-error");
+                    addLog("Falha Crítica: Abordagem de requisitos incorreta.", "log-error");
                     showAnswer.value = true;
                     setTimeout(nextQuestion, 4500);
                 } else {
                     feedbackType.value = "warning";
                     feedbackMsg.value = `<i class='bi bi-exclamation-triangle'></i> Análise Incorreta. Tentativas restantes: ${maxAttempts - attempts.value}`;
-                    addLog(`Aviso: Falha na validação de premissas. Tentativa ${attempts.value}/${maxAttempts}`, "log-warning");
+                    addLog(`Aviso: Falha na validação teórica. Tentativa ${attempts.value}/${maxAttempts}`, "log-warning");
                 }
             }
         };
@@ -508,17 +508,17 @@ createApp({
             printElement.style.fontFamily = 'Arial, sans-serif'; 
             printElement.style.color = '#333';
             
-            let performanceMsg = "Excelente compreensão dos fundamentos de Engenharia de Software e Gestão de Projetos.";
-            if (score.value < 20) performanceMsg = "Recomenda-se revisão dos conceitos teóricos do Triângulo de Ferro e Ciclo de Vida do Software.";
+            let performanceMsg = "Excelente compreensão dos fundamentos de Engenharia de Requisitos e Modelagem de Sistemas.";
+            if (score.value < 20) performanceMsg = "Recomenda-se revisão dos conceitos teóricos de Especificação, Modelagem e Técnicas de Levantamento.";
             
             printElement.innerHTML = `
                 <div style="text-align: center; border-bottom: 2px solid #3e8eff; padding-bottom: 20px; margin-bottom: 30px;">
                     <h1 style="color: #3e8eff; margin: 0;">Relatório de Desempenho Executivo</h1>
-                    <h2 style="color: #555; margin: 5px 0;">Certificação em Projeto e Engenharia de Software</h2>
+                    <h2 style="color: #555; margin: 5px 0;">Certificação em Engenharia e Levantamento de Requisitos</h2>
                 </div>
                 <div style="margin-bottom: 30px; font-size: 16px; line-height: 1.6; text-align: justify;">
                     <p><strong>Data da Simulação:</strong> ${data}</p>
-                    <p>Este documento atesta a passagem do estudante pelas ${questions.value.length} análises críticas envolvendo planejamento estratégico, gestão de restrições de projetos e a essência ética e colaborativa da engenharia de software na era moderna.</p>
+                    <p>Este documento atesta a passagem do estudante pelas ${questions.value.length} análises críticas baseadas no escopo de Engenharia de Requisitos e Modelagem de Sistemas.</p>
                     
                     <div style="background-color: #f4f7f6; padding: 20px; border-radius: 8px; margin-top: 30px; text-align: center; border: 1px solid #e0e0e0;">
                         <h3 style="margin-top: 0; color: #333;">Desempenho Final</h3>
@@ -529,13 +529,13 @@ createApp({
                     </div>
                 </div>
                 <p style="font-size: 13px; color: #888; text-align: center; margin-top: 50px; border-top: 1px dashed #ccc; padding-top: 15px;">
-                    Documento validado tecnicamente pelo Simulador ALGO_EVAL_v2.0
+                    Documento validado tecnicamente pelo Simulador ALGO_EVAL_v3.0
                 </p>
             `;
 
             const opt = {
                 margin:       0.5,
-                filename:     `EngSoft_Relatorio_${new Date().toISOString().slice(0,10)}.pdf`,
+                filename:     `EngRequisitos_Relatorio_${new Date().toISOString().slice(0,10)}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2 },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
@@ -550,12 +550,12 @@ createApp({
             logs.value = []; 
             gameOver.value = false;
             resetTurn();
-            addLog("Reiniciando avaliador de Gestão...", "log-info");
+            addLog("Reiniciando avaliador de Requisitos...", "log-info");
             setTimeout(() => loadQuestion(), 1000);
         };
 
         onMounted(() => {
-            addLog("Inicializando Simulador ALGO_EVAL_v2.0...", "log-info");
+            addLog("Inicializando Simulador ALGO_EVAL_v3.0...", "log-info");
             setTimeout(() => { loadQuestion(); }, 1000);
         });
 
