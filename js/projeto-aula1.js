@@ -529,7 +529,7 @@ createApp({
                     </div>
                 </div>
                 <p style="font-size: 13px; color: #888; text-align: center; margin-top: 50px; border-top: 1px dashed #ccc; padding-top: 15px;">
-                    Documento validado tecnicamente pelo Simulador ALGO_EVAL_v3.0
+                    Documento validado tecnicamente pelo Simulador PROJ_EVAL_v3.0
                 </p>
             `;
 
@@ -555,7 +555,7 @@ createApp({
         };
 
         onMounted(() => {
-            addLog("Inicializando Simulador ALGO_EVAL_v3.0...", "log-info");
+            addLog("Inicializando Simulador PROJ_EVAL_v3.0...", "log-info");
             setTimeout(() => { loadQuestion(); }, 1000);
         });
 
