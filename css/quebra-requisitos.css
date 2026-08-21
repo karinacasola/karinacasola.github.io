@@ -1,0 +1,325 @@
+/* ==========================================================================
+   CODE BLOCKS  ESTILOS ESPECÍFICOS E RESPONSIVOS
+   ========================================================================== */
+
+:root {
+    --accent-blue: #3E8EFF; /* Azul Tecnológico Padrão do Blog */
+    --terminal-bg: #050505;
+    --code-bg: #0A0A0A;
+    --ice-white: #f4f7f6;
+    --success: #5eb177; 
+    --warning: #d9a05b;
+    --error: #ff5555;
+}
+
+.game-section {
+    padding: 0 5% 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* --- Barra de Status e Vidas --- */
+.game-status-bar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.status-item {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 8px 20px;
+    border-radius: 30px; /* Estilo Pill */
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+}
+
+.attempts-box { transition: all 0.3s ease; }
+.attempts-box.warning-state { 
+    border-color: var(--error); 
+    color: var(--error);
+    animation: gentlePulse 2s infinite; 
+}
+
+/* --- Container Principal (Responsividade e Altura Fixa) --- */
+.game-container {
+    display: flex;
+    flex-direction: column; /* Mobile: Empilhado */
+    gap: 24px;
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+    .game-container {
+        flex-direction: row; /* Desktop: Lado a Lado */
+        align-items: stretch;
+    }
+    .terminal-window, .code-editor-window {
+        width: 50%;
+    }
+}
+
+/* --- Janelas (Terminal e Editor) --- */
+.terminal-window, .code-editor-window {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    min-height: 500px;
+}
+
+@media (min-width: 992px) {
+    .terminal-window, .code-editor-window {
+        height: 650px; /* Trava a altura no desktop, ativando o scroll interno na área de montagem */
+    }
+}
+
+.window-header {
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.window-dots { display: flex; gap: 6px; }
+.window-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border-color); }
+.window-title { font-size: 13px; font-family: monospace; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
+/* --- Terminal de Logs --- */
+.terminal-body {
+    background: var(--terminal-bg);
+    flex: 1;
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+.terminal-body p { margin-top: 0; margin-bottom: 8px; animation: fadeIn 0.3s forwards; }
+.prompt { color: var(--accent-blue); margin-right: 8px; font-weight: bold; }
+.log-error { color: var(--error); } 
+.log-warning { color: var(--warning); } 
+.log-success { color: var(--success); }
+.typing-cursor { display: inline-block; animation: blink 1s infinite; color: var(--accent-blue); }
+
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes gentlePulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+/* --- Corpo do Editor e Scrollbar --- */
+.editor-body {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto; /* Scroll ativado se empilhar muitos blocos */
+}
+
+.editor-body::-webkit-scrollbar, .terminal-body::-webkit-scrollbar { width: 8px; }
+.editor-body::-webkit-scrollbar-track, .terminal-body::-webkit-scrollbar-track { background: var(--bg-dark); }
+.editor-body::-webkit-scrollbar-thumb, .terminal-body::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+.editor-body::-webkit-scrollbar-thumb:hover, .terminal-body::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
+
+.comment { color: #6a9955; font-family: 'Courier New', Courier, monospace; font-size: 14px; font-style: italic;}
+.comment-sub { color: var(--text-secondary); font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 13px; }
+
+/* --- Área de Montagem (Dropzone Simulada) --- */
+.code-building-area {
+    background: var(--code-bg);
+    border: 1px dashed #444;
+    border-radius: 12px;
+    min-height: 180px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.empty-state { 
+    color: var(--text-secondary); 
+    font-size: 13px; 
+    text-align: center; 
+    margin: auto; 
+    opacity: 0.6;
+}
+
+/* Blocos Montados */
+.built-block, .solution-block {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--success);
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    color: var(--ice-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.built-block:hover { 
+    background: rgba(255, 85, 85, 0.05); 
+    border-color: var(--error); 
+    border-left-color: var(--error); 
+}
+
+.built-block:hover::after { 
+    content: '(remover)'; 
+    font-size: 11px; 
+    color: var(--error); 
+    margin-left: auto; 
+    font-family: sans-serif;
+}
+
+.solution-block {
+    border-left-color: var(--warning);
+    cursor: default;
+}
+
+.line-num { color: #555; margin-right: 15px; font-size: 12px; width: 15px; text-align: right; user-select: none;}
+
+/* --- Pool de Blocos (Opções) --- */
+.blocks-pool { 
+    background: rgba(255, 255, 255, 0.02); 
+    padding: 20px; 
+    border-radius: 12px; 
+    border: 1px solid var(--border-color); 
+    margin-top: auto;
+}
+
+.pool-title { margin: 0 0 15px 0; font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;}
+.pool-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.code-block-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-left: 3px solid #555;
+    color: var(--text-secondary);
+    padding: 10px 14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.code-block-btn:hover { 
+    border-color: var(--accent-blue); 
+    border-left-color: var(--accent-blue);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+/* --- Botões de Ação --- */
+.action-bar { display: flex; gap: 15px; margin-bottom: 20px; }
+
+.btn-clear { 
+    background: transparent; 
+    border: 1px solid var(--error); 
+    color: var(--error); 
+    padding: 12px 15px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    flex: 1; 
+    font-size: 13px;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+.btn-clear:hover:not(:disabled) { background: var(--error); color: #0A0A0A; }
+.btn-clear:disabled { border-color: var(--text-secondary); color: var(--text-secondary); opacity: 0.4; cursor: not-allowed;}
+
+.run-btn { 
+    background: transparent; 
+    border: 1px solid var(--accent-blue); 
+    color: var(--accent-blue); 
+    padding: 12px 20px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    flex: 2; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 8px; 
+    transition: 0.3s; 
+    font-size: 13px;
+    text-transform: uppercase;
+}
+.run-btn:hover:not(:disabled) { background: var(--accent-blue); color: #0A0A0A; }
+.run-btn:disabled { border-color: var(--text-secondary); color: var(--text-secondary); opacity: 0.4; cursor: not-allowed; }
+
+.next-btn { border-color: var(--warning); color: var(--warning); width: 100%; margin-top: 15px;}
+.next-btn:hover { background: var(--warning); color: #0A0A0A; }
+
+/* --- Caixa de Solução e Feedback --- */
+.solution-box {
+    background: rgba(217, 160, 91, 0.05);
+    border-left: 3px solid var(--warning);
+    border-radius: 0 8px 8px 0;
+    padding: 20px;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.solution-title { color: var(--warning); font-weight: 500; margin-top: 0; font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 15px;}
+
+.feedback-msg { margin-bottom: 20px; font-size: 14px; text-align: center; padding: 15px; border-radius: 8px; font-weight: 500; line-height: 1.5; }
+.feedback-msg.error { background: rgba(255, 85, 85, 0.05); color: var(--error); border: 1px solid rgba(255, 85, 85, 0.2); }
+.feedback-msg.success { background: rgba(94, 177, 119, 0.05); color: var(--success); border: 1px solid rgba(94, 177, 119, 0.2); }
+
+/* --- Tela Final e Botões de Ação --- */
+.victory-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 30px; }
+.actions-container { display: flex; justify-content: center; width: 100%; max-width: 350px; }
+.reset-btn { border-color: var(--text-secondary); color: var(--text-secondary); }
+.reset-btn:hover { background: var(--text-secondary); color: #0A0A0A; }
+
+/* Trava a tela ao digitar/executar */
+.code-editor-window.locked::after {
+    content: 'PROCESSANDO LÓGICA...'; 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 10, 10, 0.7); 
+    display: flex; justify-content: center; align-items: center;
+    font-family: monospace; color: var(--accent-blue); 
+    z-index: 10; font-weight: bold; font-size: 16px; letter-spacing: 2px;
+    backdrop-filter: blur(3px);
+    border-radius: 16px;
+}
+.code-editor-window { position: relative; }
+
+/* Desabilitar hover na read-only (caixa de solução) */
+.read-only-mode .solution-block:hover {
+    background: transparent;
+    border-color: var(--border-color);
+    border-left-color: var(--warning);
+}
+.read-only-mode .solution-block:hover::after { content: none; }
+
+.terminal-body p { 
+    margin-top: 0; 
+    margin-bottom: 8px; 
+    animation: fadeIn 0.3s forwards; 
+    text-align: justify; /* Alinhamento justificado adicionado */
+    word-break: break-word; /* Evita quebra de layout ao justificar */
+}
+
+
+
