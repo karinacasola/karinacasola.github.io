@@ -57,7 +57,7 @@
             
             <div class="game-status-bar" v-if="!levelComplete">
                 <div class="status-item level-box">
-                    Desafio Atual: <span style="color: var(--text-primary);">{{ currentLevelIndex + 1 }} / 5</span>
+                    Desafio Atual: <span style="color: var(--text-primary);">{{ currentLevelIndex + 1 }} / 30 </span>
                 </div>
                 <div class="status-item attempts-box" :class="{'warning-state': chances === 1}" v-if="!showSolution">
                     <i class="bi bi-heart-fill" style="margin-right: 5px;"></i>
