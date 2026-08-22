@@ -38,8 +38,8 @@ createApp({
                 scenario: "A equipe técnica tem dificuldades para compreender os jargões operacionais e as restrições que o cliente descreve durante as reuniões.",
                 text: "Qual é o principal papel do analista de sistemas nessa situação?",
                 options: [
-                    "Traduzir as dores do mundo real para uma linguagem que a equipe técnica consiga transformar em software.",
                     "Garantir que a arquitetura do banco de dados relacional esteja normalizada para receber as regras.",
+                    "Traduzir as dores do mundo real para uma linguagem que a equipe técnica consiga transformar em software.",
                     "Aplicar metodologias ágeis estritamente para o gerenciamento do cronograma da equipe.",
                     "Definir os padrões de projeto arquiteturais que serão utilizados na codificação do sistema."
                 ],
@@ -51,9 +51,9 @@ createApp({
                 scenario: "Durante o planejamento, estabelece-se uma condição formal ou capacidade que o sistema deve obrigatoriamente alcançar para resolver o problema do usuário.",
                 text: "Na engenharia de software, essa ponte que conecta as necessidades de negócio à tecnologia é chamada de:",
                 options: [
-                    "Requisito.",
                     "Padrão Arquitetural.",
                     "Regra de Transição.",
+                    "Requisito.",
                     "Métrica de Desempenho."
                 ],
                 answer: "Requisito."
@@ -64,10 +64,10 @@ createApp({
                 scenario: "O documento de especificação detalha expressamente: 'O sistema deve permitir o cadastro e a inativação de novos clientes'.",
                 text: "Essa afirmação refere-se diretamente a O QUE o sistema faz. Trata-se de um exemplo de:",
                 options: [
-                    "Requisito Funcional.",
                     "Requisito Não Funcional.",
                     "Critério de Escalabilidade.",
-                    "Regra de Negócio Implícita."
+                    "Regra de Negócio Implícita.",
+                    "Requisito Funcional."
                 ],
                 answer: "Requisito Funcional."
             },
@@ -78,9 +78,9 @@ createApp({
                 text: "Esta restrição foca em COMO o sistema opera e na sua qualidade. Trata-se de um:",
                 options: [
                     "Requisito Não Funcional.",
-                    "Requisito Funcional.",
                     "Diagrama de Atividades.",
-                    "Caso de Uso de Exceção."
+                    "Caso de Uso de Exceção.",
+                    "Requisito Funcional."
                 ],
                 answer: "Requisito Não Funcional."
             },
@@ -90,8 +90,8 @@ createApp({
                 scenario: "Uma auditoria exige que todos os dados de cartões de crédito sejam criptografados ponta a ponta e que as sessões expirem após 5 minutos de inatividade.",
                 text: "Essa solicitação enquadra-se em qual categoria de requisito não funcional?",
                 options: [
-                    "Segurança.",
                     "Disponibilidade.",
+                    "Segurança.",
                     "Integridade Referencial.",
                     "Confiabilidade de Rede."
                 ],
@@ -103,9 +103,9 @@ createApp({
                 scenario: "Ao redigir o documento de requisitos, um analista começa a detalhar a estrutura de tabelas, chaves estrangeiras e a linguagem de programação que será usada.",
                 text: "Por que essa abordagem é considerada uma má prática na fase de especificação de requisitos de software?",
                 options: [
-                    "O documento deve definir O QUE o sistema deve fazer, e não COMO deve fazê-lo tecnicamente.",
                     "As tabelas e diagramas lógicos só devem ser criados após a fase completa de testes unitários.",
                     "A documentação de requisitos foca inteiramente na experiência visual do usuário final.",
+                    "O documento deve definir O QUE o sistema deve fazer, e não COMO deve fazê-lo tecnicamente.",
                     "Detalhar restrições de banco de dados é papel exclusivo da elicitação etnográfica."
                 ],
                 answer: "O documento deve definir O QUE o sistema deve fazer, e não COMO deve fazê-lo tecnicamente."
@@ -116,10 +116,10 @@ createApp({
                 scenario: "A equipe inicia uma série de interações com os clientes para extrair informações, fazer perguntas estruturadas e trazer necessidades ocultas à tona.",
                 text: "Qual o nome técnico dessa primeira fase do ciclo de engenharia de requisitos?",
                 options: [
-                    "Elicitação.",
                     "Especificação Contínua.",
                     "Validação Lógica.",
-                    "Análise Estrutural."
+                    "Análise Estrutural.",
+                    "Elicitação."
                 ],
                 answer: "Elicitação."
             },
@@ -129,9 +129,9 @@ createApp({
                 scenario: "Para um processo crítico, o analista precisa explorar problemas complexos profundamente e construir um relacionamento de confiança com o gestor do setor.",
                 text: "Qual é a técnica clássica de levantamento mais adequada para esse nível de aprofundamento?",
                 options: [
-                    "Entrevistas.",
                     "Sessões de Brainstorming Anônimo.",
                     "Análise de Documentação Legada.",
+                    "Entrevistas.",
                     "Prototipação de Alta Fidelidade."
                 ],
                 answer: "Entrevistas."
@@ -142,8 +142,8 @@ createApp({
                 scenario: "Os clientes afirmam que o processo de triagem é simples, mas ao passar um turno inteiro no chão de fábrica, o analista descobre interações não documentadas e essenciais.",
                 text: "Qual técnica revelou essas necessidades implícitas através do acompanhamento do ambiente natural?",
                 options: [
-                    "Observação e Etnografia.",
                     "Engenharia Reversa.",
+                    "Observação e Etnografia.",
                     "Workshops Colaborativos.",
                     "Análise do Discurso."
                 ],
@@ -168,10 +168,10 @@ createApp({
                 scenario: "O sistema será utilizado por 5.000 funcionários espalhados por filiais em 15 estados diferentes, e é necessário identificar um padrão quantitativo sobre o uso do módulo atual.",
                 text: "Qual técnica oferece amplo alcance geográfico e viabilidade estatística com baixo custo de deslocamento?",
                 options: [
-                    "Questionários.",
                     "Sessões JAD Globais.",
                     "Observação Etnográfica Participante.",
-                    "Prototipagem Iterativa."
+                    "Prototipagem Iterativa.",
+                    "Questionários."
                 ],
                 answer: "Questionários."
             },
@@ -181,9 +181,9 @@ createApp({
                 scenario: "A equipe técnica quer alinhar o fluxo básico de navegação de um novo aplicativo com os stakeholders em poucas horas, evitando custos de codificação prematura.",
                 text: "Qual abordagem foca na validação ágil de conceitos usando esboços simples e rascunhos?",
                 options: [
-                    "Prototipagem de Baixa Fidelidade.",
                     "Modelagem de Casos de Uso Avançada.",
                     "Prototipagem de Alta Fidelidade.",
+                    "Prototipagem de Baixa Fidelidade.",
                     "Engenharia Reversa Visual."
                 ],
                 answer: "Prototipagem de Baixa Fidelidade."
@@ -194,8 +194,8 @@ createApp({
                 scenario: "Em uma corporação tradicional, o analista examina as comunicações internas, e-mails e reuniões gravadas para desvendar relações de poder e suposições culturais que afetam o fluxo do sistema.",
                 text: "Essa técnica qualitativa, que busca requisitos implícitos nas entrelinhas da comunicação, é chamada de:",
                 options: [
-                    "Análise do Discurso.",
                     "Avaliação Heurística.",
+                    "Análise do Discurso.",
                     "Inspeção de Código-Fonte.",
                     "Sondagem Etnográfica Direta."
                 ],
@@ -220,10 +220,10 @@ createApp({
                 scenario: "Um sistema foi aprovado pelos diretores por ser gerencialmente excelente, mas foi rejeitado na implantação porque os operadores de caixa acharam a interface lenta e confusa.",
                 text: "Esse fracasso ocorreu pois o levantamento ignorou parte de qual grupo fundamental?",
                 options: [
-                    "Stakeholders (Usuários finais, gestores, equipe técnica, patrocinadores).",
                     "Key-Sponsors (Apenas os financiadores executivos do projeto).",
                     "Product Owners (O comitê técnico de arquitetura).",
-                    "Atores de Integração de Sistemas."
+                    "Atores de Integração de Sistemas.",
+                    "Stakeholders (Usuários finais, gestores, equipe técnica, patrocinadores)."
                 ],
                 answer: "Stakeholders (Usuários finais, gestores, equipe técnica, patrocinadores)."
             },
@@ -233,9 +233,9 @@ createApp({
                 scenario: "No início da modelagem, é preciso criar um documento visual que ilustre claramente quais tipos de usuários interagem com o sistema e quais as funcionalidades macro disponíveis para eles.",
                 text: "Qual modelo UML é o mais indicado para representar essas interações estruturais de alto nível?",
                 options: [
-                    "Diagrama de Casos de Uso.",
                     "Diagrama de Classes.",
                     "Diagrama de Componentes.",
+                    "Diagrama de Casos de Uso.",
                     "Diagrama de Entidade-Relacionamento."
                 ],
                 answer: "Diagrama de Casos de Uso."
@@ -246,8 +246,8 @@ createApp({
                 scenario: "A equipe de dados precisa de uma representação que mostre as principais entidades do domínio do problema (ex: Cliente, Conta, Transação) e como elas se relacionam logicamente.",
                 text: "Qual artefato de modelagem atende primordialmente a essa necessidade estrutural abstrata?",
                 options: [
-                    "Modelo Conceitual (Diagrama de Classes).",
                     "Diagrama de Sequência.",
+                    "Modelo Conceitual (Diagrama de Classes).",
                     "Diagrama de Transição de Estados.",
                     "Modelo de Implantação."
                 ],
@@ -272,10 +272,10 @@ createApp({
                 scenario: "Com as informações coletadas, refinadas e validadas, o analista consolida tudo em um artefato formal que servirá como contrato técnico para os desenvolvedores.",
                 text: "A fase de gerar a declaração oficial e detalhada do que é demandado do sistema é a:",
                 options: [
-                    "Especificação.",
                     "Arquitetura de Integração.",
                     "Elicitação Documental.",
-                    "Sintetização de Dados."
+                    "Sintetização de Dados.",
+                    "Especificação."
                 ],
                 answer: "Especificação."
             },
@@ -285,9 +285,9 @@ createApp({
                 scenario: "Um erro fundamental na regra de cálculo de frete só foi descoberto pela equipe de homologação faltando uma semana para o lançamento oficial do e-commerce.",
                 text: "Comparado a ter descoberto o erro na fase de requisitos, como se comporta o impacto financeiro e de esforço?",
                 options: [
-                    "O erro será muito mais caro, pois exigirá retrabalho em arquitetura, lógica já implementada e refatoração de testes.",
                     "O erro terá custo equivalente, pois a metodologia ágil absorve alterações tardias sem impacto no cronograma.",
                     "O impacto financeiro é menor, visto que as interfaces já estão concluídas e precisam de poucos ajustes.",
+                    "O erro será muito mais caro, pois exigirá retrabalho em arquitetura, lógica já implementada e refatoração de testes.",
                     "O custo recai inteiramente sobre o cliente, anulando o impacto para o time de projeto."
                 ],
                 answer: "O erro será muito mais caro, pois exigirá retrabalho em arquitetura, lógica já implementada e refatoração de testes."
@@ -298,8 +298,8 @@ createApp({
                 scenario: "A requisição oficial dizia apenas: 'O sistema de relatórios deve ser rápido'. O desenvolvedor entregou relatórios em 5 segundos, mas o cliente esperava tempo real (milissegundos).",
                 text: "Esse conflito, categorizado como um dos principais erros em análise, ocorreu devido a:",
                 options: [
-                    "Requisitos ambíguos.",
                     "Falta de diagramação física do banco.",
+                    "Requisitos ambíguos.",
                     "Ignorar a fase de prototipagem visual.",
                     "Uso excessivo de validações etnográficas."
                 ],
@@ -324,8 +324,8 @@ createApp({
                 scenario: "Um analista utilizou apenas questionários eletrônicos para levantar um sistema hospitalar crítico, resultando em um fluxo que ignorava a dinâmica presencial de emergências.",
                 text: "Para mitigar esse risco e garantir uma visão 360º do processo, a melhor prática recomendada é:",
                 options: [
-                    "Combinar múltiplas técnicas de levantamento (ex: Questionários + Observação in loco).",
                     "Focar exclusivamente na análise de manuais médicos legados.",
+                    "Combinar múltiplas técnicas de levantamento (ex: Questionários + Observação in loco).",
                     "Adotar um JAD virtual isolado apenas com os diretores do hospital.",
                     "Substituir o analista por um engenheiro de infraestrutura."
                 ],
@@ -337,9 +337,9 @@ createApp({
                 scenario: "Durante o desenvolvimento de um painel de Business Intelligence (BI), o foco do levantamento recai intensamente sobre questões como: 'Para qual finalidade esse dado é crítico?' e 'Quais relatórios são vitais?'.",
                 text: "Esse estágio direcionado da análise é caracterizado pelo estudo minucioso das:",
                 options: [
-                    "Necessidades informacionais dos perfis de usuário.",
                     "Restrições estruturais de integridade referencial.",
                     "Capacidades de balanceamento de carga do servidor.",
+                    "Necessidades informacionais dos perfis de usuário.",
                     "Regras de usabilidade para acessibilidade móvel."
                 ],
                 answer: "Necessidades informacionais dos perfis de usuário."
@@ -350,10 +350,10 @@ createApp({
                 scenario: "O departamento de Marketing solicita recursos avançados de IA, mas o orçamento estipulado pela Diretoria cobre apenas o CRUD (cadastros básicos) inicial.",
                 text: "Nesse cenário, após a coleta de demandas irrealistas, qual etapa do processo o analista deve conduzir rigidamente?",
                 options: [
-                    "A resolução de conflitos e a priorização sistemática dos requisitos.",
                     "O desenvolvimento de um protótipo de alta fidelidade englobando a IA.",
                     "A inserção das funcionalidades de IA como requisitos não funcionais de segurança.",
-                    "O abandono da especificação formal a favor de um ciclo espiral sem orçamento."
+                    "O abandono da especificação formal a favor de um ciclo espiral sem orçamento.",
+                    "A resolução de conflitos e a priorização sistemática dos requisitos."
                 ],
                 answer: "A resolução de conflitos e a priorização sistemática dos requisitos."
             },
@@ -376,8 +376,8 @@ createApp({
                 scenario: "O documento de requisitos foi redigido internamente pela equipe de TI com base em suposições e enviado diretamente aos programadores, sem uma reunião final de aceite.",
                 text: "Qual dos principais erros críticos em análise de sistemas ocorreu de forma evidente nessa abordagem?",
                 options: [
-                    "Falta de validação técnica e comercial em conjunto com os stakeholders.",
                     "Omissão da etapa de elicitação etnográfica sistêmica.",
+                    "Falta de validação técnica e comercial em conjunto com os stakeholders.",
                     "Ausência de diagramação lógica rigorosa baseada em UML.",
                     "Inclusão de requisitos ambíguos na etapa de arquitetura de rede."
                 ],
@@ -389,9 +389,9 @@ createApp({
                 scenario: "No meio do ciclo de desenvolvimento, uma nova regulação federal obriga o sistema a emitir um comprovante tributário que não havia sido mapeado no início do ano.",
                 text: "Como a Engenharia de Requisitos contemporânea orienta a equipe a lidar com essa nova informação?",
                 options: [
-                    "Manter o processo iterativo e revisitar os requisitos continuamente conforme novas restrições surgem.",
                     "Congelar o documento original e forçar o cliente a assinar um contrato para um projeto secundário isolado.",
                     "Implementar a mudança diretamente no código sem sobrecarregar a documentação formal de especificação.",
+                    "Manter o processo iterativo e revisitar os requisitos continuamente conforme novas restrições surgem.",
                     "Aguardar o ciclo de manutenção perfectiva pós-lançamento para adequação tributária."
                 ],
                 answer: "Manter o processo iterativo e revisitar os requisitos continuamente conforme novas restrições surgem."
@@ -402,10 +402,10 @@ createApp({
                 scenario: "O comitê executivo quer testar a usabilidade real e aprovar o design exato das cores e tipografia da interface antes de liberar a verba para a equipe backend.",
                 text: "Para fornecer essa validação visual interativa e próxima do sistema final, a equipe deve utilizar:",
                 options: [
-                    "Prototipagem de Alta Fidelidade.",
                     "Modelagem de Wireframes Conceituais.",
                     "Diagramas de Fluxo de Dados (DFD).",
-                    "Sessões de Entrevistas Estruturadas sobre Design."
+                    "Sessões de Entrevistas Estruturadas sobre Design.",
+                    "Prototipagem de Alta Fidelidade."
                 ],
                 answer: "Prototipagem de Alta Fidelidade."
             }
@@ -529,7 +529,7 @@ createApp({
                     </div>
                 </div>
                 <p style="font-size: 13px; color: #888; text-align: center; margin-top: 50px; border-top: 1px dashed #ccc; padding-top: 15px;">
-                    Documento validado tecnicamente pelo Simulador PROJ_EVAL_v3.0
+                    Documento validado tecnicamente pelo Simulador ALGO_EVAL_v3.0
                 </p>
             `;
 
@@ -555,7 +555,7 @@ createApp({
         };
 
         onMounted(() => {
-            addLog("Inicializando Simulador PROJ_EVAL_v3.0...", "log-info");
+            addLog("Inicializando Simulador ALGO_EVAL_v3.0...", "log-info");
             setTimeout(() => { loadQuestion(); }, 1000);
         });
 
