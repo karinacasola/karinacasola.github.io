@@ -31,7 +31,7 @@ createApp({
                     "Sim, a criatividade por si só basta para classificar o projeto como inovador.",
                     "Não, pois faltou incluir um novo modelo de negócio."
                 ],
-                answer: "Não, pois inovação é a interseção exata entre a novidade (invenção) e a geração de valor (aplicação).[cite: 1]"
+                answer: "Não, pois inovação é a interseção exata entre a novidade (invenção) e a geração de valor (aplicação)."
             },
             {
                 id: 2,
@@ -44,7 +44,7 @@ createApp({
                     "Porque inovação requer a criação de novos mercados invariavelmente.",
                     "Porque a criatividade atrapalha o ciclo de processos estruturados da empresa."
                 ],
-                answer: "Porque é preciso executá-las; criar algo novo sem utilidade prática não gera impacto.[cite: 1]"
+                answer: "Porque é preciso executá-las; criar algo novo sem utilidade prática não gera impacto."
             },
             {
                 id: 3,
@@ -57,7 +57,7 @@ createApp({
                     "Inovação Disruptiva, pois cria um novo mercado.",
                     "Inovação Aberta, pois depende da sociedade."
                 ],
-                answer: "Inovação Incremental, pois é a melhoria do que já existe.[cite: 1]"
+                answer: "Inovação Incremental, pois é a melhoria do que já existe."
             },
             {
                 id: 4,
@@ -70,7 +70,7 @@ createApp({
                     "A empresa se torna líder de mercado pela estabilidade e padronização.",
                     "O mercado se adapta ao produto da empresa, reduzindo a necessidade de inovação."
                 ],
-                answer: "A empresa perde relevância e lucro, pois os produtos envelhecem, os concorrentes avançam e o comportamento muda.[cite: 1]"
+                answer: "A empresa perde relevância e lucro, pois os produtos envelhecem, os concorrentes avançam e o comportamento muda."
             },
             {
                 id: 5,
@@ -83,7 +83,7 @@ createApp({
                     "Qual é o orçamento anual que ele tem disponível.",
                     "Quais tecnologias ele mais admira."
                 ],
-                answer: "Qual 'trabalho' ele está contratando seu produto para fazer.[cite: 1]"
+                answer: "Qual 'trabalho' ele está contratando seu produto para fazer."
             },
             {
                 id: 6,
@@ -96,7 +96,7 @@ createApp({
                     "Criar leis e fomento.",
                     "Ser o mercado de consumo final."
                 ],
-                answer: "Trazer agilidade.[cite: 1]"
+                answer: "Trazer agilidade."
             },
             {
                 id: 7,
@@ -109,7 +109,7 @@ createApp({
                     "Prototipar (Fazer rápido).",
                     "Testar (Aprender)."
                 ],
-                answer: "Empatia (Entender a dor).[cite: 1]"
+                answer: "Empatia (Entender a dor)."
             },
             {
                 id: 8,
@@ -122,7 +122,7 @@ createApp({
                     "Como um erro de execução que exige a contratação de uma consultoria externa.",
                     "Como um sinal de que a etapa de ideação foi inútil."
                 ],
-                answer: "Como um aprendizado, seguindo o segredo: Erre rápido, erre barato, e escale o que funcionar![cite: 1]"
+                answer: "Como um aprendizado, seguindo o segredo: Erre rápido, erre barato, e escale o que funcionar!"
             },
             {
                 id: 9,
@@ -135,7 +135,7 @@ createApp({
                     "Consumo em massa.",
                     "Regulamentação governamental."
                 ],
-                answer: "Pesquisa.[cite: 1]"
+                answer: "Pesquisa."
             },
             {
                 id: 10,
@@ -148,7 +148,7 @@ createApp({
                     "Jobs-to-be-done.",
                     "Ecossistemas."
                 ],
-                answer: "Dores.[cite: 1]"
+                answer: "Dores."
             },
             
             // --- 20 Questões sobre os 6 Chapéus do Pensamento ---
@@ -413,6 +413,27 @@ createApp({
                 answer: "Chapéu Amarelo."
             }
         ]);
+
+        // =========================================================================
+        // NOVO BLOCO: Lógica para randomizar a posição da resposta correta 
+        // de forma sucessiva (1ª opção, 2ª opção, 3ª opção, 4ª opção, repete...)
+        // =========================================================================
+        questions.value.forEach((question, index) => {
+            // Encontra qual é o índice atual da resposta correta dentro do array
+            const currentAnswerIndex = question.options.indexOf(question.answer);
+            
+            if (currentAnswerIndex !== -1) {
+                // Remove a resposta correta da sua posição original (geralmente índice 0)
+                question.options.splice(currentAnswerIndex, 1);
+                
+                // Calcula a nova posição baseada no índice da questão (0, 1, 2, 3, 0, 1...)
+                const newPosition = index % 4; 
+                
+                // Insere a resposta correta de volta na nova posição dinâmica
+                question.options.splice(newPosition, 0, question.answer);
+            }
+        });
+        // =========================================================================
 
         const currentQuestion = computed(() => questions.value[currentQuestionIndex.value]);
         const progressPercentage = computed(() => ((currentQuestionIndex.value) / questions.value.length) * 100);
