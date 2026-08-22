@@ -25,12 +25,12 @@ createApp({
                 scenario: "Um colega afirma que precisa decidir entre aprender Python ou Java antes mesmo de entender como estruturar algoritmos.",
                 text: "Com base no material, como você explica a relação entre lógica e linguagens de programação?",
                 options: [
-                    "A lógica de programação é universal e independe da linguagem escolhida.",
                     "A lógica é estritamente atrelada ao hardware e varia para cada linguagem.",
+                    "A lógica de programação é universal e independe da linguagem escolhida.",
                     "É necessário dominar o vocabulário do Java antes de entender os algoritmos.",
                     "Algoritmos lógicos só podem ser escritos em linguagem de máquina."
                 ],
-                answer: "A lógica de programação é universal e independe da linguagem escolhida." //[cite: 3]
+                answer: "A lógica de programação é universal e independe da linguagem escolhida." //
             },
             {
                 id: 2,
@@ -38,12 +38,12 @@ createApp({
                 scenario: "Ao explicar o ciclo básico de processamento (Entrada, Processamento e Saída), você utiliza o conceito de uma função matemática.",
                 text: "Na analogia f(x) = y apresentada, o que o componente 'x' representa no ciclo de dados?",
                 options: [
-                    "Corresponde à nossa Entrada (dados).",
                     "Corresponde ao nosso Processamento.",
                     "Corresponde à nossa Saída (resultado).",
+                    "Corresponde à nossa Entrada (dados).",
                     "Corresponde à Linguagem de Máquina (binário)."
                 ],
-                answer: "Corresponde à nossa Entrada (dados)." //[cite: 3]
+                answer: "Corresponde à nossa Entrada (dados)." //
             },
             {
                 id: 3,
@@ -51,12 +51,12 @@ createApp({
                 scenario: "Você precisa criar um algoritmo para lavar a louça, mas não sabe previamente quantos pratos estão na pia.",
                 text: "Qual estrutura de controle de repetição é a correta para executar a ação repetidamente 'enquanto uma condição não for alcançada'?",
                 options: [
-                    "ENQUANTO (While).",
                     "PARA (For).",
                     "SE / ENTÃO (If / Else).",
-                    "Condicional de Processamento."
+                    "Condicional de Processamento.",
+                    "ENQUANTO (While)."
                 ],
-                answer: "ENQUANTO (While)." //[cite: 3]
+                answer: "ENQUANTO (While)." //
             },
             {
                 id: 4,
@@ -69,7 +69,7 @@ createApp({
                     "Pílula.",
                     "Retângulo."
                 ],
-                answer: "Paralelogramo." //[cite: 2]
+                answer: "Paralelogramo." //
             },
             {
                 id: 5,
@@ -77,12 +77,12 @@ createApp({
                 scenario: "O seu algoritmo precisa criar uma ramificação: se a nota for maior ou igual a 7, o aluno está aprovado; caso contrário, reprovado.",
                 text: "Qual forma geométrica representa essa pergunta de Sim/Não no fluxograma?",
                 options: [
-                    "Losango.",
                     "Retângulo.",
+                    "Losango.",
                     "Paralelogramo.",
                     "Pílula."
                 ],
-                answer: "Losango." //[cite: 2]
+                answer: "Losango." //
             },
             {
                 id: 6,
@@ -90,12 +90,12 @@ createApp({
                 scenario: "Durante o teste do seu algoritmo desenhado no Flowgorithm, você deseja acompanhar exatamente como os valores estão mudando passo a passo na memória.",
                 text: "Qual funcionalidade do Flowgorithm permite realizar esse acompanhamento?",
                 options: [
-                    "Janela de Variáveis (Watch Window).",
                     "Janela de Console.",
                     "Visualizador de Código-Fonte.",
+                    "Janela de Variáveis (Watch Window).",
                     "Tradutor de Múltiplos Idiomas."
                 ],
-                answer: "Janela de Variáveis (Watch Window)." //[cite: 2]
+                answer: "Janela de Variáveis (Watch Window)." //
             },
             {
                 id: 7,
@@ -103,12 +103,12 @@ createApp({
                 scenario: "Um sistema financeiro precisa armazenar a cotação do dólar (ex: 5.15) e o ano da transação (ex: 2026).",
                 text: "Quais são os tipos de dados adequados para essas duas variáveis, respectivamente?",
                 options: [
-                    "Real (Float) e Inteiro.",
                     "Inteiro e Caractere (String).",
                     "Lógico (Booleano) e Real.",
-                    "String e Inteiro."
+                    "String e Inteiro.",
+                    "Real (Float) e Inteiro."
                 ],
-                answer: "Real (Float) e Inteiro." //[cite: 1]
+                answer: "Real (Float) e Inteiro." //
             },
             {
                 id: 8,
@@ -121,7 +121,7 @@ createApp({
                     "Linguagens de Hardware.",
                     "Linguagens de Máquina Pura."
                 ],
-                answer: "Linguagens Tipadas (Tipagem Forte/Estática)." //[cite: 1]
+                answer: "Linguagens Tipadas (Tipagem Forte/Estática)." //
             },
             {
                 id: 9,
@@ -129,12 +129,12 @@ createApp({
                 scenario: "Para processar dados, o computador cria uma 'caixa organizadora' (variável) na memória, que recebe um Nome (Etiqueta) para ser achada depois.",
                 text: "Quais são os outros dois elementos fundamentais que compõem essa variável?",
                 options: [
-                    "Conteúdo (Valor) e Tipo.",
                     "Entrada e Saída.",
+                    "Conteúdo (Valor) e Tipo.",
                     "Processamento e Laço de Repetição.",
                     "Decisão e Condicional."
                 ],
-                answer: "Conteúdo (Valor) e Tipo." //[cite: 1]
+                answer: "Conteúdo (Valor) e Tipo." //
             },
             {
                 id: 10,
@@ -142,12 +142,12 @@ createApp({
                 scenario: "Antes de programar as linhas de código, sua equipe decide criar um fluxograma do projeto para apresentar aos gestores que não sabem programar.",
                 text: "Por que recursos como Fluxogramas e Pseudocódigos são úteis nesse contexto?",
                 options: [
-                    "Eles facilitam a comunicação, permitindo que outros entendam o funcionamento do sistema sem ler o código fonte.",
                     "Eles traduzem automaticamente o raciocínio da equipe para linguagem de máquina pura.",
                     "Eles processam dados gigabytes mais rápido que a capacidade humana.",
+                    "Eles facilitam a comunicação, permitindo que outros entendam o funcionamento do sistema sem ler o código fonte.",
                     "Eles são a única forma de compilar e executar o software no servidor."
                 ],
-                answer: "Eles facilitam a comunicação, permitindo que outros entendam o funcionamento do sistema sem ler o código fonte." //[cite: 3]
+                answer: "Eles facilitam a comunicação, permitindo que outros entendam o funcionamento do sistema sem ler o código fonte." //
             },
             {
                 id: 11,
@@ -155,12 +155,12 @@ createApp({
                 scenario: "Um sensor de catraca envia informações ao sistema indicando apenas se a passagem está liberada ou bloqueada.",
                 text: "Qual é o tipo de dado primitivo que admite apenas dois estados absolutos (Verdadeiro/Falso)?",
                 options: [
-                    "Lógico (Booleano).",
                     "Inteiro (Integer).",
                     "Real (Float / Decimal).",
-                    "Caractere (String)."
+                    "Caractere (String).",
+                    "Lógico (Booleano)."
                 ],
-                answer: "Lógico (Booleano)." //[cite: 1]
+                answer: "Lógico (Booleano)." //
             },
             {
                 id: 12,
@@ -173,7 +173,7 @@ createApp({
                     "SE (If).",
                     "SENÃO (Else)."
                 ],
-                answer: "PARA (For)." //[cite: 3]
+                answer: "PARA (For)." //
             },
             {
                 id: 13,
@@ -181,12 +181,12 @@ createApp({
                 scenario: "O computador entende apenas binário (0s e 1s), enquanto os programadores pensam usando linguagem natural e lógica.",
                 text: "Qual é a função da Linguagem de Programação nesse processo?",
                 options: [
-                    "Agir como uma ponte ou tradutor entre o raciocínio humano e os comandos do hardware.",
                     "Gerar os símbolos geométricos do fluxograma para a placa-mãe.",
+                    "Agir como uma ponte ou tradutor entre o raciocínio humano e os comandos do hardware.",
                     "Excluir a necessidade de utilizar variáveis na memória RAM.",
                     "Converter automaticamente qualquer pseudocódigo em componentes de hardware."
                 ],
-                answer: "Agir como uma ponte ou tradutor entre o raciocínio humano e os comandos do hardware." //[cite: 3]
+                answer: "Agir como uma ponte ou tradutor entre o raciocínio humano e os comandos do hardware." //
             },
             {
                 id: 14,
@@ -194,12 +194,12 @@ createApp({
                 scenario: "Ao estudar no laboratório da faculdade, você opta por baixar a versão executável (Portable) do Flowgorithm.",
                 text: "Quais as vantagens de utilizar essa versão específica em computadores compartilhados?",
                 options: [
-                    "Não requer instalação demorada e não precisa de permissões de Administrador.",
                     "Possui gráficos tridimensionais avançados que não rodam em navegadores.",
                     "Garante que o código será obrigatoriamente exportado apenas para C++.",
+                    "Não requer instalação demorada e não precisa de permissões de Administrador.",
                     "Aumenta a complexidade sintática para acelerar o aprendizado da linguagem de máquina."
                 ],
-                answer: "Não requer instalação demorada e não precisa de permissões de Administrador." //[cite: 2]
+                answer: "Não requer instalação demorada e não precisa de permissões de Administrador." //
             },
             {
                 id: 15,
@@ -207,12 +207,12 @@ createApp({
                 scenario: "Após receber o valor do salário base e do bônus, o algoritmo precisa somá-los para definir o salário final.",
                 text: "Qual figura geométrica é utilizada para indicar cálculos, fórmulas e atribuições de variáveis?",
                 options: [
-                    "Retângulo.",
                     "Losango.",
                     "Paralelogramo.",
-                    "Pílula."
+                    "Pílula.",
+                    "Retângulo."
                 ],
-                answer: "Retângulo." //[cite: 2]
+                answer: "Retângulo." //
             },
             {
                 id: 16,
@@ -225,7 +225,7 @@ createApp({
                     "Aceitam comandos em linguagem natural desde que formatados como variáveis.",
                     "Adaptam-se aos erros do programador durante o ciclo de processamento."
                 ],
-                answer: "Possuem vocabulário próprio (palavras reservadas) e uma sintaxe rígida (regras gramaticais)." //[cite: 3]
+                answer: "Possuem vocabulário próprio (palavras reservadas) e uma sintaxe rígida (regras gramaticais)." //
             },
             {
                 id: 17,
@@ -233,12 +233,12 @@ createApp({
                 scenario: "No JavaScript, você declarou uma variável guardando um texto hoje, mas amanhã pode guardar um número nela sem gerar erro.",
                 text: "Como as linguagens de programação dinâmicas tratam as variáveis?",
                 options: [
-                    "Descobrem o tipo automaticamente e se adaptam ao conteúdo que é colocado dentro.",
                     "Exigem que o tipo seja declarado antes, mas ignoram falhas no runtime.",
+                    "Descobrem o tipo automaticamente e se adaptam ao conteúdo que é colocado dentro.",
                     "Bloqueiam a variável, impedindo que ela mude de valor durante o software.",
                     "Convertem todo dado inserido para o formato Real (Float)."
                 ],
-                answer: "Descobrem o tipo automaticamente e se adaptam ao conteúdo que é colocado dentro." //[cite: 1]
+                answer: "Descobrem o tipo automaticamente e se adaptam ao conteúdo que é colocado dentro." //
             },
             {
                 id: 18,
@@ -246,12 +246,12 @@ createApp({
                 scenario: "Você precisa guardar a placa de um carro ('ABC-1234') em uma variável na memória.",
                 text: "Qual a exigência formal da lógica para guardar esse dado do tipo Caractere/Cadeia?",
                 options: [
-                    "O conteúdo deve sempre usar aspas.",
                     "O conteúdo não pode conter números misturados com letras.",
                     "A variável precisa ser do tipo Booleano para validar os traços.",
+                    "O conteúdo deve sempre usar aspas.",
                     "A etiqueta da variável deve ser escrita em maiúsculo."
                 ],
-                answer: "O conteúdo deve sempre usar aspas." //[cite: 1]
+                answer: "O conteúdo deve sempre usar aspas." //
             },
             {
                 id: 19,
@@ -259,12 +259,12 @@ createApp({
                 scenario: "Seu professor pediu para você testar a entrada de dados do seu fluxograma diretamente no Flowgorithm.",
                 text: "No ambiente dessa ferramenta, o que a funcionalidade 'Janela de Console' permite fazer?",
                 options: [
-                    "Simular uma tela onde é possível digitar dados e ver as mensagens de saída do programa.",
                     "Traduzir o código-fonte desenhado para a linguagem PHP.",
                     "Exportar o diagrama para um documento PDF interativo.",
-                    "Inspecionar a carga na memória RAM utilizada pelo software."
+                    "Inspecionar a carga na memória RAM utilizada pelo software.",
+                    "Simular uma tela onde é possível digitar dados e ver as mensagens de saída do programa."
                 ],
-                answer: "Simular uma tela onde é possível digitar dados e ver as mensagens de saída do programa." //[cite: 2]
+                answer: "Simular uma tela onde é possível digitar dados e ver as mensagens de saída do programa." //
             },
             {
                 id: 20,
@@ -277,7 +277,7 @@ createApp({
                     "Possui inteligência artificial que resolve o problema automaticamente.",
                     "Substitui a necessidade de planejar um fluxograma antes de codificar."
                 ],
-                answer: "Permite focar em pensar como programador sem a frustração de esquecer um ponto-e-vírgula." //[cite: 2]
+                answer: "Permite focar em pensar como programador sem a frustração de esquecer um ponto-e-vírgula." //
             },
             {
                 id: 21,
@@ -285,12 +285,12 @@ createApp({
                 scenario: "No seu pseudocódigo, você escreveu a instrução: 'LEIA (nota)'.",
                 text: "Esse comando corresponde a qual etapa essencial do Ciclo de Processamento de Dados?",
                 options: [
-                    "Entrada (Input).",
                     "Processamento da Função f(x).",
+                    "Entrada (Input).",
                     "Saída (Output).",
                     "Ramificação Condicional."
                 ],
-                answer: "Entrada (Input)." //[cite: 3]
+                answer: "Entrada (Input)." //
             },
             {
                 id: 22,
@@ -298,12 +298,12 @@ createApp({
                 scenario: "Ao tentar rodar um algoritmo no Flowgorithm, o sistema acusa um loop infinito e falha.",
                 text: "O que o recurso de 'Feedback Imediato' da ferramenta proporciona nessa situação?",
                 options: [
-                    "Você vê visualmente em qual bloco o programa parou devido ao erro de lógica.",
                     "Ele reescreve a regra matemática para corrigir a falha silenciosamente.",
                     "Ele deleta o bloco defeituoso e executa a ramificação mais próxima.",
+                    "Você vê visualmente em qual bloco o programa parou devido ao erro de lógica.",
                     "Ele emite um som de alerta do hardware."
                 ],
-                answer: "Você vê visualmente em qual bloco o programa parou devido ao erro de lógica." //[cite: 2]
+                answer: "Você vê visualmente em qual bloco o programa parou devido ao erro de lógica." //
             },
             {
                 id: 23,
@@ -311,12 +311,12 @@ createApp({
                 scenario: "A programação é muitas vezes comparada a uma grande função matemática 'f(x) = y'.",
                 text: "Nessa abstração, o que a variável 'y' representa no sistema de processamento?",
                 options: [
-                    "Corresponde à nossa Saída (resultado / informação).",
                     "Corresponde ao nosso Processamento lógico f().",
                     "Corresponde à nossa Entrada de dados.",
-                    "Corresponde ao hardware executando em segundo plano."
+                    "Corresponde ao hardware executando em segundo plano.",
+                    "Corresponde à nossa Saída (resultado / informação)."
                 ],
-                answer: "Corresponde à nossa Saída (resultado / informação)." //[cite: 3]
+                answer: "Corresponde à nossa Saída (resultado / informação)." //
             },
             {
                 id: 24,
@@ -329,7 +329,7 @@ createApp({
                     "Paralelogramo.",
                     "Losango."
                 ],
-                answer: "Formato de pílula." //[cite: 2]
+                answer: "Formato de pílula." //
             },
             {
                 id: 25,
@@ -337,12 +337,12 @@ createApp({
                 scenario: "Você apresenta as vantagens mercadológicas da programação para uma equipe de vendas corporativa.",
                 text: "Dentre as utilidades práticas, qual é a definição para o 'Processamento massivo' abordada na aula?",
                 options: [
-                    "Lidar com gigabytes de dados muito além da capacidade humana.",
                     "Executar tarefas repetitivas milhares de vezes sem cansaço.",
+                    "Lidar com gigabytes de dados muito além da capacidade humana.",
                     "Traduzir linguagens faladas em tempo real com precisão.",
                     "Criar abstrações visuais dinâmicas."
                 ],
-                answer: "Lidar com gigabytes de dados muito além da capacidade humana." //[cite: 3]
+                answer: "Lidar com gigabytes de dados muito além da capacidade humana." //
             },
             {
                 id: 26,
@@ -350,12 +350,12 @@ createApp({
                 scenario: "Um código precisa determinar: SE chover, ENTÃO levo o guarda-chuva, SENÃO levo óculos de sol.",
                 text: "Sobre a execução estrutural de um algoritmo, qual é o papel exato da estrutura SE / SENÃO?",
                 options: [
-                    "Permite que o algoritmo escolha um caminho baseado em uma condição (Verdadeiro ou Falso).",
                     "Permite que a instrução se repita infinitamente até a chuva parar.",
                     "Força a linguagem tipada a alterar a variável de tempo dinamicamente.",
+                    "Permite que o algoritmo escolha um caminho baseado em uma condição (Verdadeiro ou Falso).",
                     "Converte as respostas naturais em código binário de hardware."
                 ],
-                answer: "Permite que o algoritmo escolha um caminho baseado em uma condição (Verdadeiro ou Falso)." //[cite: 3]
+                answer: "Permite que o algoritmo escolha um caminho baseado em uma condição (Verdadeiro ou Falso)." //
             },
             {
                 id: 27,
@@ -363,12 +363,12 @@ createApp({
                 scenario: "Um estudante precisa declarar uma variável para a quantidade de itens em estoque, e no sistema, o estoque pode ficar negativo (-5).",
                 text: "Qual é o tipo de dado primitivo mais adequado para guardar essa informação?",
                 options: [
-                    "Inteiro (Integer), pois engloba números exatos, positivos ou negativos.",
                     "Real (Float), pois o número negativo exige processamento decimal.",
                     "Booleano, pois determina a existência ou não de um produto.",
-                    "String, pois o sinal de menos é um caractere textual."
+                    "String, pois o sinal de menos é um caractere textual.",
+                    "Inteiro (Integer), pois engloba números exatos, positivos ou negativos."
                 ],
-                answer: "Inteiro (Integer), pois engloba números exatos, positivos ou negativos." //[cite: 1]
+                answer: "Inteiro (Integer), pois engloba números exatos, positivos ou negativos." //
             },
             {
                 id: 28,
@@ -381,7 +381,7 @@ createApp({
                     "Compreendem comandos estruturados em pseudocódigo traduzido.",
                     "Entendem pacotes matemáticos representados por funções visuais."
                 ],
-                answer: "Só entendem linguagem de máquina (0s e 1s, binário)." //[cite: 3]
+                answer: "Só entendem linguagem de máquina (0s e 1s, binário)." //
             },
             {
                 id: 29,
@@ -389,12 +389,12 @@ createApp({
                 scenario: "No seu pseudocódigo de cálculo de notas, você utilizou a estrutura 'PARA i DE 1 ATE 4 FACA'.",
                 text: "O que caracteriza especificamente o uso de uma estrutura de repetição PARA (For)?",
                 options: [
-                    "Executa o código um número exato e predeterminado de vezes.",
                     "Executa o código repetidamente enquanto uma condição aleatória não for alcançada.",
+                    "Executa o código um número exato e predeterminado de vezes.",
                     "Realiza um teste lógico final antes de liberar a variável.",
                     "Cria uma ramificação onde o programa pula imediatamente para a linha 4."
                 ],
-                answer: "Executa o código um número exato e predeterminado de vezes." //[cite: 3]
+                answer: "Executa o código um número exato e predeterminado de vezes." //
             },
             {
                 id: 30,
@@ -402,26 +402,25 @@ createApp({
                 scenario: "Sua equipe construiu a lógica inteira conectando formas geométricas e testando as saídas no sistema de console.",
                 text: "Além de focar no visual, o que o Flowgorithm faz com o fluxograma que você desenhou para ajudar no desenvolvimento real?",
                 options: [
-                    "O traduz automaticamente para dezenas de linguagens reais (Python, Java, C#, etc).",
                     "Gera um documento de texto não editável para análise de requisitos.",
                     "Oculta os símbolos visuais e força o aluno a reescrever tudo usando teclado mecânico.",
+                    "O traduz automaticamente para dezenas de linguagens reais (Python, Java, C#, etc).",
                     "Otimiza as linhas gráficas para poupar espaço no HD portátil."
                 ],
-                answer: "O traduz automaticamente para dezenas de linguagens reais (Python, Java, C#, etc)." //[cite: 2]
+                answer: "O traduz automaticamente para dezenas de linguagens reais (Python, Java, C#, etc)." //
             },
-            // --- INÍCIO DAS QUESTÕES EXTRAS SOBRE CASOS DE USO E FLUXOGRAMAS ---
             {
                 id: 31,
                 instruction: "Estruturação Visual de Processamento Múltiplo.",
                 scenario: "Problema: O sistema de um banco precisa ler o saldo atual e o valor de um saque. Em seguida, deve subtrair o saque do saldo e guardar o novo valor.",
                 text: "Como essa sequência lógica deve ser desenhada no fluxograma considerando os símbolos geométricos adequados?",
                 options: [
-                    "Paralelogramo (Ler saldo e saque) seguido de um Retângulo (Novo Saldo = Saldo - Saque).",
                     "Retângulo (Ler saldo e saque) seguido de um Losango (Novo Saldo = Saldo - Saque).",
                     "Losango (Ler saldo) apontando diretamente para um Retângulo de Saída.",
-                    "Paralelogramo de Entrada seguido de um Paralelogramo de Cálculo Matemático."
+                    "Paralelogramo de Entrada seguido de um Paralelogramo de Cálculo Matemático.",
+                    "Paralelogramo (Ler saldo e saque) seguido de um Retângulo (Novo Saldo = Saldo - Saque)."
                 ],
-                answer: "Paralelogramo (Ler saldo e saque) seguido de um Retângulo (Novo Saldo = Saldo - Saque)." //[cite: 2]
+                answer: "Paralelogramo (Ler saldo e saque) seguido de um Retângulo (Novo Saldo = Saldo - Saque)." //
             },
             {
                 id: 32,
@@ -434,7 +433,7 @@ createApp({
                     "Um símbolo de Pílula (Início) conectando direto a um paralelogramo de saída parcial.",
                     "Um paralelogramo verificando o cupom seguido de um losango aplicando o desconto matematicamente."
                 ],
-                answer: "Um losango (Tem cupom?), ramificando em duas setas (Sim/Não) para caminhos diferentes." //[cite: 2, 3]
+                answer: "Um losango (Tem cupom?), ramificando em duas setas (Sim/Não) para caminhos diferentes." //
             },
             {
                 id: 33,
@@ -442,12 +441,12 @@ createApp({
                 scenario: "Problema: O programa de uma catraca eletrônica precisa continuar verificando o sensor repetidamente ENQUANTO o ambiente estiver sem movimento.",
                 text: "Como um ciclo de repetição contínuo baseado em condição é representado visualmente no fluxograma?",
                 options: [
-                    "Um losango de condição onde a seta de um dos caminhos (ex: Sim) retorna para antes da própria pergunta, criando um ciclo.",
                     "Múltiplos retângulos desenhados um abaixo do outro infinitamente no painel de controle.",
+                    "Um losango de condição onde a seta de um dos caminhos (ex: Sim) retorna para antes da própria pergunta, criando um ciclo.",
                     "Um paralelogramo de entrada de dados que se conecta isoladamente a um símbolo de Início.",
                     "Uma Pílula de Fim com uma seta reta apontando novamente para o meio de uma ramificação."
                 ],
-                answer: "Um losango de condição onde a seta de um dos caminhos (ex: Sim) retorna para antes da própria pergunta, criando um ciclo." //[cite: 2, 3]
+                answer: "Um losango de condição onde a seta de um dos caminhos (ex: Sim) retorna para antes da própria pergunta, criando um ciclo." //
             },
             {
                 id: 34,
@@ -455,12 +454,12 @@ createApp({
                 scenario: "Problema: O algoritmo precisa exibir na tela do usuário a mensagem 'Bem-vindo ao Sistema' logo após ser iniciado.",
                 text: "Qual é a sequência correta dos dois primeiros blocos desse fluxograma?",
                 options: [
-                    "Formato de Pílula (Início) conectando para um Paralelogramo (Saída: 'Bem-vindo ao Sistema').",
                     "Retângulo (Início) conectando para um Losango (Saída: 'Bem-vindo ao Sistema').",
                     "Paralelogramo (Início) conectando para uma Pílula (Saída: 'Bem-vindo ao Sistema').",
+                    "Formato de Pílula (Início) conectando para um Paralelogramo (Saída: 'Bem-vindo ao Sistema').",
                     "Losango (Início) conectando para um Retângulo (Saída: 'Bem-vindo ao Sistema')."
                 ],
-                answer: "Formato de Pílula (Início) conectando para um Paralelogramo (Saída: 'Bem-vindo ao Sistema')." //[cite: 2]
+                answer: "Formato de Pílula (Início) conectando para um Paralelogramo (Saída: 'Bem-vindo ao Sistema')." //
             },
             {
                 id: 35,
@@ -468,12 +467,12 @@ createApp({
                 scenario: "Problema: O sistema pergunta 'Qual sua temperatura?'. O usuário digita 39. O algoritmo guarda isso e decide: se for >= 38, exibe 'Febre', senão exibe 'Normal'.",
                 text: "Qual a sequência lógica de componentes recomendada para construir esse fluxograma?",
                 options: [
-                    "Paralelogramo de Saída (Exibir Pergunta) -> Paralelogramo de Entrada (Ler Temperatura) -> Losango (Temp >= 38?) -> Paralelogramos de Saída (Exibir Status).",
                     "Retângulo (Pergunta) -> Retângulo (Ler) -> Retângulo (Decidir) -> Retângulo (Mostrar tela).",
                     "Losango de Entrada (Pergunta) -> Losango de Processamento -> Paralelogramo de Condição -> Pílulas de Saída finais.",
-                    "Paralelogramo (Atribuição Temp = 39) -> Losango (Mostrar Resultado em Tela) -> Retângulo (Fim do processo)."
+                    "Paralelogramo (Atribuição Temp = 39) -> Losango (Mostrar Resultado em Tela) -> Retângulo (Fim do processo).",
+                    "Paralelogramo de Saída (Exibir Pergunta) -> Paralelogramo de Entrada (Ler Temperatura) -> Losango (Temp >= 38?) -> Paralelogramos de Saída (Exibir Status)."
                 ],
-                answer: "Paralelogramo de Saída (Exibir Pergunta) -> Paralelogramo de Entrada (Ler Temperatura) -> Losango (Temp >= 38?) -> Paralelogramos de Saída (Exibir Status)." //[cite: 2, 3]
+                answer: "Paralelogramo de Saída (Exibir Pergunta) -> Paralelogramo de Entrada (Ler Temperatura) -> Losango (Temp >= 38?) -> Paralelogramos de Saída (Exibir Status)." //
             }
         ]);
 
