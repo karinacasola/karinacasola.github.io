@@ -415,23 +415,22 @@ createApp({
         ]);
 
         // =========================================================================
-        // NOVO BLOCO: Lógica para randomizar a posição da resposta correta 
-        // de forma sucessiva (1ª opção, 2ª opção, 3ª opção, 4ª opção, repete...)
+        // NOVO BLOCO: Algoritmo seguro de Embaralhamento (Fisher-Yates)
+        // Embaralha as posições aleatoriamente garantindo dinamismo real,
+        // e evitando bugs de reatividade do Vue ao usar splice
         // =========================================================================
-        questions.value.forEach((question, index) => {
-            // Encontra qual é o índice atual da resposta correta dentro do array
-            const currentAnswerIndex = question.options.indexOf(question.answer);
-            
-            if (currentAnswerIndex !== -1) {
-                // Remove a resposta correta da sua posição original (geralmente índice 0)
-                question.options.splice(currentAnswerIndex, 1);
-                
-                // Calcula a nova posição baseada no índice da questão (0, 1, 2, 3, 0, 1...)
-                const newPosition = index % 4; 
-                
-                // Insere a resposta correta de volta na nova posição dinâmica
-                question.options.splice(newPosition, 0, question.answer);
+        const shuffleArray = (array) => {
+            const newArray = [...array]; // Clona o array para evitar problemas de reatividade
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
             }
+            return newArray;
+        };
+
+        // Aplica o embaralhamento para todas as questões ao iniciar
+        questions.value.forEach(question => {
+            question.options = shuffleArray(question.options);
         });
         // =========================================================================
 
