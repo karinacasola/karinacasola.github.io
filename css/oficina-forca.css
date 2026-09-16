@@ -1,0 +1,108 @@
+.explanation-box-terminal {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    animation: fadeIn 0.5s ease;
+}
+
+.explanation-text {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-top: 10px;
+}
+
+.explanation-text strong {
+    color: var(--accent-blue);
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* ==========================================================================
+   ESTILOS DA TELA FINAL / RELATÓRIO (Otimizado para html2pdf)
+   ========================================================================== */
+.final-report {
+    background: #0f172a; 
+    padding: 40px;
+    border-radius: 8px;
+    color: #E0E0E0; /* Cor fixa para garantir visibilidade no PDF */
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: block; /* Evita que o flexbox do pai amasse o conteúdo */
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.report-header {
+    margin-bottom: 30px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+    padding-bottom: 20px;
+}
+
+.report-header h2 {
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    color: #ffffff; /* Cor fixa */
+}
+
+.report-header p {
+    color: #A0A0A0; /* Cor fixa */
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.report-score-box {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(62, 142, 255, 0.3);
+}
+
+.report-label {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #A0A0A0; /* Cor fixa */
+    letter-spacing: 2px;
+}
+
+.report-score-box h1 {
+    font-size: 64px;
+    margin: 10px 0;
+}
+
+.text-success { color: #10B981 !important; }
+.text-warning { color: #F59E0B !important; }
+
+.report-details {
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #A0A0A0; /* Cor fixa */
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.highlight {
+    color: #3E8EFF;
+    font-weight: bold;
+}
+
+.report-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .report-actions { flex-direction: column; }
+}
