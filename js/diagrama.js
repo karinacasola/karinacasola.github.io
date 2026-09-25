@@ -21,393 +21,393 @@ createApp({
         const questions = ref([
             {
                 id: 1,
-                instruction: "Conceitual: Orientação a Objetos.",
-                scenario: "A Orientação a Objetos (OO) é um paradigma de programação focado em aproximar a modelagem de software de elementos do mundo real.[cite: 1]",
-                text: "Quais são os dois conceitos fundamentais nos quais esse paradigma se baseia?[cite: 1]",
+                instruction: "Conceitual: Fundamentos da OO.",
+                scenario: "A Orientação a Objetos (OO) é um paradigma de programação cujo objetivo é aproximar a modelagem de software do mundo real.",
+                text: "Quais são os dois conceitos fundamentais nos quais esse paradigma se baseia?",
                 options: [
                     "Variáveis e Laços de Repetição.",
                     "Entidades e Cardinalidades.",
-                    "Classes e Objetos.[cite: 1]",
+                    "Classes e Objetos.",
                     "Tabelas e Procedimentos."
                 ],
-                answer: "Classes e Objetos.[cite: 1]" 
+                answer: "Classes e Objetos." 
             },
             {
                 id: 2,
-                instruction: "Prática: Loja Virtual.",
-                scenario: "Em um e-commerce, um cliente pode realizar vários pedidos.[cite: 2]",
-                text: "Como ficaria a modelagem da multiplicidade entre Cliente e Pedido considerando a regra acima?[cite: 2]",
+                instruction: "Prática: Loja Virtual (E-commerce).",
+                scenario: "Em um e-commerce, um cliente pode realizar vários pedidos, mas um pedido pertence a um único cliente.",
+                text: "Como ficaria a modelagem da multiplicidade entre a classe Cliente e a classe Pedido?",
                 options: [
                     "Cliente (1) --- (1) Pedido",
-                    "Cliente (1) --- (0..*) Pedido[cite: 1, 2]",
+                    "Cliente (1) --- (0..*) Pedido",
                     "Cliente (*) --- (*) Pedido",
                     "Cliente (0..1) --- (1..*) Pedido"
                 ],
-                answer: "Cliente (1) --- (0..*) Pedido[cite: 1, 2]"
+                answer: "Cliente (1) --- (0..*) Pedido"
             },
             {
                 id: 3,
-                instruction: "Alternativa Correta: Visibilidade.",
-                scenario: "O Diagrama de Classes utiliza uma simbologia específica para definir o acesso aos atributos e métodos.[cite: 1]",
-                text: "Qual símbolo representa a visibilidade Privada (Private), onde o acesso é permitido apenas pela própria classe?[cite: 1]",
+                instruction: "Alternativa Correta: Visibilidade UML.",
+                scenario: "O Diagrama de Classes utiliza uma simbologia específica antes do nome dos atributos e métodos para definir o acesso.",
+                text: "Qual símbolo representa a visibilidade Privada (Private), onde o acesso é restrito à própria classe?",
                 options: [
-                    "(+)[cite: 1]",
-                    "(#)[cite: 1]",
-                    "(-)[cite: 1]",
-                    "(*)[cite: 1]"
+                    "(+)",
+                    "(#)",
+                    "(-)",
+                    "(*)"
                 ],
-                answer: "(-)[cite: 1]"
+                answer: "(-)"
             },
             {
                 id: 4,
-                instruction: "Conceitual: Abstração.",
-                scenario: "Na abstração, a Classe é comparada à 'planta baixa' de uma casa, enquanto o Objeto é a 'casa construída'.[cite: 1]",
-                text: "O que essa analogia indica sobre a relação entre classes e objetos?[cite: 1]",
+                instruction: "Conceitual: Entendendo a Abstração.",
+                scenario: "Na analogia da abstração estrutural, a Classe é comparada à 'planta baixa' de uma casa, enquanto o Objeto é a 'casa construída'.",
+                text: "O que essa analogia indica sobre a relação entre classes e objetos na memória?",
                 options: [
-                    "Você pode instanciar (construir) vários objetos independentes usando a mesma classe (planta).[cite: 1]",
-                    "Uma classe deve ser descartada após a criação do primeiro objeto.[cite: 1]",
-                    "Objetos diferentes compartilham a mesma instância física de memória.[cite: 1]",
-                    "A planta baixa contém os dados reais, e a casa é apenas um modelo teórico.[cite: 1]"
+                    "A partir de uma única planta (classe), pode-se construir (instanciar) várias casas (objetos) independentes.",
+                    "A classe deve ser descartada após a criação do primeiro objeto no sistema.",
+                    "Todos os objetos instanciados compartilham os mesmos dados de estado físico.",
+                    "A planta baixa armazena os dados, enquanto a casa define as regras lógicas."
                 ],
-                answer: "Você pode instanciar (construir) vários objetos independentes usando a mesma classe (planta).[cite: 1]"
+                answer: "A partir de uma única planta (classe), pode-se construir (instanciar) várias casas (objetos) independentes."
             },
             {
                 id: 5,
                 instruction: "Prática: Jogo de RPG.",
-                scenario: "O jogo possui a figura do Personagem base. O personagem pode ser especializado em Mago ou Guerreiro.[cite: 2]",
-                text: "Qual tipo de relacionamento UML existe entre Mago/Guerreiro e a classe base Personagem?[cite: 2]",
+                scenario: "No RPG, existe um 'Personagem' base com nível e vida. Ele pode ser especializado em 'Mago' (com poder mágico) ou 'Guerreiro' (com armadura).",
+                text: "Qual é o relacionamento UML que liga Mago e Guerreiro à classe Personagem?",
                 options: [
-                    "Composição.[cite: 1]",
-                    "Agregação.[cite: 1]",
-                    "Associação.[cite: 1]",
-                    "Herança (É um).[cite: 1, 2]"
+                    "Composição.",
+                    "Agregação.",
+                    "Associação.",
+                    "Herança (É um)."
                 ],
-                answer: "Herança (É um).[cite: 1, 2]"
+                answer: "Herança (É um)."
             },
             {
                 id: 6,
                 instruction: "Alternativa Correta: História da UML.",
-                scenario: "A UML foi criada para resolver a 'Guerra dos Métodos' na engenharia de software.[cite: 3]",
-                text: "Quem são os 'Três Amigos' responsáveis por unir os métodos mais populares e criar a UML em 1994?[cite: 3]",
+                scenario: "Nos anos 90, existiam mais de 50 métodos de modelagem diferentes, gerando um caos na comunicação entre engenheiros.",
+                text: "Quem foram 'Os Três Amigos' que se uniram em 1994 para criar a UML?",
                 options: [
                     "Alan Turing, Ada Lovelace e Charles Babbage.",
-                    "Grady Booch, James Rumbaugh e Ivar Jacobson.[cite: 3]",
+                    "Grady Booch, James Rumbaugh e Ivar Jacobson.",
                     "Steve Jobs, Bill Gates e Linus Torvalds.",
                     "Scott Ambler, Martin Fowler e Robert C. Martin."
                 ],
-                answer: "Grady Booch, James Rumbaugh e Ivar Jacobson.[cite: 3]"
+                answer: "Grady Booch, James Rumbaugh e Ivar Jacobson."
             },
             {
                 id: 7,
                 instruction: "Conceitual: Polimorfismo.",
-                scenario: "No paradigma orientado a objetos, as classes filhas herdam métodos da classe pai.[cite: 1]",
-                text: "Qual é a principal função do Polimorfismo nesse contexto?[cite: 1]",
+                scenario: "A herança permite que uma classe filha reaproveite o código da classe pai. Já o polimorfismo atua sobre o comportamento herdado.",
+                text: "Qual é a principal função do Polimorfismo em um método como 'acelerar()'?",
                 options: [
-                    "Impedir que a classe filha altere o código da classe pai.[cite: 1]",
-                    "Transformar atributos públicos em privados automaticamente.[cite: 1]",
-                    "Permitir reescrever (sobrescrever) o comportamento de um método herdado.[cite: 1]",
-                    "Obrigar a classe filha a deletar os métodos do pai.[cite: 1]"
+                    "Bloquear o acesso da classe filha ao método do pai.",
+                    "Transformar atributos públicos em privados.",
+                    "Permitir que a classe filha reescreva ou adapte o comportamento do método herdado.",
+                    "Exigir que a classe filha crie um novo método com nome diferente."
                 ],
-                answer: "Permitir reescrever (sobrescrever) o comportamento de um método herdado.[cite: 1]"
+                answer: "Permitir que a classe filha reescreva ou adapte o comportamento do método herdado."
             },
             {
                 id: 8,
                 instruction: "Prática: Clínica Médica.",
-                scenario: "Cada consulta gera exatamente um prontuário. Se a consulta for apagada, o prontuário deixa de existir.[cite: 2]",
-                text: "Como o relacionamento entre Consulta e Prontuário deve ser modelado?[cite: 2]",
+                scenario: "Cada consulta gera exatamente um prontuário. Se a consulta for cancelada e apagada, o prontuário associado deve ser destruído também.",
+                text: "Como o relacionamento entre Consulta e Prontuário deve ser modelado no diagrama?",
                 options: [
-                    "Composição (Losango preenchido), pois a parte depende do todo.[cite: 1, 2]",
-                    "Agregação (Losango vazado), pois a parte é independente.[cite: 1, 2]",
-                    "Herança (Seta vazada), pois o prontuário é uma consulta.[cite: 1, 2]",
-                    "Multiplicidade 0..*, pois o prontuário é opcional.[cite: 1, 2]"
+                    "Composição (Losango preenchido), indicando dependência existencial forte.",
+                    "Agregação (Losango vazado), pois o prontuário é independente.",
+                    "Herança (Seta vazada), pois o prontuário é um tipo de consulta.",
+                    "Associação Simples com multiplicidade 0..*."
                 ],
-                answer: "Composição (Losango preenchido), pois a parte depende do todo.[cite: 1, 2]"
+                answer: "Composição (Losango preenchido), indicando dependência existencial forte."
             },
             {
                 id: 9,
-                instruction: "Alternativa Correta: DER vs Diagrama de Classes.",
-                scenario: "Diagramas diferentes analisam o sistema sob lentes diferentes.[cite: 3]",
-                text: "Qual é a principal diferença estrutural entre um DER e um Diagrama de Classes?[cite: 3]",
+                instruction: "Alternativa Correta: DER vs Classes.",
+                scenario: "Embora o Diagrama de Entidade-Relacionamento (DER) e o Diagrama de Classes organizem sistemas, eles usam lentes diferentes.",
+                text: "Qual é a principal diferença estrutural entre um DER e um Diagrama de Classes UML?",
                 options: [
-                    "O DER foca na lógica em memória, a Classe foca na interface.[cite: 3]",
-                    "Ambos são exatamente iguais, mudando apenas a linguagem de programação.[cite: 3]",
-                    "O DER foca apenas em Dados/Estado, enquanto o Diagrama de Classes mapeia Estado + Comportamento (métodos).[cite: 3]",
-                    "O Diagrama de Classes mapeia o banco de dados SQL, o DER mapeia o Front-End.[cite: 3]"
+                    "O DER mapeia a lógica de negócios e o Diagrama de Classes mapeia o banco SQL.",
+                    "Ambos são idênticos, mudando apenas a linguagem de programação final.",
+                    "O DER foca apenas em dados (estado), enquanto o Diagrama de Classes mapeia estado e comportamento (métodos).",
+                    "O Diagrama de Classes não possui atributos, apenas funções e métodos."
                 ],
-                answer: "O DER foca apenas em Dados/Estado, enquanto o Diagrama de Classes mapeia Estado + Comportamento (métodos).[cite: 3]"
+                answer: "O DER foca apenas em dados (estado), enquanto o Diagrama de Classes mapeia estado e comportamento (métodos)."
             },
             {
                 id: 10,
                 instruction: "Conceitual: Encapsulamento.",
-                scenario: "Em linguagens como Java, os atributos são comumente definidos como privados.[cite: 1]",
-                text: "Qual é a forma padrão e segura de expor e modificar esses atributos restritos?[cite: 1]",
+                scenario: "Em linguagens como Java, é uma prática padrão definir atributos da classe como privados para proteger a integridade dos dados.",
+                text: "Qual é a forma correta e segura de permitir que outras classes acessem e modifiquem esses atributos privados?",
                 options: [
-                    "Utilizando funções matemáticas nativas do sistema.[cite: 1]",
-                    "Transformando todos os atributos em globais.[cite: 1]",
-                    "Deixando o banco de dados alterar diretamente a memória.[cite: 1]",
-                    "Utilizando métodos Getters (acessar) e Setters (modificar).[cite: 1]"
+                    "Declarando as variáveis como globais.",
+                    "Ignorando o encapsulamento e mudando tudo para public.",
+                    "Por meio de métodos públicos conhecidos como Getters e Setters.",
+                    "Conectando o atributo diretamente à interface do usuário."
                 ],
-                answer: "Utilizando métodos Getters (acessar) e Setters (modificar).[cite: 1]"
+                answer: "Por meio de métodos públicos conhecidos como Getters e Setters."
             },
             {
                 id: 11,
-                instruction: "Prática: Casa Inteligente.",
-                scenario: "Uma Central de Controle gerencia Cômodos, que por sua vez agrupam diversos dispositivos que podem existir independentemente do cômodo.[cite: 2]",
-                text: "Qual é o relacionamento ideal entre Cômodo e Dispositivo Eletrônico?[cite: 2]",
+                instruction: "Prática: Gestão Universitária.",
+                scenario: "A Universidade é dividida em Departamentos. Cada Departamento 'agrupa' diversos Professores, mas os professores podem continuar existindo no sistema mesmo se o departamento fechar.",
+                text: "Qual é o relacionamento ideal entre Departamento e Professor?",
                 options: [
-                    "Herança (É um).[cite: 1]",
-                    "Composição (Tem um - Forte).[cite: 1]",
-                    "Agregação (Tem um - A parte existe sem o todo).[cite: 1, 2]",
-                    "Visibilidade Privada.[cite: 1]"
+                    "Herança (É um).",
+                    "Composição (Tem um - Forte).",
+                    "Agregação (Tem um - A parte existe sem o todo).",
+                    "Dependência Estrutural Privada."
                 ],
-                answer: "Agregação (Tem um - A parte existe sem o todo).[cite: 1, 2]"
+                answer: "Agregação (Tem um - A parte existe sem o todo)."
             },
             {
                 id: 12,
-                instruction: "Alternativa Correta: Definição de UML.",
-                scenario: "A UML tornou-se um padrão global na área de TI.[cite: 3]",
-                text: "O que significa a sigla UML?[cite: 3]",
+                instruction: "Alternativa Correta: Definição da UML.",
+                scenario: "A padronização visual foi essencial para grandes equipes de desenvolvimento corporativo.",
+                text: "O que significa exatamente a sigla UML?",
                 options: [
-                    "Universal Method of Logic.[cite: 3]",
-                    "Unified Modeling Language (Linguagem de Modelagem Unificada).[cite: 3]",
-                    "Unified Memory Layout.[cite: 3]",
-                    "User Management Level.[cite: 3]"
+                    "Universal Method of Logic.",
+                    "Unified Modeling Language (Linguagem de Modelagem Unificada).",
+                    "Unified Memory Layout.",
+                    "User Management Level."
                 ],
-                answer: "Unified Modeling Language (Linguagem de Modelagem Unificada).[cite: 3]"
+                answer: "Unified Modeling Language (Linguagem de Modelagem Unificada)."
             },
             {
                 id: 13,
-                instruction: "Conceitual: O Diagrama de Classes.",
-                scenario: "O Diagrama de Classes é considerado o 'coração' da UML estrutural.[cite: 1]",
-                text: "O que exatamente esse diagrama apresenta em sua notação visual?[cite: 1]",
+                instruction: "Conceitual: Anatomia da Classe UML.",
+                scenario: "O Diagrama de Classes é o 'coração' da modelagem estrutural orientada a objetos.",
+                text: "Quais são as 3 partes que compõem o retângulo representativo de uma Classe na UML padrão?",
                 options: [
-                    "A tela exata que o usuário final vai interagir no sistema.[cite: 1]",
-                    "Apenas os dados que serão gravados no disco rígido.[cite: 1]",
-                    "O nome das entidades, seus Atributos e seus Métodos.[cite: 1]",
-                    "A infraestrutura de servidores e redes físicas.[cite: 1]"
+                    "ID, Tabela e Cardinalidade.",
+                    "Nome da Classe, Atributos e Métodos.",
+                    "Nome do Objeto, Tipagem e Instância.",
+                    "Interface, Banco de Dados e Front-end."
                 ],
-                answer: "O nome das entidades, seus Atributos e seus Métodos.[cite: 1]"
+                answer: "Nome da Classe, Atributos e Métodos."
             },
             {
                 id: 14,
-                instruction: "Prática: Locadora de Veículos.",
-                scenario: "A locadora aluga Veículos. Um veículo pode ser Carro de Passeio, Moto ou Caminhão, e possui placa e ano.[cite: 2]",
-                text: "O que Carro de Passeio, Moto e Caminhão representam em relação à classe Veículo?[cite: 2]",
+                instruction: "Prática: Sistema Bancário.",
+                scenario: "Uma 'Conta Bancária' base possui número e saldo. Ela deve ser obrigatoriamente classificada como 'Conta Corrente' ou 'Conta Poupança'.",
+                text: "Nesse cenário, qual o papel de Conta Corrente e Conta Poupança em relação à Conta Bancária?",
                 options: [
-                    "Atributos da classe Veículo.[cite: 1, 2]",
-                    "Subclasses que utilizam Herança da classe pai Veículo.[cite: 1, 2]",
-                    "Métodos polimórficos de Veículo.[cite: 1, 2]",
-                    "Classes agregadas a um Contrato.[cite: 1, 2]"
+                    "São atributos booleanos da classe Conta Bancária.",
+                    "São instâncias de objetos diretos no banco de dados.",
+                    "São subclasses que herdam propriedades da superclasse Conta Bancária.",
+                    "São métodos polimórficos aplicados sobre o cliente."
                 ],
-                answer: "Subclasses que utilizam Herança da classe pai Veículo.[cite: 1, 2]"
+                answer: "São subclasses que herdam propriedades da superclasse Conta Bancária."
             },
             {
                 id: 15,
-                instruction: "Alternativa Correta: Simbologia de Relacionamento.",
-                scenario: "As linhas entre classes na UML indicam como elas interagem.[cite: 1]",
-                text: "Qual símbolo visual representa a Herança no Diagrama de Classes?[cite: 1]",
+                instruction: "Alternativa Correta: Simbologia de Relacionamentos.",
+                scenario: "As linhas desenhadas entre as caixas de um diagrama indicam como os objetos interagirão.",
+                text: "Qual símbolo visual, colocado na extremidade da linha, representa a Herança na UML?",
                 options: [
-                    "Uma linha simples contínua.[cite: 1]",
-                    "Um losango preenchido.[cite: 1]",
-                    "Uma seta vazada apontando para a classe Pai.[cite: 1]",
-                    "Um círculo com um sinal de mais.[cite: 1]"
+                    "Uma linha simples contínua.",
+                    "Um losango preenchido.",
+                    "Uma seta vazada (triângulo branco) apontando para a classe pai.",
+                    "Um losango vazado."
                 ],
-                answer: "Uma seta vazada apontando para a classe Pai.[cite: 1]"
+                answer: "Uma seta vazada (triângulo branco) apontando para a classe pai."
             },
             {
                 id: 16,
-                instruction: "Conceitual: Tipagem em Java.",
-                scenario: "Java possui características diferentes de linguagens de script como Python.[cite: 1]",
-                text: "O que significa dizer que o Java exige 'Tipagem Forte' ou 'Estática'?[cite: 1]",
+                instruction: "Conceitual: Tipagem de Variáveis.",
+                scenario: "Diferente do Python, a linguagem Java impõe um controle rígido sobre os dados no momento da compilação.",
+                text: "O que significa afirmar que Java exige 'Tipagem Forte/Estática' na Orientação a Objetos?",
                 options: [
-                    "Que o código não pode ser alterado após ser salvo.[cite: 1]",
-                    "Que variáveis e retornos precisam ter seus tipos (ex: int, double, void) declarados explicitamente.[cite: 1]",
-                    "Que o encapsulamento é opcional e baseado em convenção.[cite: 1]",
-                    "Que as classes filhas são fortemente amarradas ao banco de dados.[cite: 1]"
+                    "Que a arquitetura de banco de dados deve ser definida antes da classe.",
+                    "Que as variáveis e retornos de métodos precisam ter seus tipos (ex: int, String, double) declarados explicitamente.",
+                    "Que a herança múltipla é obrigatória em todos os módulos.",
+                    "Que não é permitido o uso de variáveis numéricas em objetos."
                 ],
-                answer: "Que variáveis e retornos precisam ter seus tipos (ex: int, double, void) declarados explicitamente.[cite: 1]"
+                answer: "Que as variáveis e retornos de métodos precisam ter seus tipos (ex: int, String, double) declarados explicitamente."
             },
             {
                 id: 17,
-                instruction: "Prática: Rede de Hotéis.",
-                scenario: "Uma reserva de hotel refere-se a um ou mais quartos para um período determinado.[cite: 2]",
-                text: "Como se lê a multiplicidade '1..*' no relacionamento entre Reserva e Quarto?[cite: 2]",
+                instruction: "Prática: Biblioteca.",
+                scenario: "Um Livro é escrito por um ou mais autores. O sistema não aceita o cadastro de um livro sem que haja pelo menos um autor definido.",
+                text: "Como se lê e se anota a multiplicidade no sentido Livro -> Autor?",
                 options: [
-                    "Zero ou muitos quartos.[cite: 1, 2]",
-                    "Exatamente um quarto obrigatório.[cite: 1, 2]",
-                    "Um ou muitos quartos (pelo menos um).[cite: 1, 2]",
-                    "No máximo um quarto.[cite: 1, 2]"
+                    "0..* (Zero ou muitos).",
+                    "1 (Exatamente um).",
+                    "1..* (Um ou muitos / Pelo menos um).",
+                    "0..1 (Zero ou um / Opcional)."
                 ],
-                answer: "Um ou muitos quartos (pelo menos um).[cite: 1, 2]"
+                answer: "1..* (Um ou muitos / Pelo menos um)."
             },
             {
                 id: 18,
                 instruction: "Alternativa Correta: Visibilidade Protegida.",
-                scenario: "Classes filhas podem precisar acessar atributos específicos da classe pai.[cite: 1]",
-                text: "Qual modificador de acesso é representado pelo símbolo (#) na UML?[cite: 1]",
+                scenario: "Em alguns casos, um atributo não deve ser público, mas as classes filhas precisam acessá-lo diretamente.",
+                text: "Qual modificador de acesso é representado pelo símbolo cerquilha (#) na UML?",
                 options: [
-                    "Public (Público).[cite: 1]",
-                    "Private (Privado).[cite: 1]",
-                    "Package (Pacote).[cite: 1]",
-                    "Protected (Protegido).[cite: 1]"
+                    "Public (Público).",
+                    "Private (Privado).",
+                    "Package (Pacote).",
+                    "Protected (Protegido)."
                 ],
-                answer: "Protected (Protegido).[cite: 1]"
+                answer: "Protected (Protegido)."
             },
             {
                 id: 19,
                 instruction: "Conceitual: UML e Métodos Ágeis.",
-                scenario: "O Manifesto Ágil prioriza 'Software em funcionamento mais que documentação abrangente'.[cite: 3]",
-                text: "Isso significa que a UML deve ser abandonada em projetos ágeis (como o Scrum)?[cite: 3]",
+                scenario: "O Manifesto Ágil valoriza mais 'software em funcionamento do que documentação abrangente'.",
+                text: "No contexto do desenvolvimento ágil (Scrum), o que acontece com o Diagrama de Classes?",
                 options: [
-                    "Sim, a UML é estritamente incompatível com o desenvolvimento iterativo.[cite: 3]",
-                    "Sim, fluxogramas substituíram a UML.[cite: 3]",
-                    "Não, a UML atua como uma ferramenta de comunicação visual e prevenção de débitos técnicos.[cite: 3]",
-                    "Não, mas apenas o DER deve ser desenhado para agilizar entregas.[cite: 3]"
+                    "Ele é abandonado porque o ágil proíbe desenhar diagramas.",
+                    "Ele é gerado automaticamente pelo banco de dados após a Sprint.",
+                    "Ele atua como um mapa estratégico leve e visual para alinhar a equipe antes da codificação.",
+                    "Ele se torna um contrato engessado de 500 páginas."
                 ],
-                answer: "Não, a UML atua como uma ferramenta de comunicação visual e prevenção de débitos técnicos.[cite: 3]"
+                answer: "Ele atua como um mapa estratégico leve e visual para alinhar a equipe antes da codificação."
             },
             {
                 id: 20,
-                instruction: "Prática: Player de Música Digital.",
-                scenario: "Um Álbum possui várias Faixas. Se os direitos expirarem e o Álbum for excluído, as faixas são sumariamente removidas.[cite: 2]",
-                text: "Essa dependência existencial caracteriza qual relacionamento UML entre Álbum e Faixa?[cite: 2]",
+                instruction: "Prática: Rede Social.",
+                scenario: "Um usuário cria uma Postagem e ela recebe vários Comentários. A regra exige que: se a Postagem for excluída, todos os seus Comentários devem ser destruídos.",
+                text: "Essa dependência de ciclo de vida caracteriza qual tipo de relacionamento entre Postagem e Comentário?",
                 options: [
-                    "Herança.[cite: 1, 2]",
-                    "Composição.[cite: 1, 2]",
-                    "Agregação.[cite: 1, 2]",
-                    "Polimorfismo.[cite: 1, 2]"
+                    "Herança.",
+                    "Composição (Relação Tem um Forte).",
+                    "Agregação (Relação Tem um Fraco).",
+                    "Polimorfismo."
                 ],
-                answer: "Composição.[cite: 1, 2]"
+                answer: "Composição (Relação Tem um Forte)."
             },
             {
                 id: 21,
-                instruction: "Alternativa Correta: Agregação.",
-                scenario: "A Agregação indica um relacionamento onde 'a parte pode existir sem o todo'.[cite: 1]",
-                text: "Como a Agregação é desenhada no Diagrama de Classes?[cite: 1]",
+                instruction: "Alternativa Correta: Símbolo de Agregação.",
+                scenario: "A Agregação denota que um objeto contém outros objetos, mas a existência deles é independente (a parte sobrevive sem o todo).",
+                text: "Como a Agregação é desenhada no Diagrama de Classes?",
                 options: [
-                    "Linha simples.[cite: 1]",
-                    "Losango preenchido na extremidade da classe Todo.[cite: 1]",
-                    "Seta vazada apontando para a classe Parte.[cite: 1]",
-                    "Losango vazado na extremidade da classe Todo.[cite: 1]"
+                    "Linha simples não direcional.",
+                    "Losango preenchido na extremidade da classe Todo.",
+                    "Losango vazado na extremidade da classe Todo.",
+                    "Seta pontilhada indicando dependência."
                 ],
-                answer: "Losango vazado na extremidade da classe Todo.[cite: 1]"
+                answer: "Losango vazado na extremidade da classe Todo."
             },
             {
                 id: 22,
-                instruction: "Conceitual: Justificativa para a OO.",
-                scenario: "Existem vários motivos para equipes adotarem a Orientação a Objetos.[cite: 1]",
-                text: "Como o Encapsulamento ajuda na Manutenção Facilitada de um sistema?[cite: 1]",
+                instruction: "Conceitual: Justificativa da OO.",
+                scenario: "Entre os vários benefícios do planejamento via Orientação a Objetos, destaca-se a facilidade na manutenção do software.",
+                text: "Como o princípio do Encapsulamento colabora para a manutenção do sistema em grandes equipes?",
                 options: [
-                    "Ele reescreve automaticamente erros de sintaxe em produção.[cite: 1]",
-                    "Ele garante que a alteração interna de um módulo (objeto) não quebre o sistema inteiro.[cite: 1]",
-                    "Ele elimina a necessidade de compilação do código Java.[cite: 1]",
-                    "Ele permite que múltiplos desenvolvedores editem a mesma linha de código simultaneamente.[cite: 1]"
+                    "Ocultando a complexidade interna do objeto, garantindo que alterações no seu motor não quebrem o restante do sistema que apenas o utiliza.",
+                    "Forçando o banco de dados a realizar backups automáticos a cada 5 minutos.",
+                    "Permitindo que qualquer classe modifique livremente os atributos das outras sem restrição.",
+                    "Compilando todo o código num único arquivo global procedural."
                 ],
-                answer: "Ele garante que a alteração interna de um módulo (objeto) não quebre o sistema inteiro.[cite: 1]"
+                answer: "Ocultando a complexidade interna do objeto, garantindo que alterações no seu motor não quebrem o restante do sistema que apenas o utiliza."
             },
             {
                 id: 23,
-                instruction: "Prática: Sistema Bancário.",
-                scenario: "Uma Conta Bancária deve ser classificada como Conta Corrente ou Conta Poupança.[cite: 2]",
-                text: "Quais entidades atuam como Subclasses (herdando propriedades) da Conta Base?[cite: 2]",
+                instruction: "Prática: Zoológico.",
+                scenario: "O zoológico gerencia Animais. Eles se dividem hierarquicamente em Mamíferos (que possuem tempo de gestação) e Aves (que possuem envergadura das asas).",
+                text: "Considerando os atributos específicos (gestação vs envergadura), qual o conceito OO empregado aqui?",
                 options: [
-                    "Cliente e Gerente.[cite: 2]",
-                    "Número e Agência.[cite: 2]",
-                    "Conta Corrente e Conta Poupança.[cite: 2]",
-                    "Depósito e Saque.[cite: 2]"
+                    "Mamíferos e Aves herdam de Animal, mas cada subclasse define seus atributos especializados.",
+                    "Mamíferos e Aves são atributos agregados à classe Recinto.",
+                    "Mamíferos compõem Aves em um relacionamento de dependência forte.",
+                    "Animal é uma interface que impede a criação de Aves e Mamíferos."
                 ],
-                answer: "Conta Corrente e Conta Poupança.[cite: 2]"
+                answer: "Mamíferos e Aves herdam de Animal, mas cada subclasse define seus atributos especializados."
             },
             {
                 id: 24,
                 instruction: "Alternativa Correta: Multiplicidade Opcional.",
-                scenario: "A multiplicidade define as restrições numéricas das relações.[cite: 1]",
-                text: "O que a anotação '0..1' significa na UML?[cite: 1]",
+                scenario: "A multiplicidade na UML define as restrições quantitativas de um relacionamento entre pontas.",
+                text: "O que a notação numérica '0..1' significa em uma relação?",
                 options: [
-                    "Um ou muitos.[cite: 1]",
-                    "Exatamente um.[cite: 1]",
-                    "Infinidade negativa.[cite: 1]",
-                    "Zero ou um (Opcional).[cite: 1]"
+                    "Um ou muitos.",
+                    "Exatamente um (Obrigatório).",
+                    "Infinidade negativa.",
+                    "Zero ou um (Opcional)."
                 ],
-                answer: "Zero ou um (Opcional).[cite: 1]"
+                answer: "Zero ou um (Opcional)."
             },
             {
                 id: 25,
-                instruction: "Conceitual: Diagramas UML Diversos.",
-                scenario: "Além do Diagrama de Classes, a UML possui diagramas para outras visões do sistema.[cite: 1]",
-                text: "Qual diagrama é usado para mostrar a linha do tempo e a ordem do trânsito de dados entre os objetos?[cite: 1]",
+                instruction: "Conceitual: Demais Diagramas do Sistema.",
+                scenario: "A UML engloba mais de 10 diagramas diferentes para representar o software sob várias perspectivas.",
+                text: "Qual diagrama foca em mostrar a linha do tempo e a ordem em que os dados transitam entre os objetos?",
                 options: [
-                    "Diagrama de Casos de Uso.[cite: 1]",
-                    "Diagrama de Sequência.[cite: 1]",
-                    "Diagrama de Atividades.[cite: 1]",
-                    "Diagrama de Banco de Dados.[cite: 1]"
+                    "Diagrama de Casos de Uso.",
+                    "Diagrama de Sequência.",
+                    "Diagrama de Atividades.",
+                    "Diagrama de Componentes."
                 ],
-                answer: "Diagrama de Sequência.[cite: 1]"
+                answer: "Diagrama de Sequência."
             },
             {
                 id: 26,
                 instruction: "Prática: App de Delivery.",
-                scenario: "O sistema aloca exatamente um entregador parceiro para transportar um pedido finalizado.[cite: 2]",
-                text: "Como fica a multiplicidade no sentido Pedido -> Entregador?[cite: 2]",
+                scenario: "Após o restaurante finalizar o prato, o sistema aloca o pedido a um único entregador disponível para o transporte.",
+                text: "Como fica a multiplicidade partindo do Pedido em direção ao Entregador alocado?",
                 options: [
-                    "1[cite: 1, 2]",
-                    "0..*[cite: 1, 2]",
-                    "1..*[cite: 1, 2]",
-                    "0..1[cite: 1, 2]"
+                    "Exatamente 1.",
+                    "0..* (Zero ou muitos).",
+                    "1..* (Um ou muitos).",
+                    "Nula."
                 ],
-                answer: "1[cite: 1, 2]"
+                answer: "Exatamente 1."
             },
             {
                 id: 27,
-                instruction: "Alternativa Correta: Composição.",
-                scenario: "A Composição mapeia partes estritamente dependentes.[cite: 1]",
-                text: "Qual é o símbolo visual representativo da Composição?[cite: 1]",
+                instruction: "Alternativa Correta: Símbolo de Composição.",
+                scenario: "A Composição mapeia partes estritamente dependentes de um todo, onde 'a parte morre com o todo'.",
+                text: "Qual é o símbolo visual que representa a Composição no diagrama de classes?",
                 options: [
-                    "Linha simples.[cite: 1]",
-                    "Losango vazado.[cite: 1]",
-                    "Losango preenchido.[cite: 1]",
-                    "Seta pontilhada.[cite: 1]"
+                    "Linha simples sem setas.",
+                    "Losango vazado.",
+                    "Losango preenchido.",
+                    "Seta pontilhada (Dependência)."
                 ],
-                answer: "Losango preenchido.[cite: 1]"
+                answer: "Losango preenchido."
             },
             {
                 id: 28,
                 instruction: "Conceitual: UML vs Programação.",
-                scenario: "A UML serve como 'esperanto' (idioma universal) de software.[cite: 3]",
-                text: "A UML é considerada uma linguagem de programação para executar rotinas?[cite: 3]",
+                scenario: "Muitos iniciantes confundem o papel da UML no fluxo de desenvolvimento.",
+                text: "Podemos classificar a UML como uma linguagem de programação procedural para rodar rotinas?",
                 options: [
-                    "Sim, ela compila diretamente para a memória do servidor.[cite: 3]",
-                    "Não, ela é estritamente focada na persistência de dados.[cite: 3]",
-                    "Não, ela é uma linguagem visual de modelagem para documentar e planejar.[cite: 3]",
-                    "Sim, mas apenas na linguagem Java.[cite: 3]"
+                    "Sim, ela é compilada diretamente para a memória RAM do servidor Linux.",
+                    "Não, ela foca puramente em criar scripts de banco de dados SQL.",
+                    "Não, ela é uma linguagem visual de modelagem usada para documentar e planejar.",
+                    "Sim, mas funciona apenas quando integrada com Java ou C#."
                 ],
-                answer: "Não, ela é uma linguagem visual de modelagem para documentar e planejar.[cite: 3]"
+                answer: "Não, ela é uma linguagem visual de modelagem usada para documentar e planejar."
             },
             {
                 id: 29,
                 instruction: "Prática: Associação Simples.",
-                scenario: "Na abstração de um sistema de trânsito, um 'Motorista dirige Carro'. Essa classe 'conhece' a outra.[cite: 1]",
-                text: "Qual é o relacionamento visual adequado para essa interação direta?[cite: 1]",
+                scenario: "Na abstração de um sistema, identificou-se que um 'Motorista dirige um Carro'. O motorista não é parte do carro, e o carro não é parte do motorista, eles apenas interagem.",
+                text: "Qual relacionamento descreve adequadamente o fato de uma classe apenas 'conhecer/interagir' com a outra?",
                 options: [
-                    "Composição.[cite: 1]",
-                    "Agregação.[cite: 1]",
-                    "Herança.[cite: 1]",
-                    "Associação (Linha Simples).[cite: 1]"
+                    "Composição (Losango preenchido).",
+                    "Agregação (Losango vazado).",
+                    "Herança (Seta vazada).",
+                    "Associação (Linha simples)."
                 ],
-                answer: "Associação (Linha Simples).[cite: 1]"
+                answer: "Associação (Linha simples)."
             },
             {
                 id: 30,
                 instruction: "Alternativa Correta: Visibilidade Pública.",
-                scenario: "Os atributos ou métodos podem ser acessíveis por qualquer outra classe do sistema.[cite: 1]",
-                text: "Qual símbolo da UML indica Visibilidade Pública (Public)?[cite: 1]",
+                scenario: "Existem métodos (como 'realizarCompra()') que precisam ser chamados de fora da classe por outras partes do sistema.",
+                text: "Qual símbolo da UML antecede um método indicando que ele possui Visibilidade Pública (Public)?",
                 options: [
-                    "(#)[cite: 1]",
-                    "(+)[cite: 1]",
-                    "(-)[cite: 1]",
-                    "(=)[cite: 1]"
+                    "(#)",
+                    "(+)",
+                    "(-)",
+                    "(=)"
                 ],
-                answer: "(+)[cite: 1]"
+                answer: "(+)"
             }
         ]);
 
@@ -449,7 +449,7 @@ createApp({
 
         const loadQuestion = async () => {
             isTyping.value = true;
-            await typeWriter(`Carregando Desafio de Orientação a Objetos e UML ${currentQuestion.value.id}...`, "log-info");
+            await typeWriter(`Iniciando Validação de Orientação a Objetos e UML: Questão ${currentQuestion.value.id}...`, "log-info");
             await typeWriter(currentQuestion.value.scenario, "log-default");
             isTyping.value = false;
         };
@@ -480,8 +480,8 @@ createApp({
             if (option === currentQuestion.value.answer) {
                 score.value++;
                 feedbackType.value = "success";
-                feedbackMsg.value = "<i class='bi bi-check-lg'></i> Resposta Correta! Lógica validada com sucesso.";
-                addLog("Sucesso: Estruturação sistêmica precisa.", "log-success");
+                feedbackMsg.value = "<i class='bi bi-check-lg'></i> Resposta Correta! Arquitetura sistêmica validada.";
+                addLog("Sucesso: Relacionamento estrutural íntegro.", "log-success");
                 showAnswer.value = true;
                 setTimeout(nextQuestion, 2500);
             } else {
@@ -489,13 +489,13 @@ createApp({
                 if (attempts.value >= maxAttempts) {
                     feedbackType.value = "error";
                     feedbackMsg.value = `<i class='bi bi-x-circle-fill'></i> Tentativas esgotadas. A resposta correta era: <strong>${currentQuestion.value.answer}</strong>`;
-                    addLog("Falha Crítica: Abstração interrompida.", "log-error");
+                    addLog("Falha Crítica: Divergência na abstração do modelo.", "log-error");
                     showAnswer.value = true;
                     setTimeout(nextQuestion, 4500);
                 } else {
                     feedbackType.value = "warning";
-                    feedbackMsg.value = `<i class='bi bi-exclamation-triangle'></i> Análise Incorreta. Tentativas restantes: ${maxAttempts - attempts.value}`;
-                    addLog(`Aviso: Falha na validação. Tentativa ${attempts.value}/${maxAttempts}`, "log-warning");
+                    feedbackMsg.value = `<i class='bi bi-exclamation-triangle'></i> Modelagem Incorreta. Tentativas restantes: ${maxAttempts - attempts.value}`;
+                    addLog(`Aviso: Inconsistência identificada. Tentativa ${attempts.value}/${maxAttempts}`, "log-warning");
                 }
             }
         };
@@ -508,20 +508,20 @@ createApp({
             printElement.style.fontFamily = 'Arial, sans-serif'; 
             printElement.style.color = '#333';
             
-            let performanceMsg = "Excelente compreensão dos conceitos de Orientação a Objetos e Modelagem UML.";
-            if (score.value < 20) performanceMsg = "Recomenda-se revisão aprofundada dos Diagramas de Classes, multiplicidades e relacionamentos.";
+            let performanceMsg = "Excelente compreensão do paradigma Orientado a Objetos e das estruturas de modelagem UML.";
+            if (score.value < 20) performanceMsg = "Recomenda-se revisão aprofundada dos Diagramas de Classes, notações de cardinalidade e hierarquias.";
             
             printElement.innerHTML = `
                 <div style="text-align: center; border-bottom: 2px solid #3e8eff; padding-bottom: 20px; margin-bottom: 30px;">
                     <h1 style="color: #3e8eff; margin: 0;">Relatório de Orientação a Objetos e UML</h1>
-                    <h2 style="color: #555; margin: 5px 0;">Certificação em Modelagem de Sistemas</h2>
+                    <h2 style="color: #555; margin: 5px 0;">Certificação em Arquitetura de Sistemas</h2>
                 </div>
                 <div style="margin-bottom: 30px; font-size: 16px; line-height: 1.6; text-align: justify;">
-                    <p><strong>Data da Simulação:</strong> ${data}</p>
-                    <p>Este documento atesta a passagem do estudante pelas ${questions.value.length} análises críticas envolvendo abstração OO, Encapsulamento, Relacionamentos (Composição, Agregação, Herança) e diagramação.</p>
+                    <p><strong>Data da Validação:</strong> ${data}</p>
+                    <p>Este documento atesta a passagem do estudante pelas ${questions.value.length} análises críticas envolvendo abstração OO, Encapsulamento, Relacionamentos (Composição, Agregação, Herança) e multiplicidades UML.</p>
                     
                     <div style="background-color: #f4f7f6; padding: 20px; border-radius: 8px; margin-top: 30px; text-align: center; border: 1px solid #e0e0e0;">
-                        <h3 style="margin-top: 0; color: #333;">Desempenho Final</h3>
+                        <h3 style="margin-top: 0; color: #333;">Aproveitamento Final</h3>
                         <p style="font-size: 28px; color: ${score.value >= 24 ? '#10B981' : (score.value >= 15 ? '#d9a05b' : '#EF4444')}; margin: 15px 0;">
                             <strong>${score.value} de ${questions.value.length} Acertos</strong>
                         </p>
@@ -529,13 +529,13 @@ createApp({
                     </div>
                 </div>
                 <p style="font-size: 13px; color: #888; text-align: center; margin-top: 50px; border-top: 1px dashed #ccc; padding-top: 15px;">
-                    Documento validado tecnicamente pelo Simulador UML_EVAL_v2.0
+                    Documento validado tecnicamente pelo Simulador UML_EVAL_v3.0
                 </p>
             `;
 
             const opt = {
                 margin:       0.5,
-                filename:     `Modelagem_Relatorio_${new Date().toISOString().slice(0,10)}.pdf`,
+                filename:     `Modelagem_UML_Relatorio_${new Date().toISOString().slice(0,10)}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2 },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
@@ -550,12 +550,12 @@ createApp({
             logs.value = []; 
             gameOver.value = false;
             resetTurn();
-            addLog("Reiniciando avaliador lógico...", "log-info");
+            addLog("Reiniciando avaliador estrutural...", "log-info");
             setTimeout(() => loadQuestion(), 1000);
         };
 
         onMounted(() => {
-            addLog("Inicializando Simulador UML_EVAL_v2.0...", "log-info");
+            addLog("Inicializando Simulador UML_EVAL_v3.0...", "log-info");
             setTimeout(() => { loadQuestion(); }, 1000);
         });
 
