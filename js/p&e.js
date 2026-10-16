@@ -17,46 +17,46 @@ createApp({
         
         const maxAttempts = 3;
 
-        // --- Banco de Questões (20 Questões Contextualizadas em Projetos Fictícios) ---
+        
         const questions = ref([
             {
                 id: 1,
-                instruction: "Requisitos Funcionais vs Não Funcionais",
+                instruction: "Requisitos Funcionais vs RNF Tecnológico",
                 scenario: "Contextualização: No desenvolvimento de um aplicativo de delivery corporativo, o Product Owner estipulou que 'os clientes devem poder acompanhar a localização do motoboy no mapa em tempo real'.",
-                text: "Enunciado: Na Engenharia de Requisitos, como esse item solicitado pelo Product Owner deve ser classificado?",
+                text: "Enunciado: Na Engenharia de Requisitos, percebe-se uma mistura de conceitos nessa solicitação. Qual é a classificação mais correta para dissecar esse pedido?",
                 options: [
-                    "Requisito Funcional, pois descreve uma ação ou comportamento direto que o sistema deve realizar para o usuário final.",
-                    "Requisito Não Funcional, pois trata exclusivamente do desempenho de atualização de telas do aplicativo.",
-                    "Requisito de Domínio, pois é uma lei de trânsito imposta para monitoramento de frotas.",
-                    "Requisito Ambíguo, pois não define qual linguagem de programação o mapa utilizará."
+                    "Requisito Funcional (a ação do cliente ver o pedido), acompanhado de um RNF - Tecnológico (a restrição de desempenho e integração para que a visualização seja 'em tempo real no mapa').",
+                    "Apenas RNF - Tecnológico, pois o uso de mapas via GPS anula qualquer interação funcional do usuário com a tela.",
+                    "RNF - Regra de Negócio, pois é uma lei de trânsito imposta para o monitoramento de frotas de delivery.",
+                    "Requisito Ambíguo, pois não define qual banco de dados vai armazenar a latitude e longitude do motoboy."
                 ],
-                answer: "Requisito Funcional, pois descreve uma ação ou comportamento direto que o sistema deve realizar para o usuário final."
+                answer: "Requisito Funcional (a ação do cliente ver o pedido), acompanhado de um RNF - Tecnológico (a restrição de desempenho e integração para que a visualização seja 'em tempo real no mapa')."
             },
             {
                 id: 2,
-                instruction: "Requisitos Não Funcionais de Segurança",
+                instruction: "Requisitos Não Funcionais: Restrições de Arquitetura",
                 scenario: "Contextualização: Para o novo sistema do banco nacional, o arquiteto de software definiu uma regra clara na documentação: 'Todas as senhas de clientes no banco de dados devem ser criptografadas usando o padrão AES-256'.",
                 text: "Enunciado: Essa definição arquitetural se enquadra em qual categoria de requisitos e por quê?",
                 options: [
-                    "Requisito Não Funcional, pois estabelece uma restrição técnica de segurança e comportamento do sistema, não uma funcionalidade operada pelo usuário.",
+                    "RNF - Tecnológico (Segurança), pois estabelece uma restrição técnica de infraestrutura e proteção de dados que o sistema deve executar obrigatoriamente nos bastidores.",
                     "Requisito Funcional de Interface, pois o cliente precisará ver a criptografia na tela ao digitar a senha.",
-                    "Diagrama de Máquina de Estados, pois a senha muda de estado de 'aberta' para 'fechada'.",
-                    "Regra de Negócio Temporária, pois a criptografia pode ser desligada quando o banco fechar à noite."
+                    "RNF - Regra de Negócio, pois a criptografia AES-256 é uma lei imposta pelo Banco Central para atendimento ao público.",
+                    "Regra de Negócio Temporária, pois a criptografia pode ser desligada quando o banco fechar à noite para poupar servidores."
                 ],
-                answer: "Requisito Não Funcional, pois estabelece uma restrição técnica de segurança e comportamento do sistema, não uma funcionalidade operada pelo usuário."
+                answer: "RNF - Tecnológico (Segurança), pois estabelece uma restrição técnica de infraestrutura e proteção de dados que o sistema deve executar obrigatoriamente nos bastidores."
             },
             {
                 id: 3,
-                instruction: "Requisitos de Domínio (Regras de Negócio)",
+                instruction: "Requisitos Não Funcionais: Regras de Negócio",
                 scenario: "Contextualização: Um sistema de controle de ponto está sendo criado para uma multinacional. O analista anotou a seguinte condição dada pelo RH: 'Funcionários sob regime CLT não podem exceder 2 horas extras diárias sob nenhuma circunstância'.",
-                text: "Enunciado: No escopo do projeto de software, como essa anotação é classificada?",
+                text: "Enunciado: No escopo do projeto de software, como essa anotação corporativa é classificada e tratada pela equipe de desenvolvimento?",
                 options: [
-                    "Como uma Regra de Negócio (Requisito de Domínio), pois é uma restrição do contexto de negócio (imposta pela legislação) que o software deve respeitar e aplicar.",
-                    "Como um Requisito Não Funcional de Capacidade, limitando o banco de dados a 2 horas de gravação.",
-                    "Como um Teste de Regressão focado em descobrir se os funcionários burlam a catraca física.",
-                    "Como uma métrica de Viabilidade Econômica (Payback) para evitar falência pagando horas extras."
+                    "RNF - Regra de Negócio (Domínio), pois é uma restrição imposta pelo contexto corporativo e pela legislação trabalhista que limita e dita como o software deve validar os dados.",
+                    "RNF - Tecnológico (Capacidade), pois o objetivo primário dessa regra é limitar o banco de dados a no máximo 2 horas de gravação por dia.",
+                    "Requisito Funcional de Teste, pois serve apenas para o time de QA descobrir se os funcionários burlam a catraca física.",
+                    "Métrica de Viabilidade Econômica, estipulada pelo Financeiro para evitar a falência da empresa pagando horas extras."
                 ],
-                answer: "Como uma Regra de Negócio (Requisito de Domínio), pois é uma restrição do contexto de negócio (imposta pela legislação) que o software deve respeitar e aplicar."
+                answer: "RNF - Regra de Negócio (Domínio), pois é uma restrição imposta pelo contexto corporativo e pela legislação trabalhista que limita e dita como o software deve validar os dados."
             },
             {
                 id: 4,
