@@ -31,7 +31,7 @@ createApp({
                 expectedExample: "import java.util.Scanner;\npublic class IBGE {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int qtd = sc.nextInt();\n    int[] idades = new int[qtd];\n    for (int i = 0; i < idades.length; i++) {\n      idades[i] = sc.nextInt();\n      if (idades[i] >= 18) {\n        System.out.println(\"Adulto\");\n      } else {\n        System.out.println(\"Menor de idade\");\n      }\n    }\n    sc.close();\n  }\n}",
                 explanation: "Para alocações de tamanho dinâmico, criamos o vetor utilizando a variável lida pelo Scanner, e o for varre os índices de 0 até length - 1.",
                 hints: [
-                    "Crie o array como: 'int[] idades = new int[qtd];'[cite: 33].",
+                    "Crie o array como: 'int[] idades = new int[qtd];'.",
                     "O laço for deve utilizar 'i < idades.length'."
                 ]
             },
@@ -127,7 +127,7 @@ createApp({
                 scenario: "Máquina de Café: Validação de menu de autoatendimento.",
                 expectedPatterns: ["class", "main", "Scanner", "do", "while", "if", "else", "!= 1", "!= 2"],
                 expectedExample: "import java.util.Scanner;\npublic class MaquinaCafe {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int opcao;\n    do {\n      System.out.println(\"1-Cafe, 2-Leite:\");\n      opcao = sc.nextInt();\n    } while (opcao != 1 && opcao != 2);\n    if (opcao == 1) {\n      System.out.println(\"Cafe selecionado\");\n    } else {\n      System.out.println(\"Leite selecionado\");\n    }\n    sc.close();\n  }\n}",
-                explanation: "O laço do-while garante que o bloco de menu seja executado ao menos uma vez, testando a condição apenas no final para segurar o fluxo[cite: 8, 9, 15].",
+                explanation: "O laço do-while garante que o bloco de menu seja executado ao menos uma vez, testando a condição apenas no final para segurar o fluxo.",
                 hints: [
                     "Lembre-se de iniciar a classe e o método 'public static void main(String[] args)'.",
                     "A condição do while deve ser: (opcao != 1 && opcao != 2)."
