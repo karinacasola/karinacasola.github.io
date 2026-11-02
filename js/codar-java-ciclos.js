@@ -29,10 +29,10 @@ createApp({
                 scenario: "IBGE: Censo familiar e tabulação demográfica.",
                 expectedPatterns: ["class", "main", "Scanner", "new int", "for", "length", "if", ">= 18", "else"],
                 expectedExample: "import java.util.Scanner;\npublic class IBGE {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int qtd = sc.nextInt();\n    int[] idades = new int[qtd];\n    for (int i = 0; i < idades.length; i++) {\n      idades[i] = sc.nextInt();\n      if (idades[i] >= 18) {\n        System.out.println(\"Adulto\");\n      } else {\n        System.out.println(\"Menor de idade\");\n      }\n    }\n    sc.close();\n  }\n}",
-                explanation: "Para alocações de tamanho dinâmico, criamos o vetor utilizando a variável lida pelo Scanner, e o for varre os índices de 0 até length - 1[cite: 33, 41].",
+                explanation: "Para alocações de tamanho dinâmico, criamos o vetor utilizando a variável lida pelo Scanner, e o for varre os índices de 0 até length - 1.",
                 hints: [
                     "Crie o array como: 'int[] idades = new int[qtd];'[cite: 33].",
-                    "O laço for deve utilizar 'i < idades.length'[cite: 31]."
+                    "O laço for deve utilizar 'i < idades.length'."
                 ]
             },
             {
@@ -42,7 +42,7 @@ createApp({
                 scenario: "iFood: Motor de aplicação de cupons dinâmicos.",
                 expectedPatterns: ["class", "main", "Scanner", "new double", "for", "if", "> 20", "else"],
                 expectedExample: "import java.util.Scanner;\npublic class CarrinhoIFood {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    double[] carrinho = new double[3];\n    for (int i = 0; i < carrinho.length; i++) {\n      carrinho[i] = sc.nextDouble();\n      if (carrinho[i] > 20.0) {\n        System.out.println(carrinho[i] * 0.9);\n      } else {\n        System.out.println(carrinho[i]);\n      }\n    }\n    sc.close();\n  }\n}",
-                explanation: "O vetor armazena os decimais para a compra (carrinho) que recebem alterações matemáticas condicionais antes do faturamento final[cite: 37].",
+                explanation: "O vetor armazena os decimais para a compra (carrinho) que recebem alterações matemáticas condicionais antes do faturamento final.",
                 hints: [
                     "Não esqueça de ler o valor para a gaveta do vetor: 'carrinho[i] = sc.nextDouble();'."
                 ]
@@ -54,9 +54,9 @@ createApp({
                 scenario: "WhatsApp: Contador de badges de notificações não lidas.",
                 expectedPatterns: ["class", "main", "Scanner", "new String", "for", "if", "equals", "else"],
                 expectedExample: "import java.util.Scanner;\npublic class WhatsAppNotificacao {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String[] mensagens = new String[4];\n    for (int i = 0; i < mensagens.length; i++) {\n      mensagens[i] = sc.next();\n      if (mensagens[i].equals(\"Nao Lida\")) {\n        System.out.println(\"Notificação pendente\");\n      } else {\n        System.out.println(\"Tudo limpo\");\n      }\n    }\n    sc.close();\n  }\n}",
-                explanation: "A manipulação textual exige o uso do método '.equals()' para fazer a comparação lógica da regra[cite: 54, 55].",
+                explanation: "A manipulação textual exige o uso do método '.equals()' para fazer a comparação lógica da regra.",
                 hints: [
-                    "Cuidado: Strings não podem ser comparadas com '=='. Use '.equals(\"Nao Lida\")'[cite: 54]."
+                    "Cuidado: Strings não podem ser comparadas com '=='. Use '.equals(\"Nao Lida\")'."
                 ]
             },
             {
@@ -66,7 +66,7 @@ createApp({
                 scenario: "Uber: Regra de cálculo de faturamento de motoristas parceiros.",
                 expectedPatterns: ["class", "main", "Scanner", "new double", "for", "if", "< 2", "else", "\\* 2"],
                 expectedExample: "import java.util.Scanner;\npublic class UberGanhos {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    double[] distancias = new double[4];\n    double ganho;\n    for (int i = 0; i < distancias.length; i++) {\n      distancias[i] = sc.nextDouble();\n      if (distancias[i] < 2.0) {\n        ganho = 5.0;\n      } else {\n        ganho = distancias[i] * 2.0;\n      }\n      System.out.println(\"Ganho: \" + ganho);\n    }\n    sc.close();\n  }\n}",
-                explanation: "Arrays iterados avaliam faixas mínimas de serviço para evitar tarifas negativas para a operação do motorista[cite: 39].",
+                explanation: "Arrays iterados avaliam faixas mínimas de serviço para evitar tarifas negativas para a operação do motorista.",
                 hints: [
                     "Guarde o valor do ganho calculado em uma variável temporária, e faça a verificação com if/else antes de imprimi-la."
                 ]
@@ -78,7 +78,7 @@ createApp({
                 scenario: "Nubank: Extrato de movimentação bancária.",
                 expectedPatterns: ["class", "main", "Scanner", "new int", "for", "if", "< 0", "else"],
                 expectedExample: "import java.util.Scanner;\npublic class NubankExtrato {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int[] transacoes = new int[4];\n    for (int i = 0; i < transacoes.length; i++) {\n      transacoes[i] = sc.nextInt();\n      if (transacoes[i] < 0) {\n        System.out.println(\"Saida de caixa\");\n      } else {\n        System.out.println(\"Entrada de dinheiro\");\n      }\n    }\n    sc.close();\n  }\n}",
-                explanation: "A interpretação de faturas é feita dividindo vetores em ramos condicionais a depender da polaridade do valor do índice[cite: 38].",
+                explanation: "A interpretação de faturas é feita dividindo vetores em ramos condicionais a depender da polaridade do valor do índice.",
                 hints: [
                     "O for deve percorrer a leitura 'transacoes[i] = sc.nextInt();' e em seguida verificar 'if (transacoes[i] < 0)'."
                 ]
@@ -90,7 +90,7 @@ createApp({
                 scenario: "Netflix: Categorização de engajamento do usuário.",
                 expectedPatterns: ["class", "main", "Scanner", "new double", "for", "if", "< 40", "else"],
                 expectedExample: "import java.util.Scanner;\npublic class NetflixAvaliacao {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    double[] episodios = new double[5];\n    for (int i = 0; i < episodios.length; i++) {\n      episodios[i] = sc.nextDouble();\n      if (episodios[i] < 40.0) {\n        System.out.println(\"Episódio abandonado\");\n      } else {\n        System.out.println(\"Episódio concluído\");\n      }\n    }\n    sc.close();\n  }\n}",
-                explanation: "Uma métrica linear avalia cada item do vetor para acionar um sinal de analytics[cite: 39].",
+                explanation: "Uma métrica linear avalia cada item do vetor para acionar um sinal de analytics.",
                 hints: [
                     "Use um array de double com 'new double[5]' e leia com '.nextDouble()'."
                 ]
@@ -102,7 +102,7 @@ createApp({
                 scenario: "Duolingo: Lógica de acúmulo de pontos da semana.",
                 expectedPatterns: ["class", "main", "Scanner", "new int", "for", "totalXP", "\\+=", "if", ">= 150", "else"],
                 expectedExample: "import java.util.Scanner;\npublic class DuolingoMetas {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int[] xpDiario = new int[3];\n    int totalXP = 0;\n    for (int i = 0; i < xpDiario.length; i++) {\n      xpDiario[i] = sc.nextInt();\n      totalXP += xpDiario[i];\n    }\n    if (totalXP >= 150) {\n      System.out.println(\"Semana Perfeita\");\n    } else {\n      System.out.println(\"Continue praticando\");\n    }\n    sc.close();\n  }\n}",
-                explanation: "Demonstra o padrão acumulador associado ao vetor. A soma iterada resulta no diagnóstico corporativo feito pelo 'if' que fica pós-laço[cite: 40].",
+                explanation: "Demonstra o padrão acumulador associado ao vetor. A soma iterada resulta no diagnóstico corporativo feito pelo 'if' que fica pós-laço.",
                 hints: [
                     "Inicialize 'int totalXP = 0;' fora do laço.",
                     "Somente após a chave de fechamento do 'for', escreva o bloco if/else."
@@ -115,9 +115,9 @@ createApp({
                 scenario: "Waze: Classificação dinâmica do congestionamento de uma rodovia.",
                 expectedPatterns: ["class", "main", "Scanner", "new int", "for", "if", "> 30", "else"],
                 expectedExample: "import java.util.Scanner;\npublic class WazeTransito {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int[] trechos = new int[4];\n    for (int i = 0; i < trechos.length; i++) {\n      trechos[i] = sc.nextInt();\n      if (trechos[i] > 30) {\n        System.out.println(\"Transito Intenso\");\n      } else {\n        System.out.println(\"Via Livre\");\n      }\n    }\n    sc.close();\n  }\n}",
-                explanation: "Sistemas de roteamento percorrem arrays de telemetria aplicando condições de negócio em tempo real para pintar mapas[cite: 38].",
+                explanation: "Sistemas de roteamento percorrem arrays de telemetria aplicando condições de negócio em tempo real para pintar mapas.",
                 hints: [
-                    "O laço deve ser 'for (int i = 0; i < trechos.length; i++)' avaliando cada input[cite: 31]."
+                    "O laço deve ser 'for (int i = 0; i < trechos.length; i++)' avaliando cada input."
                 ]
             },
             {
@@ -129,8 +129,8 @@ createApp({
                 expectedExample: "import java.util.Scanner;\npublic class MaquinaCafe {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int opcao;\n    do {\n      System.out.println(\"1-Cafe, 2-Leite:\");\n      opcao = sc.nextInt();\n    } while (opcao != 1 && opcao != 2);\n    if (opcao == 1) {\n      System.out.println(\"Cafe selecionado\");\n    } else {\n      System.out.println(\"Leite selecionado\");\n    }\n    sc.close();\n  }\n}",
                 explanation: "O laço do-while garante que o bloco de menu seja executado ao menos uma vez, testando a condição apenas no final para segurar o fluxo[cite: 8, 9, 15].",
                 hints: [
-                    "Lembre-se de iniciar a classe e o método 'public static void main(String[] args)'[cite: 46].",
-                    "A condição do while deve ser: (opcao != 1 && opcao != 2)[cite: 15]."
+                    "Lembre-se de iniciar a classe e o método 'public static void main(String[] args)'.",
+                    "A condição do while deve ser: (opcao != 1 && opcao != 2)."
                 ]
             },
             {
@@ -140,10 +140,10 @@ createApp({
                 scenario: "Sistema Operacional: Monitoramento de drenagem de bateria.",
                 expectedPatterns: ["class", "main", "Scanner", "while", "> 0", "--|- 1", "if", "<= 15", "else"],
                 expectedExample: "import java.util.Scanner;\npublic class Celular {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int bateria = sc.nextInt();\n    while (bateria > 0) {\n      if (bateria <= 15) {\n        System.out.println(\"Bateria Fraca\");\n      } else {\n        System.out.println(\"Em uso\");\n      }\n      bateria--;\n    }\n    sc.close();\n  }\n}",
-                explanation: "O laço while repete a verificação e o consumo da bateria enquanto ela possuir carga positiva[cite: 6, 14].",
+                explanation: "O laço while repete a verificação e o consumo da bateria enquanto ela possuir carga positiva.",
                 hints: [
-                    "Declare o while testando se 'bateria > 0'[cite: 14].",
-                    "Dentro do while, coloque o if/else e depois não esqueça de decrementar a variável (bateria--) para evitar loop infinito[cite: 6]."
+                    "Declare o while testando se 'bateria > 0'.",
+                    "Dentro do while, coloque o if/else e depois não esqueça de decrementar a variável (bateria--) para evitar loop infinito."
                 ]
             },
             {
@@ -153,9 +153,9 @@ createApp({
                 scenario: "Segurança de Dados: Bloqueio de painel administrativo.",
                 expectedPatterns: ["class", "main", "Scanner", "do", "while", "!= 1234"],
                 expectedExample: "import java.util.Scanner;\npublic class SenhaAcesso {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int senha;\n    do {\n      System.out.println(\"Digite a senha:\");\n      senha = sc.nextInt();\n    } while (senha != 1234);\n    System.out.println(\"Acesso Permitido!\");\n    sc.close();\n  }\n}",
-                explanation: "O fluxo é travado pelo do-while que exige a entrada correta do dado de autorização antes de liberar o sistema[cite: 12].",
+                explanation: "O fluxo é travado pelo do-while que exige a entrada correta do dado de autorização antes de liberar o sistema.",
                 hints: [
-                    "A variável 'senha' deve ser declarada antes do bloco 'do' para ser reconhecida na condição do 'while'[cite: 10]."
+                    "A variável 'senha' deve ser declarada antes do bloco 'do' para ser reconhecida na condição do 'while'."
                 ]
             },
             {
@@ -165,7 +165,7 @@ createApp({
                 scenario: "Smart TV: Ajuste linear de áudio controlado por usuário.",
                 expectedPatterns: ["class", "main", "Scanner", "while", "< 10", "if", "==", "1", "else"],
                 expectedExample: "import java.util.Scanner;\npublic class VolumeTV {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int volume = 0;\n    int comando;\n    while (volume < 10) {\n      comando = sc.nextInt();\n      if (comando == 1) {\n        volume++;\n        System.out.println(\"Volume: \" + volume);\n      } else {\n        System.out.println(\"Comando invalido\");\n      }\n    }\n    sc.close();\n  }\n}",
-                explanation: "O laço while é incrementado manualmente a partir da validação de uma entrada, demonstrando controle de estado do hardware[cite: 13].",
+                explanation: "O laço while é incrementado manualmente a partir da validação de uma entrada, demonstrando controle de estado do hardware.",
                 hints: [
                     "A condição principal é 'while (volume < 10)'. Incremente 'volume' apenas dentro do 'if (comando == 1)'."
                 ]
@@ -177,7 +177,7 @@ createApp({
                 scenario: "Sistema de Arquivos: Computador processando pacotes de rede.",
                 expectedPatterns: ["class", "main", "Scanner", "while", "< 100", "if", "> 100", "else"],
                 expectedExample: "import java.util.Scanner;\npublic class Download {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int progresso = 0;\n    int pacote;\n    while (progresso < 100) {\n      pacote = sc.nextInt();\n      progresso += pacote;\n      if (progresso >= 100) {\n        progresso = 100;\n        System.out.println(\"Download finalizado\");\n      } else {\n        System.out.println(\"Baixando... \" + progresso + \"%\");\n      }\n    }\n    sc.close();\n  }\n}",
-                explanation: "A simulação utiliza um laço acumulador (progresso += pacote) cuja parada depende da injeção gradual de banda (input), e a lógica trava o excedente a 100%[cite: 15].",
+                explanation: "A simulação utiliza um laço acumulador (progresso += pacote) cuja parada depende da injeção gradual de banda (input), e a lógica trava o excedente a 100%.",
                 hints: [
                     "Crie o loop como 'while (progresso < 100)'. Some a variável 'pacote' no 'progresso' antes do bloco if/else."
                 ]
@@ -189,7 +189,7 @@ createApp({
                 scenario: "Banco de Dados: Confirmação dupla de Soft-Delete.",
                 expectedPatterns: ["class", "main", "Scanner", "do", "while", "if", "!= 1", "!= 0"],
                 expectedExample: "import java.util.Scanner;\npublic class ConfirmacaoExclusao {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int resposta;\n    do {\n      System.out.println(\"Deseja excluir? (1-Sim/0-Nao)\");\n      resposta = sc.nextInt();\n      if (resposta != 1 && resposta != 0) {\n        System.out.println(\"Invalido\");\n      }\n    } while (resposta != 1 && resposta != 0);\n    sc.close();\n  }\n}",
-                explanation: "Laço voltado a saneamento de input de usuário; o fluxo recusa avançar para o DELETE corporativo sem garantia explícita[cite: 13].",
+                explanation: "Laço voltado a saneamento de input de usuário; o fluxo recusa avançar para o DELETE corporativo sem garantia explícita.",
                 hints: [
                     "A condição para repetir (o while no fim) deve ser se a resposta for diferente de 1 E diferente de 0."
                 ]
@@ -201,10 +201,10 @@ createApp({
                 scenario: "Urna Eletrônica: Prevenção de travamento do ciclo eleitoral.",
                 expectedPatterns: ["class", "main", "Scanner", "while", "!= 13", "&&", "!= 22", "if", "else", "System\\.out\\.print"],
                 expectedExample: "import java.util.Scanner;\npublic class UrnaEletronica {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int voto = sc.nextInt();\n    while (voto != 13 && voto != 22) {\n      System.out.println(\"Voto invalido\");\n      voto = sc.nextInt();\n    }\n    System.out.println(\"Voto computado\");\n    sc.close();\n  }\n}",
-                explanation: "O laço while repete o pedido constantemente enquanto a validação booleana dupla (&&) não atestar os estados corretos exigidos[cite: 14].",
+                explanation: "O laço while repete o pedido constantemente enquanto a validação booleana dupla (&&) não atestar os estados corretos exigidos.",
                 hints: [
                     "Leia o primeiro 'voto' antes do 'while'." ,
-                    "A condição de permanência deve ser: '(voto != 13 && voto != 22)'. Não se esqueça de ler novamente dentro do laço[cite: 7]."
+                    "A condição de permanência deve ser: '(voto != 13 && voto != 22)'. Não se esqueça de ler novamente dentro do laço."
                 ]
             }
         ]);
