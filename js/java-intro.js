@@ -554,7 +554,7 @@ createApp({
                     </div>
                 </div>
                 <p style="font-size: 13px; color: #888; text-align: center; margin-top: 50px; border-top: 1px dashed #ccc; padding-top: 15px;">
-                    Documento validado tecnicamente pelo Simulador INNOV_EVAL_v2.0
+                    Documento validado tecnicamente pelo Simulador
                 </p>
             `;
 
@@ -580,7 +580,7 @@ createApp({
         };
 
         onMounted(() => {
-            addLog("Inicializando Simulador INNOV_EVAL_v2.0...", "log-info");
+            addLog("Inicializando Simulador...", "log-info");
             setTimeout(() => { loadQuestion(); }, 1000);
         });
 
