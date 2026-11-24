@@ -1,0 +1,841 @@
+/* ==========================================================================
+   1. VARIÁVEIS E GLOBAIS
+   ========================================================================== */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap');
+
+:root {
+    --bg-dark: #0A0A0A;
+    --bg-light: #F5F5F5;
+    --text-primary: #E0E0E0;
+    --text-secondary: #A0A0A0;
+    --text-dark: #111111;
+    --accent-blue: #3E8EFF;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-bg: #1A1A1A;
+    --section-padding: 100px 5%;
+    
+    /* Variáveis para o Modal */
+    --modal-overlay: rgba(0, 0, 0, 0.95);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Satoshi', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+h1, h2, h3 { font-weight: 700; }
+p { font-weight: 400; color: var(--text-secondary); }
+a { text-decoration: none; color: inherit; }
+
+/* ==========================================================================
+   2. COMPONENTES REUTILIZÁVEIS E ALINHAMENTO
+   ========================================================================== */
+section {
+    padding: var(--section-padding);
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-header-pill {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.section-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ==========================================================================
+   3. NAVEGAÇÃO
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    z-index: 1000;
+    background: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 24px;
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-menu { display: flex; gap: 24px; align-items: center; }
+
+.navbar-button {
+    background-color: white;
+    color: black;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+/* ==========================================================================
+   4. HERO E EFEITO TYPED (CORRIGIDO)
+   ========================================================================== */
+.hero {
+    padding: 180px 5% 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+    background-image: radial-gradient(circle at 50% 0%, rgba(62, 142, 255, 0.2), transparent 50%);
+}
+
+.hero-title {
+    font-size: 64px;
+    letter-spacing: -2px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.typed {
+    color: var(--accent-blue);
+    font-weight: 700;
+     letter-spacing: normal; /* Garantir espaçamento de letras normal */
+}
+
+/* Estilização da barra piscando do Typed.js */
+/*.typed-cursor {
+    color: var(--accent-blue);
+    opacity: 1;
+    margin-left: 2px;
+}  */
+
+.hero-ai-interface-wrapper {
+    max-width: 600px;
+    width: 100%;
+    margin: 40px auto 0;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: left;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* ==========================================================================
+   5. MODAL (LÓGICA DE EXIBIÇÃO)
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--modal-overlay);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+}
+
+/* Quando o link #modal-programacao for clicado */
+.modal-overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-inner {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    display: flex;
+    max-width: 1200px;
+    width: 90%;
+    height: 80vh;
+    overflow: hidden;
+    transform: translateY(20px);
+    transition: 0.5s ease;
+}
+
+.modal-overlay:target .modal-inner {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   6. FOOTER (CENTRALIZADO E VISÍVEL)
+   ========================================================================== */
+.site-footer {
+    width: 100%;
+    padding: 60px 0;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-dark);
+    display: block;
+    clear: both; /* Impede que elementos flutuantes escondam o footer */
+    position: relative;
+    z-index: 10;
+}
+
+.footer-bottom {
+    width: 100%;
+    text-align: center; /* Centralização garantida */
+}
+
+.footer-bottom p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 0;
+}
+
+.img-crop {
+  /* Esta é a propriedade mágica que equivale ao 'fit=crop' */
+  object-fit: cover;
+  
+  /* Para que o 'cover' funcione bem, você PRECISA definir um tamanho */
+  /* para a imagem ou para o container dela. Exemplo: */
+  width: 100%;   /* Ocupa toda a largura disponível */
+  height: 300px; /* Define uma altura fixa (a imagem será cortada para caber aqui) */
+  
+  /* Opcional: centraliza a imagem antes de cortar */
+  object-position: center; 
+}
+
+
+/* ==========================================================================
+   7. RESPONSIVIDADE AJUSTADA (CORRIGIDA)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* Reset da centralização da Navbar para ocupar a tela toda */
+    .navbar {
+        width: 100% !important; 
+        left: 0 !important;
+        transform: none !important;
+        top: 0;
+        border-radius: 0 0 12px 12px !important; /* Arredonda apenas o fundo */
+        padding: 15px 20px !important;
+    }
+
+    /* Mostra o botão hambúrguer */
+    .mobile-menu-btn { 
+        display: block; 
+        z-index: 1001;
+    }
+
+    /* Ajuste do menu suspenso */
+    .navbar-menu {
+        display: none; /* Escondido por padrão */
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Gruda exatamente abaixo da navbar */
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        border-top: none;
+        border-radius: 0 0 20px 20px;
+        padding: 30px;
+        gap: 25px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    /* Quando ativo, usa flex */
+    .navbar-menu.active {
+        display: flex;
+        animation: fadeInDown 0.3s ease forwards;
+    }
+
+    /* Ajustes de tipografia mobile */
+    .hero-title { font-size: 42px; }
+    .section-title { font-size: 28px; }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ==========================================================================
+   7. RESPONSIVIDADE AJUSTADA
+   ========================================================================== */
+
+/* Botão Mobile - Escondido por padrão */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 24px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+@media (max-width: 992px) {
+    .how-it-works-items { grid-template-columns: 1fr; }
+    .modal-inner { flex-direction: column; height: auto; overflow-y: auto; }
+}
+
+@media (max-width: 768px) {
+    /* Mostra o botão hambúrguer */
+    .mobile-menu-btn { display: block; }
+
+    /* Ajuste da Navbar no Mobile */
+    .navbar {
+        width: 95%; /* Um pouco mais larga no mobile */
+        padding: 10px 16px;
+    }
+
+    /* Transforma o menu em uma lista vertical escondida */
+    .navbar-menu {
+        display: none; /* Esconde por padrão */
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(20, 20, 20, 0.98);
+        backdrop-filter: blur(15px);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 24px;
+        gap: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Classe que o JavaScript vai ativar */
+    .navbar-menu.active {
+        display: flex;
+        animation: fadeInDown 0.3s ease forwards;
+    }
+
+    .hero-title { font-size: 42px; } /* Ajuste de título para telas pequenas */
+    .section-title { font-size: 28px; }
+    .site-footer { padding: 40px 5%; }
+}
+
+/* Animação suave de entrada */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Assinatura Modal */
+
+.modal-author-top {
+    margin-top: -10px;      /* Traz para mais perto do título */
+    margin-bottom: 25px;    /* Afasta do texto abaixo */
+    font-size: 14px;
+    color: var(--text-primary); /* Letra clara */
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.modal-author-top a {
+    color: var(--accent-blue);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: 4px;
+    transition: 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.modal-author-top a:hover {
+    border-bottom: 1px solid var(--accent-blue);
+    filter: brightness(1.2);
+}
+
+/* ==========================================================================
+   AJUSTES DO FOOTER LEGAL
+   ========================================================================== */
+.footer-legal {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap; /* Garante que quebre linha em celulares pequenos */
+}
+
+.footer-legal a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-legal a:hover {
+    color: var(--accent-blue);
+}
+
+.footer-divider {
+    color: var(--border-color);
+    font-size: 12px;
+}
+
+/* Ajuste de margem para o parágrafo de copyright */
+.footer-bottom p {
+    margin-bottom: 25px;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+    .footer-legal {
+        gap: 10px;
+    }
+    .footer-divider {
+        display: none; /* Esconde o ponto no mobile para um visual mais limpo */
+    }
+    .footer-legal a {
+        flex: 0 0 100%; /* Cada link ocupa uma linha se o espaço for muito curto */
+        margin-bottom: 5px;
+    }
+}
+
+/* ==========================================================================
+   BARRA DE LEITURA DO MODAL (ESTILO DISCRETO)
+   ========================================================================== */
+
+.modal-reading-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px; /* Espaço antes do texto começar */
+    align-items: center;
+}
+
+/* Botão Discreto (Minimalist Reading Button) */
+.mr-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px; /* Quadrado arredondado */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.mr-btn:hover {
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+}
+
+/* Estado Ativo (Botão Selecionado) */
+.mr-btn.active {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: white;
+    box-shadow: 0 2px 10px rgba(62, 142, 255, 0.2);
+}
+
+/* --- TEMA CLARO (ICE THEME) --- */
+
+/* Aplica ao container de texto quando o modo claro está ativo */
+.modal-col-text.ice-theme {
+    background-color: #F8F9FA; /* Fundo quase branco */
+    color: #333; /* Texto escuro */
+}
+
+/* Força cores escuras nos títulos e parágrafos dentro do tema claro */
+.modal-col-text.ice-theme h1,
+.modal-col-text.ice-theme .modal-author-top {
+    color: #111; 
+}
+
+.modal-col-text.ice-theme p {
+    color: #444;
+}
+
+/* Ajusta a cor dos botões quando o fundo está claro */
+.modal-col-text.ice-theme .mr-btn {
+    border-color: #335de7;
+    color: #2962dd;
+}
+
+.modal-col-text.ice-theme .mr-btn:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.modal-col-text.ice-theme .mr-btn.active {
+    color: white; /* Mantém texto branco no ativo */
+    border-color: var(--accent-blue);
+}
+
+
+/* --- Lógica de Exibição das Reflexões --- */
+.reflection-block {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+.reflection-block.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Seletor de Números --- */
+.reflection-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.nav-dot {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav-dot.active {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: white;
+}
+
+/* --- Ajustes para o Modo Claro (Ice Theme) --- */
+.modal-col-text.ice-theme .nav-dot {
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #666;
+}
+
+.modal-col-text.ice-theme .nav-dot.active {
+    background-color: var(--accent-blue);
+    color: white;
+}
+
+/* Transição para a imagem da esquerda */
+#main-modal-img {
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Efeito de pilha no Card (opcional, dá profundidade) */
+.stack-effect {
+    position: relative;
+}
+
+.stack-effect::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 100%;
+    height: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    z-index: -1;
+    transform: rotate(1deg);
+}
+
+/* Fundo do contador igual ao fundo do modal */
+.card-multi-indicator {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background-color: var(--card-bg); /* Mesmo tom do modal */
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Novo estilo para o rodapé centralizado */
+.card-footer-centralized {
+    margin-top: auto; /* Empurra para o final do card */
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-blue);
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    gap: 5px;
+}
+
+.card-footer-centralized i {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+}
+
+.card-link-wrapper:hover .card-footer-centralized i {
+    transform: translateY(5px); /* Seta mexe para baixo no hover */
+}
+
+/* Badge de série no cabeçalho */
+.collection-badge {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+    font-weight: 700;
+}
+
+/* Dica no rodapé do card */
+.card-footer-hint {
+    margin-top: 15px;
+    font-size: 13px;
+    color: var(--accent-blue);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.card-footer-hint i {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.card-link-wrapper:hover .card-footer-hint i {
+    transform: translateX(5px);
+}
+
+
+/* --- Configuração da Seção --- */
+.articles-section {
+  padding: 80px 20px;
+  background-color: #0A0A0A; /* Fundo escuro */
+  color: #E0E0E0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.section-header p {
+  color: #A0A0A0;
+}
+
+/* ==========================================================================
+   NOVA SECTION GRID (ARTIGOS/SERVIÇOS)
+   ========================================================================== */
+
+/* Ajuste de subtítulo para centralizar */
+.section-subtitle {
+    text-align: center;
+    max-width: 600px;
+    margin: -20px auto 50px; /* Puxa para perto do título */
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+.grid-container {
+    display: grid;
+    /* Grid responsivo automático: cria colunas de no mínimo 300px */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+/* Estilo do Card */
+.grid-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: left;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efeito Hover no Card */
+.grid-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Ícone */
+.grid-icon {
+    margin-bottom: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: 0.3s ease;
+}
+
+.grid-icon i {
+    font-size: 28px;
+    color: var(--text-primary);
+    transition: 0.3s ease;
+}
+
+/* Hover no ícone ao passar mouse no card */
+.grid-card:hover .grid-icon {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+.grid-card:hover .grid-icon i {
+    color: #fff;
+}
+
+/* Tipografia do Card */
+.grid-content h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.grid-content p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* Link "Ler mais" falso */
+.read-more {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto; /* Empurra para o fundo se o card crescer */
+}
+
+.read-more i {
+    transition: transform 0.3s ease;
+}
+
+.grid-card:hover .read-more i {
+    transform: translateX(5px);
+}
+
+/* Responsividade Específica */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 1 coluna no mobile */
+        gap: 20px;
+    }
+    
+    .grid-card {
+        padding: 30px 25px;
+    }
+}
+
+/* ==========================================================================
+   AJUSTES DA NAVBAR E ALINHAMENTO DAS AÇÕES
+   ========================================================================== */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Adiciona espaçamento uniforme entre os botões */
+}
+
+/* Garante que o botão de tema não tenha margens sobressalentes que quebrem o layout */
+.theme-toggle {
+    margin: 0; 
+}
+
+/* ==========================================================================
+   AJUSTE DE FUNDO DA HERO (REMOÇÃO DO AZUL) NO MODO CLARO
+   ========================================================================== */
+html.light-mode .hero {
+    /* Troca o rgba azul por um tom de cinza (preto com 5% de opacidade) */
+    background-image: radial-gradient(circle at 50% 0%, rgba(0, 0, 0, 0.05), transparent 50%);
+}
+
+/* Transforma a assinatura branca em preta apenas quando o modo claro estiver ativo */
+html.light-mode .navbar-logo img {
+    filter: brightness(0); /* Torna qualquer pixel visível em preto puro */
+    transition: filter 0.3s ease;
+}
+
+
+/* estilos.css */
+
+/* 1. O conteúdo da aplicação nasce completamente invisível */
+#conteudo-aplicacao {
+    display: none; 
+}
+
+/* 2. O estilo do ecrã de aviso para quem desligou o JS */
+.aviso-js {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 50px;
+    background-color: #f8d7da;
+    color: #721c24;
+    height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#minha-aplicacao {
+            display: none; 
+        }

@@ -5,7 +5,7 @@
 /* Container Principal */
 .portfolio-details-container {
     padding: 140px 5% 60px;
-    max-width: 1200px;
+    max-width: 950px;
     margin: 0 auto;
 }
 
@@ -352,4 +352,305 @@
     .project-description.ice-theme {
         padding: 25px; /* Menos padding no mobile */
     }
+    
+}
+
+
+/* ==========================================================================
+   BLOCO DE DESTAQUE (HIGHLIGHT BLOCK)
+   ========================================================================== */
+.highlight-block {
+    background: linear-gradient(135deg, #7183d6, #5c4ca4); /* Gradiente Roxo/Azul estilo Imagem 1 */
+    border-radius: 12px;
+    padding: 0 0 10px 0; /* Base com espessura simulando profundidade */
+    margin: 40px 0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.highlight-header {
+    padding: 20px 25px;
+}
+
+.highlight-header h3 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.highlight-content {
+    background: var(--card-bg); /* Fundo escuro por padrão */
+    border-radius: 10px;
+    padding: 30px;
+    margin: 0 10px;
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.highlight-content ul {
+    padding-left: 20px;
+    margin-top: 15px;
+}
+
+.highlight-content li {
+    margin-bottom: 10px;
+}
+
+/* Modo Claro (.ice-theme) para o Bloco de Destaque */
+.ice-theme .highlight-block {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+.ice-theme .highlight-content {
+    background: #ffffff;
+    color: #333333;
+}
+
+
+/* ==========================================================================
+   MAPA MENTAL INTERATIVO (VISUAL REFERÊNCIA - CURVAS SUAVES)
+   ========================================================================== */
+.mindmap-wrapper {
+    position: relative;
+    background: #f8f9fa; /* Fundo claro da referência */
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 30px;
+    margin: 40px 0;
+    overflow: auto; /* Permite rolar se o mapa ficar grande */
+    min-height: 400px;
+}
+
+.mindmap-wrapper:fullscreen {
+    background: #f8f9fa;
+    padding: 60px;
+}
+
+.mindmap-inner {
+    display: flex;
+    align-items: center;
+    min-width: max-content; /* Impede que os itens esmaguem uns aos outros */
+    padding: 20px;
+}
+
+/* Botão Verde no Canto Superior Direito */
+.btn-fullscreen {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #5b9a5a; /* Verde da referência */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.btn-fullscreen:hover {
+    transform: scale(1.05);
+}
+
+/* --- ESTRUTURA DOS NÓS E LINHAS --- */
+.mm-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.mm-node-wrapper {
+    position: relative;
+    padding: 10px 0;
+    z-index: 2;
+}
+
+.mm-children {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px; /* Espaço para desenhar as curvas */
+    position: relative;
+}
+
+/* 1. Linha horizontal saindo do Pai */
+.mm-container.has-children > .mm-node-wrapper::before {
+    content: '';
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    width: 25px;
+    height: 2px;
+    background-color: #3b82f6; /* Azul das linhas */
+    transform: translateY(-50%);
+}
+
+/* 2. Setas encostando no nó filho */
+.mm-children > .mm-container > .mm-node-wrapper::after {
+    content: '';
+    position: absolute;
+    left: -2px; /* Encosta perfeitamente no nó */
+    top: 50%;
+    transform: translateY(-50%);
+    border-left: 6px solid #3b82f6;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    z-index: 1;
+}
+
+/* --- O TRUQUE DAS CURVAS DE LIGAÇÃO --- */
+
+/* Linha vertical central que liga os irmãos do meio */
+.mm-children > .mm-container::after {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 0;
+    bottom: 0;
+    border-left: 2px solid #3b82f6;
+    box-sizing: border-box;
+}
+
+/* Curva Superior (Primeiro Filho) */
+.mm-children > .mm-container:first-child::after {
+    top: 50%;
+    height: 50%;
+    width: 25px;
+    border-top: 2px solid #3b82f6;
+    border-top-left-radius: 12px; /* Arredondamento da curva */
+}
+
+/* Curva Inferior (Último Filho) */
+.mm-children > .mm-container:last-child::after {
+    bottom: 50%;
+    height: 50%;
+    width: 25px;
+    border-bottom: 2px solid #3b82f6;
+    border-bottom-left-radius: 12px;
+    top: auto;
+}
+
+/* Linha reta para os Filhos do Meio */
+.mm-children > .mm-container:not(:first-child):not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    width: 25px;
+    height: 2px;
+    background: #3b82f6;
+}
+
+/* Caso exista apenas 1 filho solto */
+.mm-children > .mm-container:first-child:last-child::after {
+    border: none;
+    background: #3b82f6;
+    height: 2px;
+    top: 50%;
+    bottom: auto;
+    width: 25px;
+    border-radius: 0;
+    transform: translateY(-50%);
+}
+
+/* --- ESTILO DAS CAIXAS (NÓS) --- */
+.mm-node {
+    background: #ffffff;
+    border: 1px solid #d1d5db; /* Borda cinza bem sutil */
+    color: #374151; /* Texto cinza escuro */
+    padding: 14px 22px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    max-width: 280px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 3;
+}
+
+.mm-node:hover {
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+    border-color: #3b82f6;
+}
+
+/* Transição de abrir/fechar */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+
+
+/* =========================================
+   7. SUMÁRIO / SIDEBAR
+   ========================================= */
+.sidebar-wrapper {
+    position: sticky;
+    top: 120px; /* Mantém o sumário fixo ao rolar a página */
+}
+
+.toc-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.5s ease;
+}
+
+.toc-container h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.toc-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.toc-nav a {
+    color: var(--text-secondary); /* Cinza claro */
+    font-size: 15px;
+    text-decoration: underline transparent;
+    line-height: 1.5;
+    transition: 0.3s ease;
+    text-align: justify; /* Justifica o texto */
+    width: 100%; /* Garante que o bloco de texto use a largura total do card */
+}
+
+.toc-nav a:hover {
+    color: var(--text-primary); /* Fica branco ao passar o mouse para dar destaque */
+    text-decoration-color: var(--text-primary);
+}
+
+/* --- Modo Gelo (Ice Theme) para o Sumário --- */
+.toc-container.ice-theme {
+    background-color: #F0F4F8; /* Acompanha o fundo claro do quadro principal */
+    border-color: #d1d9e6;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.toc-container.ice-theme h3 {
+    color: #2D3748;
+}
+
+/* --- Links no Modo Claro (Ice Theme) --- */
+.toc-container.ice-theme a {
+    color: #4A5568; /* Cinza escuro (mesma cor dos seus parágrafos no modo claro) */
+}
+
+.toc-container.ice-theme a:hover {
+    color: #2D3748; /* Chumbo/Cinza mais forte no hover */
+    text-decoration-color: #2D3748;
 }
